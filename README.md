@@ -68,7 +68,18 @@ If you use **kinematicHopfAlgebra.wl**, please cite the two papers [arxiv:2111.1
     year = "2022"
 }
 ```
-
+```
+@article{Brandhuber:2022enp,
+    author = "Brandhuber, Andreas and Brown, Graham R. and Chen, Gang and Gowdy, Joshua and Travaglini, Gabriele and Wen, Congkao",
+    title = "{Amplitudes, Hopf algebras and the colour-kinematics duality}",
+    eprint = "2208.05886",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    reportNumber = "QMUL-PH-22-18, SAGEX-22-27",
+    month = "8",
+    year = "2022"
+}
+```
 ```
 @article{Chen:2022nei,
     author = "Chen, Gang and Lin, Guanda and Wen, Congkao",
