@@ -24,4 +24,25 @@ $$-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{v\cdot p_1 v\cdot p
 
 All other BCJ numerator is obtained directly from the BCJ numerator. For the YM you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
+## Yang-Mills-scalar theory
+For the amplitude with two scalars, 
+```
+preNumerator = \[FivePointedStar][\[ScriptCapitalK][1, 
+       1], \[ScriptCapitalK][2, 1], \[ScriptCapitalK][3, 0]] /. 
+     ET[f__] :> ET2F2s[ET[f]] /. CenterDot[f__] :> tr[f, t^a[n]] /. 
+   rmzero //. niceF
+```
+one can get 
+$$-\frac{p_3\cdot F_1\cdot F_2\cdot p_3 \text{tr}\left(t^{a_3},t^{a_4}\right)}{p_{3,1}\cdot p_{3,1}}$$
+
+For the amplitude with more than three scalars, 
+```
+preNumerator = \[FivePointedStar][\[ScriptCapitalK][1, 
+      0], \[ScriptCapitalK][3, 1], \[ScriptCapitalK][2, 0]] /. 
+    ET[f__] :> ET2F[ET[f]] /. CenterDot[f__] :> tr[f, t^a[n]] //. 
+  niceF
+```
+you get 
+
+$$\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
