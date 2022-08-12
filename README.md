@@ -46,3 +46,38 @@ you get
 
 $$\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
+
+
+# Citation 
+If you use **kinematicHopfAlgebra.wl**, please cite the two papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649)),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
+
+```
+@article{Brandhuber:2021bsf,
+    author = "Brandhuber, Andreas and Chen, Gang and Johansson, Henrik and Travaglini, Gabriele and Wen, Congkao",
+    title = "{Kinematic Hopf Algebra for Bern-Carrasco-Johansson Numerators in Heavy-Mass Effective Field Theory and Yang-Mills Theory}",
+    eprint = "2111.15649",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    reportNumber = "NORDITA 2021-091, QMUL-PH-21-45, SAGEX-21-34, UUITP-60/21",
+    doi = "10.1103/PhysRevLett.128.121601",
+    journal = "Phys. Rev. Lett.",
+    volume = "128",
+    number = "12",
+    pages = "121601",
+    year = "2022"
+}
+```
+
+```
+@article{Chen:2022nei,
+    author = "Chen, Gang and Lin, Guanda and Wen, Congkao",
+    title = "{Kinematic Hopf algebra for amplitudes and form factors}",
+    eprint = "2208.05519",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    reportNumber = "QMUL-PH-22-22",
+    month = "8",
+    year = "2022"
+}
+```
+
