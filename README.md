@@ -50,7 +50,7 @@ $$\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p
 
 
 # Citation 
-If you use **kinematicHopfAlgebra.wl**, please cite the two papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649)),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
+If you use **kinematicHopfAlgebra.wl**, please cite the two papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
 
 ```
 @article{Brandhuber:2021bsf,
