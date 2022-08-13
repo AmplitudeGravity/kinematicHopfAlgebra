@@ -20,6 +20,7 @@ After taking the convolution map and remove the trivial terms
 ```
 preNumerator = num /. T -> Tp /. rmzero
 ```
+
 we get the output of the pre-numerator 
 $$-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{v\cdot p_1}$$
 
