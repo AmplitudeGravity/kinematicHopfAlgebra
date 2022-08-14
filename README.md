@@ -30,7 +30,7 @@ where the ```Tp``` is the convolution map.
 Then we get the output of the pre-numerator 
 $$N(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{3v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{3v\cdot p_1}$$
 
-All other BCJ numerator is obtained directly from the BCJ numerator. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
+All other BCJ numerators are obtained directly from the BCJ numerator by the crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
 The major output of this program is 
