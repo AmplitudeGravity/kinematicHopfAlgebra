@@ -24,13 +24,13 @@ $$-T_{\text{(1)},\text{(23)}}-T_{\text{(23)},\text{(1)}}-T_{\text{(12)},\text{(3
 After taking the convolution map, we have 
 $N(123,v)=\widehat N(123)= \langle T_1 \star  T_2 \star  T_3\rangle$. 
 ```
-preNumerator = num /. T -> Tp /. rmzero
+preNumerator = num /. T -> Tp /. rmzero,
 ```
+where the ```Tp``` is the convolution map. 
+Then we get the output of the pre-numerator 
+$$N(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{3v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{3v\cdot p_1}$$
 
-we get the output of the pre-numerator 
-$$-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{v\cdot p_1}$$
-
-All other BCJ numerator is obtained directly from the BCJ numerator. For the YM you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
+All other BCJ numerator is obtained directly from the BCJ numerator. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
 The major output of this program is 
