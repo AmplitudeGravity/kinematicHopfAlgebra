@@ -4,8 +4,14 @@ Examples is included.
 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
-In HEFT, the kinematic algebra is taken as current algebra The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}2)= T_1 \star  T_1 \star  \ldots \star T_{n{-}2}$$
+In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
+  * vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current product with the polarisation vector $\varepsilon_i$
+  * tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$
+  * fusion product $\star$
+      
+          
+the current  abstract fusion rule of  The major output of this program is 
+$$\widehat N(1,2,\ldots, n{-}2)= T_1 \star  T_2 \star  \ldots \star T_{n{-}2}$$
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 In HEFT, 
 
