@@ -5,24 +5,24 @@ Examples is included.
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
-  * vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current product with the polarisation vector $\varepsilon_i$
-  * tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$
-  * fusion product $\star$
+  * vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
+  * tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: Tensor currents and map to a all multiplicity  universal tensor product with multi polarisation vectors
+  * fusion product $\star$: The fusion rules from lower order rank tensor currents to higer order tensor currents. This fusion product is bilinear and associative.
+  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression, which is in genneral non-local and manifestly gauge invariant. 
       
-          
-the current  abstract fusion rule of  The major output of this program is 
+The major output of this program is 
 $$\widehat N(1,2,\ldots, n{-}2)= T_1 \star  T_2 \star  \ldots \star T_{n{-}2}$$
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
-In HEFT, 
-
+In HEFT, the algebraic pre-numerator is from $\widehat N= T_1 \star  T_2 \star  T_3$. 
 ```
 num = \[FivePointedStar] @@ (T /@ List /@ Range[1, 3]);
 ```
-
-The output is
+The we get
 $$T_{\text{(1)},\text{(2)},\text{(3)}}+T_{\text{(1)},\text{(3)},\text{(2)}}+T_{\text{(2)},\text{(1)},\text{(3)}}+T_{\text{(2)},\text{(3)},\text{(1)}}+T_{\text{(3)},\text{(1)},\text{(2)}}+T_{\text{(3)},\text{(2)},\text{(1)}}$$
 $$-T_{\text{(1)},\text{(23)}}-T_{\text{(23)},\text{(1)}}-T_{\text{(12)},\text{(3)}}-T_{\text{(3)},\text{(12)}}-T_{\text{(13)},\text{(2)}}-T_{\text{(2)},\text{(13)}}+T_{\text{(123)}}$$
-After taking the convolution map and remove the trivial terms 
+
+After taking the convolution map, we have 
+$N(123,v)=\widehat N(123)= \langle T_1 \star  T_2 \star  T_3\rangle$. 
 ```
 preNumerator = num /. T -> Tp /. rmzero
 ```
