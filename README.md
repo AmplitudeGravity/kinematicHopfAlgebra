@@ -2,11 +2,11 @@
 This is the program to generate the BCJ numerator in HEFT, YM, YMS+ $\phi^3$. It can be used in construct EYM, GR+HEFT amplitdue via double copy. 
 Examples is included.
 
-The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_1 \star  \ldots \star K_{n{-}1}$$
-which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
+In HEFT, the kinematic algebra is taken as current algebra The major output of this program is 
+$$\widehat N(1,2,\ldots, n{-}2)= T_1 \star  T_1 \star  \ldots \star T_{n{-}2}$$
+which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 In HEFT, 
 
 ```
@@ -27,6 +27,9 @@ $$-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{v\cdot p_1 v\cdot p
 All other BCJ numerator is obtained directly from the BCJ numerator. For the YM you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
+The major output of this program is 
+$$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_1 \star  \ldots \star K_{n{-}1}$$
+which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 For the amplitude with two scalars, 
 ```
 preNumerator = \[FivePointedStar][\[ScriptCapitalK][1, 
