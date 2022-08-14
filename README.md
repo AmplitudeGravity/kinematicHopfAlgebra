@@ -11,7 +11,7 @@ In HEFT, the kinematic algebra is taken as current algebra. The building blocks 
   * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression, which is in genneral non-local and manifestly gauge invariant. 
       
 The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
+$$\widehat N(12\ldots n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
 
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 In HEFT, the algebraic pre-numerator is from $\widehat N(123)= T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}$. 
@@ -34,6 +34,13 @@ $$N(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_
 All other BCJ numerators are obtained directly from the BCJ numerator by the crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
+In full theory of Yang-Mills-scalar +$\phi^3$, the kinematic algebra is taken as field algebra. The building blocks are 
+  * vector field $K_i=T_{(i)}^{(i)}$
+  * scalar field $K_j=T^{(j)}$
+  * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
+  * fusion product $\star$: The fusion rules from fewer particle field to more particle field. This fusion product is bilinear and associative.
+  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression. This is understood as the convolutional overlap between multi-particle states  with a single outgoing particle states, which is in genneral non-local and manifestly gauge invariant. 
+  
 The major output of this program is 
 $$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_2 \star  \ldots \star K_{n{-}1}$$
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
@@ -45,7 +52,7 @@ preNumerator = \[FivePointedStar][\[ScriptCapitalK][1,
    rmzero //. niceF
 ```
 one can get 
-$$-\frac{p_3\cdot F_1\cdot F_2\cdot p_3 \text{tr}\left(t^{a_3},t^{a_4}\right)}{p_{3,1}\cdot p_{3,1}}$$
+$$N(1,2,\overline 3,\overline 4)=\langle K_1 \star  K_2 \star K_3 \rangle = \langle T_{(1)}^{(1)}\star T_{(2)}^{(2)}\star T^{(3)} \rangle=-\frac{p_3\cdot F_1\cdot F_2\cdot p_3 \text{tr}\left(t^{a_3},t^{a_4}\right)}{p_{3,1}\cdot p_{3,1}}$$
 
 For the amplitude with more than three scalars, 
 ```
@@ -56,7 +63,7 @@ preNumerator = \[FivePointedStar][\[ScriptCapitalK][1,
 ```
 you get 
 
-$$\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
+$$N(\overline 1,\overline 2,3,\overline 4)=\langle K_1 \star  K_2 \star K_3 \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
 
 
