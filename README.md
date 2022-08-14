@@ -11,9 +11,10 @@ In HEFT, the kinematic algebra is taken as current algebra. The building blocks 
   * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression, which is in genneral non-local and manifestly gauge invariant. 
       
 The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}2)= T_1 \star  T_2 \star  \ldots \star T_{n{-}2}$$
+$$\widehat N(1,2,\ldots, n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
+
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
-In HEFT, the algebraic pre-numerator is from $\widehat N= T_1 \star  T_2 \star  T_3$. 
+In HEFT, the algebraic pre-numerator is from $\widehat N(123)= T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}$. 
 ```
 num = \[FivePointedStar] @@ (T /@ List /@ Range[1, 3]);
 ```
@@ -22,7 +23,7 @@ $$T_{\text{(1)},\text{(2)},\text{(3)}}+T_{\text{(1)},\text{(3)},\text{(2)}}+T_{\
 $$-T_{\text{(1)},\text{(23)}}-T_{\text{(23)},\text{(1)}}-T_{\text{(12)},\text{(3)}}-T_{\text{(3)},\text{(12)}}-T_{\text{(13)},\text{(2)}}-T_{\text{(2)},\text{(13)}}+T_{\text{(123)}}$$
 
 After taking the convolution map, we have 
-$N(123,v)=\widehat N(123)= \langle T_1 \star  T_2 \star  T_3\rangle$. 
+$N(123,v)=\widehat N(123)= \langle T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}\rangle$. 
 ```
 preNumerator = num /. T -> Tp /. rmzero,
 ```
@@ -34,7 +35,7 @@ All other BCJ numerators are obtained directly from the BCJ numerator by the cro
 
 ## Yang-Mills-scalar theory
 The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_1 \star  \ldots \star K_{n{-}1}$$
+$$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_2 \star  \ldots \star K_{n{-}1}$$
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 For the amplitude with two scalars, 
 ```
