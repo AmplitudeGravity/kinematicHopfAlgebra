@@ -1,7 +1,6 @@
 # kinematicHopfAlgebra
 This is the program to generate the BCJ numerator in HEFT, YM, YMS+ $\phi^3$. It can be used in construct EYM, GR+HEFT amplitdue via double copy. 
-Examples is included.
-
+Examples is included. $\mathsf{F}$
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
@@ -11,7 +10,7 @@ In HEFT, the kinematic algebra is taken as current algebra. The building blocks 
   * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression, which is in genneral non-local and manifestly gauge invariant. 
       
 The major output of this program is 
-$$\widehat N(12\ldots n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
+$$\widehat {\mathcal{N}} (12\ldots n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
 
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 In HEFT, the algebraic pre-numerator is from $\widehat N(123)= T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}$. 
@@ -23,19 +22,19 @@ $$T_{\text{(1)},\text{(2)},\text{(3)}}+T_{\text{(1)},\text{(3)},\text{(2)}}+T_{\
 $$-T_{\text{(1)},\text{(23)}}-T_{\text{(23)},\text{(1)}}-T_{\text{(12)},\text{(3)}}-T_{\text{(3)},\text{(12)}}-T_{\text{(13)},\text{(2)}}-T_{\text{(2)},\text{(13)}}+T_{\text{(123)}}$$
 
 After taking the convolution map, we have 
-$N(123,v)=\widehat N(123)= \langle T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}\rangle$. 
+${\mathcal{N}}(123,v)=\widehat {\mathcal{N}}(123)= \langle T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}\rangle$. 
 ```
 preNumerator = num /. T -> Tp /. rmzero,
 ```
 where the ```Tp``` is the convolution map. 
 Then we get the output of the pre-numerator 
-$$N(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{3v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{3v\cdot p_1}$$
+$${\mathcal{N}}(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_1 v\cdot p_{1,2}}-\frac{v\cdot F_1\cdot F_3\cdot v p_1\cdot F_2\cdot v}{3v\cdot p_1 v\cdot p_{1,3}}+\frac{v\cdot F_1\cdot F_2\cdot F_3\cdot v}{3v\cdot p_1}$$
 
 All other BCJ numerators are obtained directly from the BCJ numerator by the crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
 In full theory of Yang-Mills-scalar+ $\phi^3$, the kinematic algebra is taken as field algebra. The building blocks are 
-  * vector field $K_i=T_{(i)}^{(i)}$
+  * vector field ${\mathsf K}_i=T_{(i)}^{(i)}$
   * scalar field $K_j=T^{(j)}$
   * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
   * fusion product $\star$: The fusion rules from fewer particle field to more particle field. This fusion product is bilinear and associative.
