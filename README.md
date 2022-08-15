@@ -41,7 +41,7 @@ In full theory of Yang-Mills-scalar+ $\phi^3$, the kinematic algebra is taken as
   * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression. This is understood as the inner product between multi-particle states  with a single outgoing particle states. For each algebraic generator, the mapping value is in genneral non-local and manifestly gauge invariant. 
   
 The major output of this program is 
-$$\widehat N(1,2,\ldots, n{-}1)= {\mathsf K_1}\star  {\mathsf K_2} \star  \ldots \star {\mathsf K_{n-1}}$$
+$$\widehat {\mathcal N}(1,2,\ldots, n{-}1)= {\mathsf K_1}\star  {\mathsf K_2} \star  \ldots \star {\mathsf K_{n-1}}$$
 which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to physical function of kinematic information. 
 For the amplitude with two scalars, 
 ```
@@ -51,7 +51,7 @@ preNumerator = \[FivePointedStar][\[ScriptCapitalK][1,
    rmzero //. niceF
 ```
 one can get 
-$$N(1,2,\overline 3,\overline 4)=\langle {\mathsf K_1} \star  {\mathsf K_2} \star {\mathsf K_3} \rangle = \langle T_{(1)}^{(1)}\star T_{(2)}^{(2)}\star T^{(3)} \rangle=-\frac{p_3\cdot F_1\cdot F_2\cdot p_3 \text{tr}\left(t^{a_3},t^{a_4}\right)}{p_{3,1}\cdot p_{3,1}}$$
+$${\mathcal N}(1,2,\overline 3,\overline 4)=\langle {\mathsf K_1} \star  {\mathsf K_2} \star {\mathsf K_3} \rangle = \langle T_{(1)}^{(1)}\star T_{(2)}^{(2)}\star T^{(3)} \rangle=-\frac{p_3\cdot F_1\cdot F_2\cdot p_3 \text{tr}\left(t^{a_3},t^{a_4}\right)}{p_{3,1}\cdot p_{3,1}}$$
 
 For the amplitude with more than three scalars, 
 ```
@@ -62,7 +62,7 @@ preNumerator = \[FivePointedStar][\[ScriptCapitalK][1,
 ```
 you get 
 
-$$N(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
+$${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
 
 
