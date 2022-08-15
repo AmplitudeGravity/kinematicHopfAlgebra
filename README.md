@@ -34,12 +34,12 @@ $$N(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v}{3v\cdot p_
 All other BCJ numerators are obtained directly from the BCJ numerator by the crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
-In full theory of Yang-Mills-scalar +$\phi^3$, the kinematic algebra is taken as field algebra. The building blocks are 
+In full theory of Yang-Mills-scalar+ $\phi^3$, the kinematic algebra is taken as field algebra. The building blocks are 
   * vector field $K_i=T_{(i)}^{(i)}$
   * scalar field $K_j=T^{(j)}$
   * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
   * fusion product $\star$: The fusion rules from fewer particle field to more particle field. This fusion product is bilinear and associative.
-  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression. This is understood as the convolutional overlap between multi-particle states  with a single outgoing particle states, which is in genneral non-local and manifestly gauge invariant. 
+  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physcis kinematic expression. This is understood as the inner product between multi-particle states  with a single outgoing particle states. For each algebraic generator, the mapping value is in genneral non-local and manifestly gauge invariant. 
   
 The major output of this program is 
 $$\widehat N(1,2,\ldots, n{-}1)= K_1 \star  K_2 \star  \ldots \star K_{n{-}1}$$
