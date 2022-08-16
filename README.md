@@ -1,6 +1,6 @@
 # kinematicHopfAlgebra
 This is the program to generate the BCJ numerator in HEFT, YM, YMS+ $\phi^3$. It can be used in construct EYM, GR+HEFT amplitdue via double copy. 
-Examples is included.
+Examples is included. However $\mathcal{N}_i$
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
