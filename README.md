@@ -4,8 +4,8 @@ Examples are included.
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
-  - vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
-  - tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: Tensor currents and map to a all multiplicity  universal tensor product with multi polarisation vectors
+  - vector current $T_{(i)}^{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
+  - tensor current $T_{(\tau_1),(\tau_2),\cdots, (\tau_r)}^{(\alpha)}$: Tensor currents and map to a all multiplicity  universal tensor product with multi polarisation vectors
   - fusion product $\star$: The fusion rules from lower order rank tensor currents to higher order tensor currents. This fusion product is bilinear and associative.
   - convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physics kinematic expression, which is, in general, non-local and manifestly gauge invariant. 
       
@@ -13,7 +13,7 @@ The major output of this program is
 
 $$\widehat {\mathcal{N}} (12\ldots n{-}2)={T_{(1)}^{(1)}}\star T_{(2)}^{(2)}\star \ldots \star T_{(n{-}2)}^{(n{-}2)}$$
 
-which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to the physical function of kinematic information. 
+which is known as algebraic pre-numerator. Another major function is the convolution map, which maps the abstract generator to the physical function of kinematic information. 
 In HEFT, the algebraic pre-numerator is from 
 
 $$\widehat{\mathcal N}(123)= T_{(1)}^{(1)} \star  T_{(2)}^{(2)} \star  T_{(3)}^{(3)}.$$
@@ -46,12 +46,12 @@ In the full theory of Yang-Mills-scalar+ $\phi^3$, the kinematic algebra is take
   * scalar field ${\mathsf K_j}=T^{(j)}$
   * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
   * fusion product $\star$: The fusion rules from a fewer-particle field to a more-particle field. This fusion product is bilinear and associative.
-  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physics kinematic expression. This is understood as the inner product between multi-particle states with single outgoing particle states. For each algebraic generator, the mapping value is in general non-local and manifestly gauge invariant. 
+  * convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physics kinematic expression. This is the inner product between multi-particle states and single outgoing particle states. For each algebraic generator, the mapping value is in general non-local and manifestly gauge invariant. 
   
 The major output of this program is 
 
 $$\widehat {\mathcal N}(1,2,\ldots, n{-}1)= {\mathsf K_1}\star  {\mathsf K_2} \star  \ldots \star {\mathsf K_{n-1}}$$
-which is known as algebraic pre-numerator. Another major function is the convolution map which is to map the abstract generator to the physical function of kinematic information. 
+which is known as algebraic pre-numerator. Another major function is the convolution map, which maps the abstract generator to the physical function of kinematic information. 
 For the amplitude with two scalars, 
 ```
 preNumerator = \[FivePointedStar][\[ScriptCapitalK][1, 
