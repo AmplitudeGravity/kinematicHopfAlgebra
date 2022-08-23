@@ -4,8 +4,8 @@ Examples are included.
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 In HEFT, the kinematic algebra is taken as current algebra. The building blocks are 
-  - vector current $T_{(i)}^{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
-  - tensor current $T_{(\tau_1),(\tau_2),\cdots, (\tau_r)}^{(\alpha)}$: Tensor currents and map to a all multiplicity  universal tensor product with multi polarisation vectors
+  - vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
+  - tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: Tensor currents and map to a all multiplicity  universal tensor product with multi polarisation vectors
   - fusion product $\star$: The fusion rules from lower order rank tensor currents to higher order tensor currents. This fusion product is bilinear and associative.
   - convolution map $\langle \bullet \rangle$: This is a linear map from abstract algebra general to physics kinematic expression, which is, in general, non-local and manifestly gauge invariant. 
       
