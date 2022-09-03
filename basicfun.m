@@ -8,9 +8,9 @@
 (*Public Initializations*)
 
 
-(*BeginPackage["mynew`"]
-Unprotect@@Names["mynew`*"];
-(* Exported symbols added here with SymbolName::usage *)  *)
+BeginPackage["basicfun`"]
+Unprotect@@Names["basicfun`*"];
+(* Exported symbols added here with SymbolName::usage *) 
 
 
 (* ::Subsection:: *)
@@ -342,8 +342,8 @@ Options[declareVector] := {"dim"->$globalDim,"verbose"->True}
 declareVector[expr_List,options___] := Scan[declareVector[#,options]&,expr];
 declareVector[vec_Symbol,OptionsPattern[]] /; If[!protectedQ[vec],True,Message[declareVector::safe]; False] := (
 	If[tensorQ[vec],undeclareTensor[vec];];
-	vec /: MakeBoxes[vec[mynew`lI[mynew`Private`i_]],TraditionalForm] :=
-		FormBox[SuperscriptBox[MakeBoxes[vec,TraditionalForm],SubscriptBox["\[Nu]",ToString[mynew`Private`i]]],TraditionalForm];
+	vec /: MakeBoxes[vec[basicfun`lI[basicfun`Private`i_]],TraditionalForm] :=
+		FormBox[SuperscriptBox[MakeBoxes[vec,TraditionalForm],SubscriptBox["\[Nu]",ToString[basicfun`Private`i]]],TraditionalForm];
 	AppendTo[$declaredTensors,{vec,OptionValue["dim"],1}];
 	If[OptionValue["verbose"],Print[ToString[vec]<>" declared as a "<>ToString[OptionValue["dim"]]<>"-dimensional vector."]];
 )
@@ -355,8 +355,8 @@ declareVectorHead[expr_List,options___] := Scan[declareVectorHead[#,options]&,ex
 declareVectorHead[vec_Symbol,OptionsPattern[]] /; If[!protectedQ[vec],True,Message[declareVectorHead::safe]; False] := (
 	If[tensorQ[vec[1]],undeclareTensorHead[vec];];
 	vec /: MakeBoxes[vec[i_],TraditionalForm] := FormBox[SubscriptBox[ToString[vec],MakeBoxes[i,TraditionalForm]],TraditionalForm];
-	MakeBoxes[vec[mynew`Private`i_][mynew`lI[mynew`Private`j_]],TraditionalForm] :=
-		FormBox[SuperscriptBox[MakeBoxes[vec[mynew`Private`i],TraditionalForm],SubscriptBox["\[Nu]",ToString[mynew`Private`j]]],TraditionalForm];
+	MakeBoxes[vec[basicfun`Private`i_][basicfun`lI[basicfun`Private`j_]],TraditionalForm] :=
+		FormBox[SuperscriptBox[MakeBoxes[vec[basicfun`Private`i],TraditionalForm],SubscriptBox["\[Nu]",ToString[basicfun`Private`j]]],TraditionalForm];
 	AppendTo[$declaredTensorHeads,{vec,OptionValue["dim"],1}];
 	If[OptionValue["verbose"],Print[ToString[vec]<>" declared as a "<>ToString[OptionValue["dim"]]<>"-dimensional vector header."]];
 )
@@ -922,7 +922,7 @@ massDim[__] := 0
 End[] (* End Private Context *)
 
 
-(*Protect@@Names["mynew`*"];*)
+Protect@@Names["basicfun`*"];
 
 
-(*EndPackage[]*)
+EndPackage[]
