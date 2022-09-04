@@ -232,6 +232,33 @@ massDim::usage = "massDim[expr] counts the mass dimension of expr."
 massDim::author = "Gustav Mogull"
 
 
+protectedQ::usage = "protectedQ[expr] checks whether expr is an unprotected symbol."
+protectedQ::author = "Gustav Mogull"
+(* safeVariableQ::usage = "safeVariableQ[expr] checks whether expr is an unprotected symbol."
+safeVariableQ::author = "Gustav Mogull" *)
+distributive::usage = "distributive is an option used for distributive functions to determine their behavior."
+distributive::author = "Gustav Mogull"
+verbose::usage = "verbose is an option used to determine whether certain functions give printed output statements."
+verbose::author = "Gustav Mogull"
+declareDistributive::usage = "declareDistributive[s,test] declares that the symbol s should linearly distribute its arguments over objects satisfying test.
+declareDistributive[s,test, n1, n2] specifies that the first n1 and last n2 arguments of s should be excluded.
+declareDistributive[s,test, n1, n2, default] specifies that the default value of distributive should be default."
+declareDistributive::author = "Gustav Mogull, Gregor Kaelin"
+declareDistributiveMiddle::author = "Gustav Mogull, Gregor Kaelin"
+declareDistributiveFirst::author = "Gustav Mogull, Gregor Kaelin"
+declareDistributiveLast::author = "Gustav Mogull, Gregor Kaelin"
+distributiveRules::author = "Gustav Mogull, Gregor Kaelin"
+patternFreeQ::usage = "Checks if an expression is free of any any pattern (i.e. Pattern, Blank, BlankSequence, BlankNullSequence)"
+patternFreeQ::author = "Gregor Kaelin"
+
+
+(* ::Subsection:: *)
+(*Extrafuns*)
+
+
+Diamond::usage="a distributive general product"
+
+
 (* ::Section:: *)
 (*Private*)
 
@@ -302,6 +329,18 @@ distributiveRules[function_Symbol,test_,excfront_:0,excback_:0] := With[
 		HoldPattern[function][Sequence @@ (Pattern[#, _]& /@ {uniqueFront}), p1___, a_. p2_Plus, p3___, Sequence @@ (Pattern[#, _]& /@ {uniqueBack})] :> (function[uniqueFront, p1, #, p3, uniqueBack]& /@ Distribute[a p2])
 	}
 ]
+
+
+declareSymmetric[function_Symbol] := SetAttributes[function,Orderless];
+
+
+(* Todo: give an option to not automatically antisymmetrise *)
+declareAntisymmetric[function_Symbol] := (
+	(*orderes arguments and puts correct sign if it's not used as a pattern!*)
+	function[x___] := Signature[{x}] (function @@ Sort@{x}) /; (! OrderedQ[{x}] && FreeQ[{x}, Pattern]);
+	(*two equal arguments make the function vanish*)
+	function[___,x_,x_,___] := 0;
+)
 
 
 (* ::Subsection:: *)
@@ -410,13 +449,9 @@ undeclareTensorHead[vec_Symbol,OptionsPattern[]] := (
 undeclareTensorHead[__] := Null
 
 
-(* declareVectorPattern[expr_, pattern_] /; If[freeIndices[pattern]==={lI[1]},True,Message[declareVectorPattern::badpattern]; False] := (
-	If[!vectorQ[expr],declareVector[expr,dim->4];];
-	expr[index_lI] := Evaluate[pattern //. lI[i_]:>index];
-	Evaluate[If[Head[expr] === Symbol, expr, Head[expr]]] /: dot[expr, vec2_?tensorQ] := contract[(expr[lI[#]]*vec2[lI[-#]] &)[Unique[]]];
-	Evaluate[If[Head[expr] === Symbol, expr, Head[expr]]] /: dot[vec2_?tensorQ, expr] := contract[(expr[lI[#]]*vec2[lI[-#]] &)[Unique[]]];
-   	Evaluate[If[Head[expr] === Symbol, expr, Head[expr]]] /: sp[p1__, expr, p2__] := contract[(expr[lI[#]] sp[p1, lI[-#], p2] &)[Unique[]]];
-) *)
+SetAttributes[Diamond,{NHoldAll}];
+declareDistributive[Diamond,tensorQ];
+declareDistributive[Diamond,vectorQ];
 
 
 (* declareTensorPattern[expr_, pattern_] := Module[{indices = Sort[freeIndices[pattern]]},
