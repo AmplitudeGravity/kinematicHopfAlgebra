@@ -11,35 +11,58 @@ https://github.com/AmplitudeGravity/kinematicHofpAlgebra
   *)
 
 
-nice={dot[f___]:> CenterDot[f],DOT[f_,g_]:>  CenterDot[f,g],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],\[Epsilon][p[i_]]:> Subscript[\[Epsilon], i],p[i_]:> Subscript[p, i],a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[\[Beta]]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[\[Alpha]]:>v,k[f_]:> f,P[f_]:> f,Q[f_]:> f,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
-nice2={CenterDot[f_Plus,f2_]:> CenterDot[T@@f,f2],CenterDot[f2_,f_Plus]:> CenterDot[f2,T@@f],CircleTimes[f___,g_Plus,f2___]:> CircleTimes[f,T@@g,f2],T[f___]:>TT[{f}/.Subscript[p, i_]:>i] ,TT[f_]:> Subscript[p, ToExpression[StringJoin@@ToString/@(f)]],s[f___]:> Subscript[s, ToExpression[StringJoin@@ToString/@(f)]]};
+BeginPackage["kinematicHopfAlgebra`"]
+Unprotect@@Names["kinematicHopfAlgebra`*"];
+(* Exported symbols added here with SymbolName::usage *) 
+
+
+(* ::Subsubsection:: *)
+(*output symbols*)
+
+
+nice
+niceF
+niceT
+rmzero::usage ="remove the trivial terms dot prodoct functions"
+rmzeroT::usage ="remove the trivial terms in T generator"
+BinaryProduct::usage ="the binary products in a given order"
+GBinaryProduct::usage ="all the binary products"
+X
+ET
+GT
+T
+a
+p
+F
+m
+t
+v
+T2F::usage ="transform abelian generators to strengthen tensor form in HEFT amplitude"
+GT2F::usage ="transform non-abelian generators to strengthen tensor form in HEFT amplitude"
+ET2F::usage ="transform generators to strengthen tensor form in amplitude with three more scalars"
+ET2F2s ::usage ="transform generators to strengthen tensor form in amplitude with two scalars"
+\[FivePointedStar] ::usage ="funsion product of the generators"
+\[ScriptCapitalK] ::usage ="generators for the external states"
+\[CapitalOmega] ::usage ="left nested commutators"
+S ::usage ="antipode"
+\[CapitalDelta] ::usage ="coproduct"
+\[DoubleStruckCapitalI] ::usage ="Identity"
+
+
+Begin["`Private`"]
+
+
+nice={dot[f___]:> CenterDot[f],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[_]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[_]:>v,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
 niceF={dot[f_]:> CenterDot[f,f],dot[f__]:> CenterDot[f],p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i]};
 
 
-niceT={T[f___]:>(Subscript[T, f]/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")"}
-niceET={a[i_]:>t^Subscript[a, i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
+(*niceT={T[f___]:>(Subscript[T, f]/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")"}*)
+niceT={T[f___]:>(Subscript[T, f]/. List->L),a[i_]:>t^Subscript[a, i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
 SubscriptBox[\(T\), \(f2\)], \("\<(\>" <> ToString /@ {f1} <> "\<)\>"\)]\)/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")",ET[f1_GT,{f2__}]:>f1 tr[CenterDot[f2]]}
 
 
 rmzero={dot[a_,F[i_],a_]:> 0,dot[p[],f__,v]:> 0,dot[p[],g___]:> 0,dot[g___,p[]]:> 0};
 rmzeroT={T[{i_},g___]:> 0,T[f__,{1,h___},g___]:>0};
-
-
-(*Diamond[a_Plus,b_]:=Diamond[a,b]=Plus@@(Diamond[#,b]&/@a)//Expand
-Diamond[a_,b_Plus]:=Diamond[a,b]=Plus@@(Diamond[a,#]&/@b)//Expand
-Diamond[c___,a_Plus,b___]:=Plus@@(Diamond[c,#,b]&/@a)//Expand
-Diamond[Times[-1,a__],b___]:=-Diamond[Times[a],b]
-Diamond[b___,Times[-1,a__],c___]:=-Diamond[b,Times[a],c]
-Diamond[a___,Times[-1,b__]]:=-Diamond[a,Times[b]]
-Diamond[Times[s_,a_J],b___]:=s Diamond[Times[a],b]
-Diamond[b___,Times[s_,a_J],c___]:=s Diamond[b,Times[a],c]
-Diamond[a___,Times[s_,b_J]]:=s Diamond[a,Times[b]]
-Diamond[b___,Times[a_p,s_],c___]:=s Diamond[b,Times[a],c]
-Diamond[Times[a_p,s_],b___]:=s Diamond[Times[a],b]
-Diamond[a___,Times[b_p,s_]]:=s Diamond[a,Times[b]]
-Diamond[b___,Times[a_Diamond,s_],c___]:=s Diamond[b,Times[a],c]
-Diamond[Times[a_Diamond,s_],b___]:=s Diamond[Times[a],b]
-Diamond[a___,Times[b_Diamond,s_]]:=s Diamond[a,Times[b]]*)
 
 
 (*Generating the binary product*)
@@ -77,7 +100,7 @@ GBinaryProduct[h_List/;Length[h]==1]:={h[[1]]}
 (*Programms on the closed form and convolution map*)
 
 
-PG[f1_p,f2_p]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
+(*PG[f1_p,f2_p]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
 PG[f1_p,f2_P]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
 PG[f1_P,f2_p]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
 PG[f1_P,f2_P]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
@@ -89,7 +112,7 @@ PG[Times[s1_,f1_p],f2_P]:=s1 PG[f1,f2]
 PG[f2_P,Times[s1_,f1_p]]:=s1 PG[f2,f1]
 PG[Times[s1_,f1_P],f2_P]:=s1 PG[f1,f2]
 PG[f2_P,Times[s1_,f1_P]]:=s1 PG[f2,f1]
-PG[Times[s2_,f2_P],Times[s1_,f1_P]]:=s1 s2 PG[f2,f1]
+PG[Times[s2_,f2_P],Times[s1_,f1_P]]:=s1 s2 PG[f2,f1]*)
 
 
 KLTR[f_List]:=KLTR[f]=Which[Length[f]>2,Module[{imax=Max[f],idmax,fr,fl},idmax=Position[f,imax]//Flatten;fr=Drop[f,idmax];
@@ -97,13 +120,13 @@ fl=f[[1;;(idmax[[1]]-1)]];2dot[p[imax],(p/@fl)//Total]KLTR[fr]],Length[f]==2,2do
 KLTRM[n_]:=KLTR/@(Drop[#,-1]&/@ddmBasis[Range[n]])
 
 
-Tt[od_]:=Module[{phat=Range[Length@od],leftv,num,den},phat[[1]]=v;Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[od[[1;;(i-1)]]],#<od[[i,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,2,Length@od}];leftv=phat;
+(*Tt[od_]:=Module[{phat=Range[Length@od],leftv,num,den},phat[[1]]=v;Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[od[[1;;(i-1)]]],#<od[[i,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,2,Length@od}];leftv=phat;
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],v]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,Length@od}];
 den=(-1)^Length@od dot[v,p[1]]Product[dot[v,p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
 num/den
-]
-Tp[{i_}]:=dot[\[Epsilon][i],v]
-Tp[f__]:=Module[{od={f},phat,leftv,num,den},phat=Range[Length@od];
+]*)
+T2F[{i_}]:=dot[\[Epsilon][i],v]
+T2F[f__]:=Module[{od={f},phat,leftv,num,den},phat=Range[Length@od];
 (*If[od===T[{i_}]];*)
 phat[[1]]=v;Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[od[[1;;(i-1)]]],#<od[[i,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,2,Length@od}];leftv=phat;
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],v]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,Length@od}];
@@ -133,7 +156,7 @@ num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_
 den=1/2 dot[p[0]+p[1]]Product[1/2 dot[p[0]+p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
 num/den
 ]
-ET2F[f_ET]:=Module[{flavor=f[[2]],od=f[[1,2]],cod=f[[1,1]],phat,leftv,rightv,num,den,scalars},phat=Range[Length@od];
+ET2F[f_GT,flavors_List]:=Module[{flavor=flavors,od=f[[2]],cod=f[[1]],phat,leftv,rightv,num,den,scalars},phat=Range[Length@od];
 scalars=Complement[Flatten[cod],Flatten[od]];
 (*If[od===T[{i_}]];*)
 Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[Join[scalars,od[[1;;(i-1)]]]],Position[cod,#][[1,1]]<Position[cod,od[[i,1]]][[1,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,1,Length@od}];leftv=phat;
@@ -145,7 +168,7 @@ den=den/.dot[gg_]:>dot[gg]-m^2;
 flavor=CenterDot@@(flavor/.a[i_]:>t^a[i]);
  flavor num/den
 ]
-ET2F2s[f_ET]:=Module[{flavor=f[[2]],od=f[[1,2]],cod=f[[1,1]],phat,leftv,rightv,num,den,refs,sc,refg},leftv=Range[Length@od];
+ET2F2s[f_GT,flavors_List]:=Module[{flavor=flavors,od=f[[2]],cod=f[[1]],phat,leftv,rightv,num,den,refs,sc,refg},leftv=Range[Length@od];
 refs=Join[Complement[Flatten[cod],Flatten[od]],{Min[Flatten[od]]}];
 sc=First@Complement[Flatten[cod],Flatten[od]];
 refg=Min[Flatten[od]];
@@ -298,3 +321,12 @@ den=Product[dot[v,p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
 num/den
 ]
 CT2GT[f__]:= If[MemberQ[{f},\[DoubleStruckCapitalI]],Return[0],(GT2Cut@@{({f}/.GT[c_,g_]:>c)//Union//Flatten,({f}/.GT[c_,g_]:>Flatten[g])})Times[f]]
+
+
+End[] 
+
+
+Protect@@Names["kinematicHopfAlgebra`*"];
+
+
+EndPackage[]
