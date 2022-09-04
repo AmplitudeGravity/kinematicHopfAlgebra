@@ -25,7 +25,7 @@ rmzero={dot[a_,F[i_],a_]:> 0,dot[p[],f__,v]:> 0,dot[p[],g___]:> 0,dot[g___,p[]]:
 rmzeroT={T[{i_},g___]:> 0,T[f__,{1,h___},g___]:>0};
 
 
-Diamond[a_Plus,b_]:=Diamond[a,b]=Plus@@(Diamond[#,b]&/@a)//Expand
+(*Diamond[a_Plus,b_]:=Diamond[a,b]=Plus@@(Diamond[#,b]&/@a)//Expand
 Diamond[a_,b_Plus]:=Diamond[a,b]=Plus@@(Diamond[a,#]&/@b)//Expand
 Diamond[c___,a_Plus,b___]:=Plus@@(Diamond[c,#,b]&/@a)//Expand
 Diamond[Times[-1,a__],b___]:=-Diamond[Times[a],b]
@@ -39,7 +39,7 @@ Diamond[Times[a_p,s_],b___]:=s Diamond[Times[a],b]
 Diamond[a___,Times[b_p,s_]]:=s Diamond[a,Times[b]]
 Diamond[b___,Times[a_Diamond,s_],c___]:=s Diamond[b,Times[a],c]
 Diamond[Times[a_Diamond,s_],b___]:=s Diamond[Times[a],b]
-Diamond[a___,Times[b_Diamond,s_]]:=s Diamond[a,Times[b]]
+Diamond[a___,Times[b_Diamond,s_]]:=s Diamond[a,Times[b]]*)
 
 
 (*Generating the binary product*)
