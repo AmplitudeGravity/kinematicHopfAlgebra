@@ -22,8 +22,8 @@ If[$Notebooks,
   Print][" KiHA(v1.3),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
  It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
- theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. KiHA depends on some basic functions 
- which is oringinally created by Gustav Mogull and Gregor Kaelin from their work in Uppsala University.
+ theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
+ KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
  use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886) for more reference." ]
 
 
