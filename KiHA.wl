@@ -17,6 +17,16 @@ Unprotect@@Names["KiHA`*"];
 (* Exported symbols added here with SymbolName::usage *) 
 
 
+If[$Notebooks,
+  CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
+  Print][" KiHA(v1.3),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
+ KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
+ It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
+ theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. KiHA depends on some basic functions 
+ which is oringinally created by Gustav Mogull and Gregor Kaelin from their work in Uppsala University.
+ use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886) for more reference." ]
+
+
 (* ::Subsection:: *)
 (*KiHA Output function and variables*)
 
@@ -33,6 +43,7 @@ GT::usage="extended generator of T with colour group GT[{1,3,2},{{3}}], first ar
 T::usage="algebra generator, e.g. T[{1},{2,3}],"
 a::usage="generator index of the flavor group"
 p::usage="momentum vector"
+\[Epsilon]::usage="polarization vector"
 F::usage="strengthen tensor"
 m::usage="mass of the field,"
 t::usage="generator of the flavor group"
@@ -53,6 +64,13 @@ Diamond::usage="a distributive general product"
 ddmBasis::usage ="generate the ddm basis, ddmBasis[n]"
 KLTR::usage ="generate the one elemment of the KLT matrix KLTR[f_List]"
 KLTRM::usage ="generate the first row of the KLT matrix, e.g. KLTRM[5] generate the KLT matrix element for the colour order{1,2,3,4,5} "
+
+
+(* ::Subsection:: *)
+(*QCD current*)
+
+
+JQCD::usage="Generate the qcd current from current algebra JQCD[{1,2,3,4}]"
 
 
 (* ::Subsection::Closed:: *)
@@ -287,6 +305,10 @@ Begin["`Private`"]
 declareTensorHead[{F},{"rank"-> 2}];*)
 
 
+(* ::Subsection::Closed:: *)
+(*Simplifications*)
+
+
 nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i],
 dot[f___]:> CenterDot[f],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],
 a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[_]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[_]:>v,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
@@ -308,6 +330,16 @@ declareDistributive[Diamond,vectorQ];
 
 
 (*Generating the binary product*)
+
+
+(* ::Subsection::Closed:: *)
+(*BinaryProduct and DDM*)
+
+
+shuffle[s1_List,s2_List]:=shuffle[s1,s2]=Module[{p,tp,ord},p=Permutations@Join[1&/@s1,0&/@s2]\[Transpose];
+tp=BitXor[p,1];
+ord=Accumulate[p] p+(Accumulate[tp]+Length[s1]) tp;
+Outer[Part,{Join[s1,s2]},ord,1][[1]]\[Transpose]]
 
 
 BinaryProduct[n_]:=Block[{v,bpX,bpvars2,h,h0,tt},
@@ -339,6 +371,9 @@ GBinaryProduct[h_List/;Length[h]==2]:={X[h[[1]],h[[2]] ]}
 GBinaryProduct[h_List/;Length[h]==1]:={h[[1]]}
 
 
+diagNumber[n_]:=1/(n-2+1)*Binomial[2*(n-2),n-2]
+
+
 (*Programms on the closed form and convolution map*)
 
 
@@ -348,9 +383,16 @@ Prepend[#,momlist[[1]]]&/@(Append[#,momlist[[-1]]]&/@Permutations[momlist[[2;;-2
 ]
 
 
+replace[otherDDMOrder_,n_]:=Table[(p/@Range[n-1])[[i]]-> otherDDMOrder[[i]],{i,n-1}];
+
+
 KLTR[f_List]:=KLTR[f]=Which[Length[f]>2,Module[{imax=Max[f],idmax,fr,fl},idmax=Position[f,imax]//Flatten;fr=Drop[f,idmax];
 fl=f[[1;;(idmax[[1]]-1)]];2dot[p[imax],(p/@fl)//Total]KLTR[fr]],Length[f]==2,2dot@@(p/@f),Length[f]<2,Print["Length of f should be large than 2"]]
 KLTRM[n_]:=KLTR/@(Drop[#,-1]&/@ddmBasis[Range[n]])
+
+
+(* ::Subsection::Closed:: *)
+(*Algebraic generators to dot product of F*)
 
 
 (*Tt[od_]:=Module[{phat=Range[Length@od],leftv,num,den},phat[[1]]=v;Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[od[[1;;(i-1)]]],#<od[[i,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,2,Length@od}];leftv=phat;
@@ -472,10 +514,8 @@ res=res/.M[f___]:>  Mt[M[f]]
 (*Programs on the Hopf algebra*)
 
 
-shuffle[s1_List,s2_List]:=shuffle[s1,s2]=Module[{p,tp,ord},p=Permutations@Join[1&/@s1,0&/@s2]\[Transpose];
-tp=BitXor[p,1];
-ord=Accumulate[p] p+(Accumulate[tp]+Length[s1]) tp;
-Outer[Part,{Join[s1,s2]},ord,1][[1]]\[Transpose]]
+(* ::Subsection::Closed:: *)
+(*Hopf algebra*)
 
 
 mC[f_]:=If[Head[f]=!=Plus&&Length[f]>=2,True,False]
@@ -556,7 +596,7 @@ num/den
 CT2GT[f__]:= If[MemberQ[{f},\[DoubleStruckCapitalI]],Return[0],(GT2Cut@@{({f}/.GT[c_,g_]:>c)//Union//Flatten,({f}/.GT[c_,g_]:>Flatten[g])})Times[f]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*basic functions*)
 
 
@@ -633,7 +673,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -814,7 +854,7 @@ SetAttributes[aMu,NHoldAll];
 declareDistributive[aMu,tensorQ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -951,7 +991,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1096,7 +1136,7 @@ indexCoefficient[dot[p1__,f_,p2__],f_[ix1_lI,ix2_lI]] := dot[p1,ix1]*dot[ix2,p2]
 indexCoefficient[expr_,_] := expr
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -1132,6 +1172,79 @@ massDim[spA[p_?vectorQ]] := 1/2
 massDim[spB[p_?vectorQ]] := 1/2
 massDim[p_?vectorQ] := 1
 massDim[__] := 0
+
+
+(* ::Subsection:: *)
+(*QCD Current*)
+
+
+V2spBracket={J[_,f_,m_]:> spBracket[spB[\[Beta]],f/.CircleTimes[g___]:> g,spA[\[Alpha]]],J[_,f_]:> spBracket[spB[\[Beta]],f/.CircleTimes[g___]:> g,spA[\[Alpha]]]};
+
+
+expandBracket[f_]:=f/.{spBracket-> spp}/.{spp-> spBracket}
+NumQQ[f_]:=Cases[f/.CircleTimes-> List,Q[___]]//Length
+NumP[f_]:=Cases[{f}/.CircleTimes-> List//Flatten,k[___]]//Length
+
+
+\[ScriptCapitalF][a_Plus,b_]:=\[ScriptCapitalF][a,b]=(\[ScriptCapitalF][#,b]&/@a)//Expand
+\[ScriptCapitalF][a_,b_Plus]:=\[ScriptCapitalF][a,b]=(\[ScriptCapitalF][a,#]&/@b)//Expand
+\[ScriptCapitalF][f_ a_J,b_J]:=\[ScriptCapitalF][f a,b]=f \[ScriptCapitalF][ a,b]//Expand
+\[ScriptCapitalF][ a_J,f_ b_J]:=\[ScriptCapitalF][a,f b]=f \[ScriptCapitalF][ a,b]//Expand
+\[ScriptCapitalF][ g_ a_J,f_ b_J]:=\[ScriptCapitalF][g a,f b]=g f \[ScriptCapitalF][ a,b]//Expand
+\[ScriptCapitalF][0,0]:=0
+\[ScriptCapitalF][0,f_]:=0
+\[ScriptCapitalF][f_,0]:=0
+
+
+\[ScriptCapitalF][V1_J,V2_J]:=\[ScriptCapitalF][V1,V2]=Which[
+NumQQ[V1[[2]]]==0&&NumQQ[V2[[2]]]== 0,F0[V1,V2],
+NumQQ[V1[[2]]]==1&&NumQQ[V2[[2]]]==0,FL[V1,V2],
+NumQQ[V1[[2]]]==0&& NumQQ[V2[[2]]]==1,FR[V1,V2],
+True,0Khigher[V1,V2]]
+F0[A_J,B_J]:=Module[{Qp=Q[A[[1]]+B[[1]]],Pa=k[A[[1]]],Pb=k[B[[1]]],a=A[[2]],b=B[[2]]},(
+(DOT[b,Pa] J[A[[1]]+B[[1]],a])-(DOT[a,Pb] J[A[[1]]+B[[1]],b])-1/2 DOT[a,b] J[A[[1]]+B[[1]],Pa]+1/2 DOT[a,b] J[A[[1]]+B[[1]],Pb]-1/2 J[A[[1]]+B[[1]],a\[CircleTimes]b\[CircleTimes]Qp]+1/2 J[A[[1]]+B[[1]],b\[CircleTimes]a\[CircleTimes]Qp])/.DOT-> dot//Expand
+]
+FL[A_J,B_J]:=Module[{Qp=Q[A[[1]]+B[[1]]],Pa=k[A[[1]]],Pb=k[B[[1]]],a=A[[2]],b=B[[2]]},(
+-(1/4)(DOT[Pa,Pa] DOT[a[[1]],b]J[A[[1]]+B[[1]],a[[2]]])+1/4 (DOT[Pa,Pa] DOT[a[[2]],b]J[A[[1]]+B[[1]],a[[1]]]))/.DOT-> dot//Expand
+]
+FR[A_J,B_J]:=Module[{Qp=Q[A[[1]]+B[[1]]],Pa=k[A[[1]]],Pb=k[B[[1]]],a=A[[2]],b=B[[2]]},(
+1/4 (DOT[Pb,Pb] DOT[a,b[[1]]]J[A[[1]]+B[[1]],b[[2]]])-1/4 (DOT[Pb,Pb] DOT[a,b[[2]]]J[A[[1]]+B[[1]],b[[1]]]))/.DOT-> dot//Expand
+]
+
+
+PG[f1_p,f2_p]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
+PG[f1_p,f2_P]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
+PG[f1_P,f2_p]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
+PG[f1_P,f2_P]:=dot[P[(f1+f2)/.P[f_]:> f],P[(f1+f2)/.P[f_]:> f]]P[(f1+f2)/.P[f_]:> f//Expand]
+PG[Times[s1_,f1_p],f2_p]:=s1 PG[f1,f2]
+PG[f2_p,Times[s1_,f1_p]]:=s1 PG[f2,f1]
+PG[Times[s1_,f1_P],f2_p]:=s1 PG[f1,f2]
+PG[f2_p,Times[s1_,f1_P]]:=s1 PG[f2,f1]
+PG[Times[s1_,f1_p],f2_P]:=s1 PG[f1,f2]
+PG[f2_P,Times[s1_,f1_p]]:=s1 PG[f2,f1]
+PG[Times[s1_,f1_P],f2_P]:=s1 PG[f1,f2]
+PG[f2_P,Times[s1_,f1_P]]:=s1 PG[f2,f1]
+PG[Times[s2_,f2_P],Times[s1_,f1_P]]:=s1 s2 PG[f2,f1]
+
+
+JQCD[gg_List]:=If[Length[gg]==1,EJ[gg[[1]]],Module[{numerVector,PPVector,Amp,bp},bp=BinaryProduct[gg];
+numerVector=Table[((bp[[ii]]/.i_:> J[p[i],\[Epsilon][p[i]]]/;IntegerQ[i]/.X-> \[ScriptCapitalF]/.V2spBracket/.k[f_]:> f/.P[f_]:> f//expandBracket)/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//expandBracket)/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//Expand,{ii,Length@bp}];
+(*Print[numerVector];*)
+PPVector=bp/.(i_:> p[i]/;IntegerQ[i])/.X-> PG/.dot[P[f_],f1_]:> dot[k[f],f1]/.dot[f1_,P[f_]]:> dot[f1,k[f]]/.P[f_]:> 1(*/.P[Sum[p[gg[[i]]],{i,Length[gg]}]]\[RuleDelayed] 1/.dot[1,1]\[RuleDelayed] 1*);
+Amp=(Sum[numerVector[[i]]/PPVector[[i]],{i,Length@PPVector}]/.P[f_]:> f/.k[f_]:> f/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//expandBracket)/.spBracket[spB[\[Beta]],f_,spA[\[Alpha]]]:> dot[f,v]
+]]
+
+
+FP[f_List,vv_]:=1/(2dot[(p/@f)//Total,vv])
+BP[f_List]:=1/dot[(p/@f)//Total,(p/@f)//Total]
+EJ[i_/;IntegerQ[i]]:=dot[\[Epsilon][p[i]],v]
+
+
+Jh[f_List,vv_]:=Module[{len=Length[f]},JQCD[Range[len]]]/.v-> vv/.\[Epsilon][p[i_]]:> \[Epsilon][i]/.{p[i_]:> f[[i,1]],\[Epsilon][i_]:> f[[i,2]]}
+
+
+(* ::Subsection:: *)
+(*Ends*)
 
 
 End[] (* End Private Context *)
