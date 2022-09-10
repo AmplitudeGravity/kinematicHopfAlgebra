@@ -66,11 +66,16 @@ KLTR::usage ="generate the one elemment of the KLT matrix KLTR[f_List]"
 KLTRM::usage ="generate the first row of the KLT matrix, e.g. KLTRM[5] generate the KLT matrix element for the colour order{1,2,3,4,5} "
 
 
+ExpandNCM::usage ="Expand the non-commutative multiply"
+NC::usage="commutator of the non-commutative multiply"
+
+
 (* ::Subsection:: *)
 (*QCD current*)
 
 
 JQCD::usage="Generate the qcd current from current algebra JQCD[{1,2,3,4}]"
+X2Prop::usage="The propagators from the binary product. The last line is taken as on-shell"
 
 
 (* ::Subsection::Closed:: *)
@@ -514,7 +519,7 @@ res=res/.M[f___]:>  Mt[M[f]]
 (*Programs on the Hopf algebra*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Hopf algebra*)
 
 
@@ -531,6 +536,9 @@ ExpandT[f_]:=((NonCommutativeMultiply@@f//ExpandNCM)/.T[hh__]:> hh/.NonCommutati
 ExpandCT[f_]:=((NonCommutativeMultiply@@f//ExpandNCM)/.NonCommutativeMultiply-> CircleTimes)
 GetTId[f_]:=(f/.T[hh__]:> hh)
 ExpandCircleTimes[f_]:=(f/.CircleTimes->NonCommutativeMultiply//ExpandNCM)/.NonCommutativeMultiply->CircleTimes
+
+
+NC[i_,j_]:=NonCommutativeMultiply[i,j]-NonCommutativeMultiply[j,i]
 
 
 \[FivePointedStar][f_T?mC,g_T?mC]:=(T[f[[1]],\[FivePointedStar][f[[2;;-1]],g]]//ExpandT)+(T[g[[1]],\[FivePointedStar][f,g[[2;;-1]]]]//ExpandT)-(T[Join[f[[1]],g[[1]]],\[FivePointedStar][f[[2;;-1]],g[[2;;-1]]]]//ExpandT)/.T[gg___]:>T@@(Sort/@{gg})
@@ -1225,6 +1233,15 @@ PG[f2_P,Times[s1_,f1_p]]:=s1 PG[f2,f1]
 PG[Times[s1_,f1_P],f2_P]:=s1 PG[f1,f2]
 PG[f2_P,Times[s1_,f1_P]]:=s1 PG[f2,f1]
 PG[Times[s2_,f2_P],Times[s1_,f1_P]]:=s1 s2 PG[f2,f1]
+
+
+propG[f1_P,f2_P]:=dot[p@@({List@@f1,List@@f2}//Flatten)]P@@({List@@f1,List@@f2}//Flatten)
+propG[Times[s1_,f1_P],f2_P]:=s1 propG[f1,f2]
+propG[f2_P,Times[s1_,f1_P]]:=s1 propG[f2,f1]
+propG[Times[s2_,f2_P],Times[s1_,f1_P]]:=s1 s2 propG[f2,f1]
+
+
+X2Prop[f_X]:=(f[[1]]/.(i_:> P[i]/;IntegerQ[i])/.X->propG)(f[[2]]/.(i_:> P[i]/;IntegerQ[i])/.X->propG)/.P[ft__]:>1
 
 
 JQCD[gg_List]:=If[Length[gg]==1,EJ[gg[[1]]],Module[{numerVector,PPVector,Amp,bp},bp=BinaryProduct[gg];
