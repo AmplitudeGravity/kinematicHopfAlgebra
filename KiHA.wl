@@ -999,7 +999,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Free Indices*)
 
 
@@ -1085,6 +1085,78 @@ contract[expr_] := FixedPoint[Expand[#] //. {
 	v1_?vectorQ[ix1_lI]*f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix4_lI, ix3_lI]*f3_?tensorQ[ix5_lI, ix6_lI]*v2_?vectorQ[ix7_lI] /; AllTrue[{f1,f2,f3}, tensorRank[#] === 2 &] :> dot[v1,f1,f2,f3,v2],
 	v1_?vectorQ[ix1_lI]*f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix4_lI, ix3_lI]*f3_?tensorQ[ix6_lI, ix5_lI]*v2_?vectorQ[ix7_lI] /; AllTrue[{f1,f2,f3}, tensorRank[#] === 2 &] :> dot[v1,f1,f2,f3,v2] *)
 } &, expr]
+
+
+contractAnti[expr_] := FixedPoint[Expand[#] //. {
+	Power[p1_?vectorQ[ix_lI],2] :> dot[p1],
+	p1_?vectorQ[lI[i_]]*p2_?vectorQ[lI[i_]] :> dot[p1,p2],
+	vec_?vectorQ[ix_lI]*spp[p1__,ix_lI,p2__] :> spp[p1,vec,p2],
+	vec_?vectorQ[ix_lI]*eps[p1___,ix_lI,p2___] :> eps[p1,vec,p2],
+	vec_?vectorQ[ix_lI]*dot[ix_lI,p__] :> dot[vec,p],
+	vec_?vectorQ[ix_lI]*dot[p__,ix_lI] :> dot[p,vec],
+
+	f_?tensorQ[ix1_lI,ix2_lI]*dot[ix2_lI,p__] :> dot[ix1,f,p],
+	dot[p__,ix1_lI]*f_?tensorQ[ix1_lI,ix2_lI] :> dot[p,f,ix2],
+	dot[p_,ix2_lI]*f_?tensorQ[ix1_lI,ix2_lI] :> dot[ix1,f,p],
+
+	dot[p1__,ix_lI]*dot[ix_lI,p2__] :> dot[p1,p2],
+
+	eta[ix1_lI,ix2_lI]*spp[p1__,ix2_lI,p2__] :> spp[p1,ix1,p2],
+	eta[ix1_lI,ix2_lI]*eps[p1___,ix2_lI,p2___] :> eps[p1,ix1,p2],
+	eta[ix1_lI,ix2_lI]*eta[ix2_lI,ix3_lI] :> eta[ix1,ix3],
+	eta[ix1_lI,ix2_lI]*f_?tensorQ[p1___,ix2_lI,p2___] :> f[p1,ix1,p2],
+
+	eps[___,lI[i_],___,lI[i_],___] :> 0,
+	eta[ix_lI,ix_lI] :> $globalDim,
+	mu[ix_lI,ix_lI] :> $globalDim-4,
+	Power[eta[ix1_lI,ix2_lI],2] :> $globalDim,
+	Power[mu[ix1_lI,ix2_lI],2] :> $globalDim-4,
+
+	spp[sp1_spA,lI[i_],sp2_spB]spp[sp3_spA,lI[i_],sp4_spB] :> 2spp[sp1,sp3]spp[sp4,sp2],
+	spp[sp1_spA,lI[i_],sp2_spB]spp[sp4_spB,lI[i_],sp3_spA] :> 2spp[sp1,sp3]spp[sp4,sp2],
+	spp[sp2_spB,lI[i_],sp1_spA]spp[sp3_spA,lI[i_],sp4_spB] :> 2spp[sp1,sp3]spp[sp4,sp2],
+	spp[sp2_spB,lI[i_],sp1_spA]spp[sp4_spB,lI[i_],sp3_spA] :> 2spp[sp1,sp3]spp[sp4,sp2],
+ 	eps[p1___,lI[i_],p2___]*spp[p3___,lI[i_],p4___] :> toSpinors[eps[p1,lI[i],p2],{p1,p2}]*spp[p3,lI[-i],p4],
+
+ 	spp[sp1__,lI[i_],lI[i_],sp2__] :> 4spp[sp1,sp2],
+
+ 	mu[x_,ix_lI]*eta[ix_lI,y_] :> -mu[x,y],
+ 	mu[x_,ix_lI]*mu[ix_lI,y_] :> mu[x,y],
+ 	mu[x_,ix_lI]*p_?vectorQ[ix_lI] :> mu[x,p],
+
+ 	f_?tensorQ[ix_lI, ix_lI] :> tr[f],
+
+ 	f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> dot[ix1,f1,f2,ix3],
+
+ 	v1_?vectorQ[ix1_lI]*f_?tensorQ[ix1_lI, ix2_lI]*v2_?vectorQ[ix2_lI] :> dot[v1, f, v2],
+
+ 	dot[ix_lI,args__,ix_lI] :> tr[args],
+     f1_?vectorQ[ix1_lI]*f2_?vectorQ[ix1_lI] :> dot[f1,f2],
+ 	(* Rules only for symmetric rank-2 tensors! *)
+ 	(*f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> dot[ix1,f1,f2,ix3],
+ 	f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> dot[ix1,f1,f2,ix3],
+ 	f_?tensorQ[ix2_lI,ix1_lI]*dot[ix2_lI,p__] :> dot[ix1,f,p],
+	dot[p__,ix1_lI]*f_?tensorQ[ix2_lI,ix1_lI] :> dot[p,f,ix2],*)
+	(* Rules only for general rank-2 tensors! *)
+     f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> dot[ix3,f2,f1,ix1],
+ 	f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> dot[ix1,f1,f2,ix3],
+ 	f_?tensorQ[ix1_lI,ix2_lI]*dot[ix2_lI,p__] :> dot[ix1,f,p],
+	dot[p__,ix1_lI]*f_?tensorQ[ix1_lI,ix2_lI] :> dot[p,f,ix2],
+
+	dot[p1_,ix_lI]*dot[p2__,ix_lI] :> dot[p2,p1],
+	dot[ix_lI,p1_]*dot[ix_lI,p2__] :> dot[p1,p2],
+
+         f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> - dot[ix1,f1,f2,ix3],
+         f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> - dot[ix1,f1,f2,ix3],
+         f_?tensorQ[ix2_lI,ix1_lI]*dot[ix2_lI,p__] :> - dot[ix1,f,p],
+	dot[p__,ix1_lI]*f_?tensorQ[ix2_lI,ix1_lI] :>- dot[p,f,ix2],
+dot[p1__,ix_lI]*dot[p2__,ix_lI] :>(-1)^(Length[{p2}]-1) ((dot[p1,##]&)@@Reverse@{p2}),
+	dot[ix_lI,p1__]*dot[ix_lI,p2__] :> (-1)^(Length[{p1}]-1) ((dot[##,p2]&)@@Reverse@{p1}),
+Power[dot[p1__,ix_lI],2]:>(-1)^(Length[{p1}]-1) ((dot[p1,##]&)@@Reverse@{p1}),
+Power[dot[ix_lI,p1__],2]:>(-1)^(Length[{p1}]-1) ((dot[##,p1]&)@@Reverse@{p1})
+
+} &, expr]
+
 
 
 (*contractv2[expr_] /; FreeQ[expr, lI, Infinity] := expr 
