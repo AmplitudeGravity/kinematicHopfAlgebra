@@ -225,7 +225,7 @@ toSpinors::ssle = "Only four-dimensional vectors can be converted to spinors."
 toSpinors::author = "Gustav Mogull"
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Free Indices*)
 
 
@@ -239,6 +239,10 @@ spI::author = "Gustav Mogull" *)
 
 contract::usage = "contract[expr] contracts all pairs of raised and lowered Lorentz indices in expr."
 contract::author = "Gustav Mogull"
+
+
+contractAnti::usage = "contractAnti[expr] contract in expr with the anti-symmetric tensor or vectors"
+contract::author = "Gang Chen"
 
 
 expandTensor::usage="expandTensor[dot[f]] expands all the tensor into the conponent"
