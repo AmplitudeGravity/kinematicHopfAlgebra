@@ -78,7 +78,7 @@ JQCD::usage="Generate the qcd current from current algebra JQCD[{1,2,3,4}]"
 X2Prop::usage="The propagators from the binary product. The last line is taken as on-shell"
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Scalars*)
 
 
@@ -89,7 +89,7 @@ declareAntisymmetric::usage="set function is antisymmetric under exchange the or
 declareSymmetric::usage="set function do not dependent order of the variables"
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Vectors*)
 
 
@@ -101,6 +101,9 @@ vectorQ::usage = "vectorQ[p] yields True if p is a vector (rank-1 tensor), and y
 vectorQ::author = "Gustav Mogull"
 tensorQR2::usage = "vectorQ[p] yields True if p is a vector (rank-1 tensor), and yields False otherwise."
 tensorQR2::author = "Gustav Mogull"
+
+
+antiTensorQ::usage="antiTensorQ[p[1]] yields True if p is tensor head"
 
 
 tensorDim::usage = "tensorDim[p] returns the dimensionality of the declared vector p."
@@ -139,6 +142,9 @@ declareTensorHead[{F1,F2,...}] declares F1, F2, ... as tensor headers.
 declareTensorHead has options 'dim', 'rank' and 'verbose'.  By default, 'dim' is the global dimension, 'rank' is 1 and 'verbose' is true."
 declareTensorHead::safe = "Only unprotected symbols can be declared as tensor headers."
 declareTensorHead::author = "Gustav Mogull"
+
+
+declareAntiTensorHead::usage="declareAntiTensorHead[p], declareAntiTensorHead[{F1, F2}] declare the antiSymmetric tensor "
 
 
 undeclareTensor::usage = "undeclareTensor[p] undeclares p as a vector.
@@ -314,7 +320,7 @@ Begin["`Private`"]
 declareTensorHead[{F},{"rank"-> 2}];*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Simplifications*)
 
 
@@ -341,7 +347,7 @@ declareDistributive[Diamond,vectorQ];
 (*Generating the binary product*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*BinaryProduct and DDM*)
 
 
@@ -608,7 +614,7 @@ num/den
 CT2GT[f__]:= If[MemberQ[{f},\[DoubleStruckCapitalI]],Return[0],(GT2Cut@@{({f}/.GT[c_,g_]:>c)//Union//Flatten,({f}/.GT[c_,g_]:>Flatten[g])})Times[f]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*basic functions*)
 
 
@@ -685,7 +691,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Vectors*)
 
 
@@ -693,9 +699,13 @@ declareAntisymmetric[function_Symbol] := (
 (* $declaredTensors = {{dot,$globalDim,2},{eps,4,4}}; *)
 $declaredTensors = {{eta,4,2}};
 $declaredTensorHeads = {{spOuter,4,1},{outer,4,2}};
+$declaredAntiTensorHeads={};
 (* Todo: there should be an (optional) function that declares these...? *)
 $extMomLabel = "p";
 $loopLabel = "l";
+
+
+antiTensorQ[tens_]:=tensorQ[tens]&&MemberQ[$declaredAntiTensorHeads,Head[tens]]
 
 
 tensorQ[tens_] := If[patternFreeQ[tens],MemberQ[$declaredTensors[[All,1]],tens] || MemberQ[$declaredTensorHeads[[All,1]],Head[tens]],False]
@@ -764,6 +774,12 @@ declareTensorHead[tens_Symbol,OptionsPattern[]] /; If[!protectedQ[tens],True,Mes
 	If[OptionValue["verbose"],Print[ToString[tens]<>" declared as a "<>ToString[OptionValue["dim"]]<>"-dimensional rank-"<>ToString[OptionValue["rank"]]<>" tensor header."]];
 )
 declareTensorHead[__] := $Failed
+
+
+declareAntiTensorHead[expr_List] := Scan[declareAntiTensorHead[#]&,expr];
+declareAntiTensorHead[tens_Symbol]  := (
+	AppendTo[$declaredAntiTensorHeads,tens];
+)
 
 
 Options[undeclareTensor] = {"verbose"->True};
@@ -1136,6 +1152,8 @@ contractAnti[expr_] := FixedPoint[Expand[#] //. {
 
  	dot[ix_lI,args__,ix_lI] :> tr[args],
      f1_?vectorQ[ix1_lI]*f2_?vectorQ[ix1_lI] :> dot[f1,f2],
+     eta[ix1_lI,ix2_lI]*dot[ix1_lI,p__]:>dot[ix2,p],
+     eta[ix1_lI,ix2_lI]*dot[p__,ix2_lI]:>dot[p,ix1],
  	(* Rules only for symmetric rank-2 tensors! *)
  	(*f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> dot[ix1,f1,f2,ix3],
  	f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> dot[ix1,f1,f2,ix3],
@@ -1146,18 +1164,18 @@ contractAnti[expr_] := FixedPoint[Expand[#] //. {
  	f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> dot[ix1,f1,f2,ix3],
  	f_?tensorQ[ix1_lI,ix2_lI]*dot[ix2_lI,p__] :> dot[ix1,f,p],
 	dot[p__,ix1_lI]*f_?tensorQ[ix1_lI,ix2_lI] :> dot[p,f,ix2],
-
+    dot[p1__,ix_lI]*dot[p2__,ix_lI] :>(-1)^(Length[Cases[{p2},_?antiTensorQ]]) ((dot[p1,##]&)@@Reverse@{p2}),
+	dot[ix_lI,p1__]*dot[ix_lI,p2__] :> (-1)^(Length[Cases[{p1},_?antiTensorQ]]) ((dot[##,p2]&)@@Reverse@{p1}),
+Power[dot[p1__,ix_lI],2]:>(-1)^(Length[Cases[{p1},_?antiTensorQ]]) ((dot[p1,##]&)@@Reverse@{p1}),
+Power[dot[ix_lI,p1__],2]:>(-1)^(Length[Cases[{p1},_?antiTensorQ]]) ((dot[##,p1]&)@@Reverse@{p1}),
 	(*dot[p1_,ix_lI]*dot[p2__,ix_lI] :> dot[p2,p1],
 	dot[ix_lI,p1_]*dot[ix_lI,p2__] :> dot[p1,p2],*)
+(* Rules only for antisymmetric rank-2 tensors! *)
+         f1_?antiTensorQ[ix1_lI, ix2_lI]*f2_?antiTensorQ[ix3_lI, ix2_lI] :> - dot[ix1,f1,f2,ix3],
+         f1_?antiTensorQ[ix2_lI, ix1_lI]*f2_?antiTensorQ[ix2_lI, ix3_lI] :> - dot[ix1,f1,f2,ix3],
+         f_?antiTensorQ[ix2_lI,ix1_lI]*dot[ix2_lI,p__] :> - dot[ix1,f,p],
+	dot[p__,ix1_lI]*f_?antiTensorQ[ix2_lI,ix1_lI] :> - dot[p,f,ix2]
 
-         f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> - dot[ix1,f1,f2,ix3],
-         f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> - dot[ix1,f1,f2,ix3],
-         f_?tensorQ[ix2_lI,ix1_lI]*dot[ix2_lI,p__] :> - dot[ix1,f,p],
-	dot[p__,ix1_lI]*f_?tensorQ[ix2_lI,ix1_lI] :> - dot[p,f,ix2],
-dot[p1__,ix_lI]*dot[p2__,ix_lI] :>(-1)^(Length[{p2}]-1) ((dot[p1,##]&)@@Reverse@{p2}),
-	dot[ix_lI,p1__]*dot[ix_lI,p2__] :> (-1)^(Length[{p1}]-1) ((dot[##,p2]&)@@Reverse@{p1}),
-Power[dot[p1__,ix_lI],2]:>(-1)^(Length[{p1}]-1) ((dot[p1,##]&)@@Reverse@{p1}),
-Power[dot[ix_lI,p1__],2]:>(-1)^(Length[{p1}]-1) ((dot[##,p1]&)@@Reverse@{p1})
 
 } &, expr]
 
@@ -1220,7 +1238,7 @@ indexCoefficient[dot[p1__,f_,p2__],f_[ix1_lI,ix2_lI]] := dot[p1,ix1]*dot[ix2,p2]
 indexCoefficient[expr_,_] := expr
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Other*)
 
 
