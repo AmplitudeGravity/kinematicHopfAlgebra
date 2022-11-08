@@ -1147,13 +1147,13 @@ contractAnti[expr_] := FixedPoint[Expand[#] //. {
  	f_?tensorQ[ix1_lI,ix2_lI]*dot[ix2_lI,p__] :> dot[ix1,f,p],
 	dot[p__,ix1_lI]*f_?tensorQ[ix1_lI,ix2_lI] :> dot[p,f,ix2],
 
-	dot[p1_,ix_lI]*dot[p2__,ix_lI] :> dot[p2,p1],
-	dot[ix_lI,p1_]*dot[ix_lI,p2__] :> dot[p1,p2],
+	(*dot[p1_,ix_lI]*dot[p2__,ix_lI] :> dot[p2,p1],
+	dot[ix_lI,p1_]*dot[ix_lI,p2__] :> dot[p1,p2],*)
 
          f1_?tensorQ[ix1_lI, ix2_lI]*f2_?tensorQ[ix3_lI, ix2_lI] :> - dot[ix1,f1,f2,ix3],
          f1_?tensorQ[ix2_lI, ix1_lI]*f2_?tensorQ[ix2_lI, ix3_lI] :> - dot[ix1,f1,f2,ix3],
          f_?tensorQ[ix2_lI,ix1_lI]*dot[ix2_lI,p__] :> - dot[ix1,f,p],
-	dot[p__,ix1_lI]*f_?tensorQ[ix2_lI,ix1_lI] :>- dot[p,f,ix2],
+	dot[p__,ix1_lI]*f_?tensorQ[ix2_lI,ix1_lI] :> - dot[p,f,ix2],
 dot[p1__,ix_lI]*dot[p2__,ix_lI] :>(-1)^(Length[{p2}]-1) ((dot[p1,##]&)@@Reverse@{p2}),
 	dot[ix_lI,p1__]*dot[ix_lI,p2__] :> (-1)^(Length[{p1}]-1) ((dot[##,p2]&)@@Reverse@{p1}),
 Power[dot[p1__,ix_lI],2]:>(-1)^(Length[{p1}]-1) ((dot[p1,##]&)@@Reverse@{p1}),
