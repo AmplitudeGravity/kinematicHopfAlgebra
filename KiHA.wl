@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v1.3),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
+  Print][" KiHA(v1.6),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
  It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
