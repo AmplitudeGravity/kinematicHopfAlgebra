@@ -41,12 +41,12 @@ X::usage="Empty bracket"
 ET::usage="extended generator of GT with flavor ET[GT[{1,3,2},{{3}}],{a[1],a[2]}]"
 GT::usage="extended generator of T with colour group GT[{1,3,2},{{3}}], first arg is colour order, sencond arg is the kinematic partitions"
 T::usage="algebra generator, e.g. T[{1},{2,3}],"
-a::usage="generator index of the flavor group"
+\[DoubleStruckA]::usage="generator index of the flavor group"
 p::usage="momentum vector"
 \[Epsilon]::usage="polarization vector"
 F::usage="strengthen tensor"
 m::usage="mass of the field,"
-t::usage="generator of the flavor group"
+\[DoubleStruckT]::usage="generator of the flavor group"
 v::usage="velocity of the heavy particle or black hole"
 T2F::usage ="transform abelian generators to strengthen tensor form in HEFT amplitude"
 GT2F::usage ="transform non-abelian generators to strengthen tensor form in HEFT amplitude"
@@ -55,7 +55,7 @@ ET2F2s ::usage ="transform generators to strengthen tensor form in amplitude wit
 \[FivePointedStar] ::usage ="funsion product of the generators"
 \[ScriptCapitalK] ::usage ="generators for the external states \[ScriptCapitalK][stateIndex_Integer, Spin_Integer]"
 \[CapitalOmega] ::usage ="left nested commutators"
-S ::usage ="antipode"
+\[DoubleStruckCapitalS] ::usage ="antipode"
 \[CapitalDelta] ::usage ="coproduct"
 \[DoubleStruckCapitalI] ::usage ="Identity"
 Diamond::usage="a distributive general product"
@@ -191,7 +191,7 @@ aMu::usage = "aMu[l1,l2] represents the antisymmetric product of the extra-dimen
 aMu::author = "Gregor Kaelin"
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spinors*)
 
 
@@ -269,7 +269,7 @@ exposeIndex::author = "Gustav Mogull"
 indexCoefficient::author = "Gustav Mogull"
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Other*)
 
 
@@ -406,7 +406,7 @@ fl=f[[1;;(idmax[[1]]-1)]];2dot[p[imax],(p/@fl)//Total]KLTR[fr]],Length[f]==2,2do
 KLTRM[n_]:=KLTR/@(Drop[#,-1]&/@ddmBasis[Range[n]])
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Algebraic generators to dot product of F*)
 
 
@@ -455,7 +455,7 @@ Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBrac
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,Length@od}];
 den=1/2 dot[p@@scalars]Product[1/2 dot[(p@@scalars)+p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
 den=den/.dot[gg__]:>dot[gg]-m^2;
-flavor=CenterDot@@(flavor/.a[i_]:>t^a[i]);
+flavor=CenterDot@@(flavor/.\[DoubleStruckA][i_]:>\[DoubleStruckT]^\[DoubleStruckA][i]);
  flavor num/den
 ]
 ET2F2s[f_GT,flavors_List]:=Module[{flavor=flavors,od=f[[2]],cod=f[[1]],phat,leftv,rightv,num,den,refs,sc,refg},leftv=Range[Length@od];
@@ -472,7 +472,7 @@ Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBrac
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,1,Length@od}];
 den=dot[p@@refs]Product[1/2 dot[(p@@DeleteDuplicates[Flatten[Join[refs,od[[1;;(i-1)]]]]])],{i,2,Length@od}];
 den=den/.dot[gg__]:>dot[gg]-m^2;
-flavor=CenterDot@@(flavor/.a[i_]:>t^a[i]);
+flavor=CenterDot@@(flavor/.\[DoubleStruckA][i_]:>\[DoubleStruckT]^\[DoubleStruckA][i]);
  flavor num/den
 ]
 
@@ -576,10 +576,10 @@ NC[i_,j_]:=NonCommutativeMultiply[i,j]-NonCommutativeMultiply[j,i]
 \[CapitalOmega][f1_,f2_,g__]:=\[CapitalOmega][\[CapitalOmega][f1,f2],g]
 
 
-S[f_T]:=If[Length[f]>1,-f-Sum[\[FivePointedStar][S[f[[1;;i]]],f[[i+1;;Length[f]]]],{i,1,Length[f]-1}],-f]/.T[gg___]:>T@@(Sort/@{gg})
-S[f_Plus]:=(NonCommutativeMultiply[f]//ExpandNCM)/.NonCommutativeMultiply-> S
-S[f_Times]:=(NonCommutativeMultiply[f]//ExpandNCM)/.NonCommutativeMultiply-> S
-S[\[DoubleStruckCapitalI]]:=\[DoubleStruckCapitalI]
+\[DoubleStruckCapitalS][f_T]:=If[Length[f]>1,-f-Sum[\[FivePointedStar][\[DoubleStruckCapitalS][f[[1;;i]]],f[[i+1;;Length[f]]]],{i,1,Length[f]-1}],-f]/.T[gg___]:>T@@(Sort/@{gg})
+\[DoubleStruckCapitalS][f_Plus]:=(NonCommutativeMultiply[f]//ExpandNCM)/.NonCommutativeMultiply-> \[DoubleStruckCapitalS]
+\[DoubleStruckCapitalS][f_Times]:=(NonCommutativeMultiply[f]//ExpandNCM)/.NonCommutativeMultiply-> \[DoubleStruckCapitalS]
+\[DoubleStruckCapitalS][\[DoubleStruckCapitalI]]:=\[DoubleStruckCapitalI]
 
 
 \[CapitalDelta][f_T]:=If[Length[f]>1,CircleTimes[\[DoubleStruckCapitalI],f]+CircleTimes[f,\[DoubleStruckCapitalI]]+Sum[CircleTimes[f[[1;;i]],f[[i+1;;Length[f]]]]//ExpandCT,{i,1,Length[f]-1}],CircleTimes[\[DoubleStruckCapitalI],f]+CircleTimes[f,\[DoubleStruckCapitalI]]]
@@ -1019,7 +1019,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1238,7 +1238,7 @@ indexCoefficient[dot[p1__,f_,p2__],f_[ix1_lI,ix2_lI]] := dot[p1,ix1]*dot[ix2,p2]
 indexCoefficient[expr_,_] := expr
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
