@@ -324,14 +324,14 @@ declareTensorHead[{F},{"rank"-> 2}];*)
 (*Simplifications*)
 
 
-nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i],
+nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],\[DoubleStruckA][i_]:> Subscript[\[DoubleStruckA], i],
 dot[f___]:> CenterDot[f],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],
 a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[_]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[_]:>v,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
 (*niceF={dot[f_]:> CenterDot[f,f],dot[f__]:> CenterDot[f],p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i]};*)
 
 
 (*niceT={T[f___]:>(Subscript[T, f]/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")"}*)
-niceT={T[f___]:>(Subscript[T, f]/. List->L),a[i_]:>t^Subscript[a, i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
+niceT={T[f___]:>(Subscript[T, f]/. List->L),\[DoubleStruckA][i_]:>\[DoubleStruckT]^Subscript[\[DoubleStruckA], i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
 SubscriptBox[\(T\), \(f2\)], \("\<(\>" <> ToString /@ {f1} <> "\<)\>"\)]\)/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")",ET[f1_GT,{f2__}]:>f1 tr[CenterDot[f2]]}
 
 
@@ -446,7 +446,7 @@ num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_
 den=1/2 dot[p[0]+p[1]]Product[1/2 dot[p[0]+p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
 num/den
 ]
-ET2F[f_GT,flavors_List]:=Module[{flavor=flavors,od=f[[2]],cod=f[[1]],phat,leftv,rightv,num,den,scalars},phat=Range[Length@od];
+ET2F[f_ET]:=Module[{flavor=f[[2]],od=f[[1,2]],cod=f[[1,1]],phat,leftv,rightv,num,den,scalars},phat=Range[Length@od];
 scalars=Complement[Flatten[cod],Flatten[od]];
 (*If[od===T[{i_}]];*)
 Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)phat[[i]]=p@@Select[Flatten[Join[scalars,od[[1;;(i-1)]]]],Position[cod,#][[1,1]]<Position[cod,od[[i,1]]][[1,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,1,Length@od}];leftv=phat;
@@ -454,11 +454,10 @@ rightv=Range[Length@od];
 Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)rightv[[i]]=p@@Select[Flatten[Join[scalars,od[[1;;(i-1)]]]],Position[cod,#][[1,1]]>Position[cod,od[[i,-1]]][[1,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,1,Length@od}];
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,Length@od}];
 den=1/2 dot[p@@scalars]Product[1/2 dot[(p@@scalars)+p@@Flatten[od[[1;;(i-1)]]]],{i,2,Length@od}];
-den=den/.dot[gg__]:>dot[gg]-m^2;
 flavor=CenterDot@@(flavor/.\[DoubleStruckA][i_]:>\[DoubleStruckT]^\[DoubleStruckA][i]);
  flavor num/den
 ]
-ET2F2s[f_GT,flavors_List]:=Module[{flavor=flavors,od=f[[2]],cod=f[[1]],phat,leftv,rightv,num,den,refs,sc,refg},leftv=Range[Length@od];
+ET2F2s[f_ET]:=Module[{flavor=f[[2]],od=f[[1,2]],cod=f[[1,1]],phat,leftv,rightv,num,den,refs,sc,refg},leftv=Range[Length@od];
 refs=Join[Complement[Flatten[cod],Flatten[od]],{Min[Flatten[od]]}];
 sc=First@Complement[Flatten[cod],Flatten[od]];
 refg=Min[Flatten[od]];
@@ -471,7 +470,6 @@ rightv[[1]]=p@@Complement[Flatten[cod],Flatten[od]];
 Table[(*If[od[[i,1]]>Max[Flatten[od\[LeftDoubleBracket]1;;(i-1)\[RightDoubleBracket]]],*)rightv[[i]]=p@@Select[DeleteDuplicates[Flatten[Join[refs,od[[1;;(i-1)]]]]],Position[cod,#][[1,1]]>Position[cod,od[[i,-1]]][[1,1]]&](*,phat[[i]]=p@@Range[od[[i,1]]-1]]*),{i,2,Length@od}];
 num=Times@@Table[dot[leftv[[i]],F/@od[[i]],rightv[[i]]]/.dot[gg_,List[gf___],hh_]:> dot[gg,gf,hh],{i,1,Length@od}];
 den=dot[p@@refs]Product[1/2 dot[(p@@DeleteDuplicates[Flatten[Join[refs,od[[1;;(i-1)]]]]])],{i,2,Length@od}];
-den=den/.dot[gg__]:>dot[gg]-m^2;
 flavor=CenterDot@@(flavor/.\[DoubleStruckA][i_]:>\[DoubleStruckT]^\[DoubleStruckA][i]);
  flavor num/den
 ]
