@@ -324,14 +324,14 @@ declareTensorHead[{F},{"rank"-> 2}];*)
 (*Simplifications*)
 
 
-nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i],
+nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],\[DoubleStruckA][i_]:> Subscript[\[DoubleStruckA], i],
 dot[f___]:> CenterDot[f],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],
 a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[_]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[_]:>v,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
 (*niceF={dot[f_]:> CenterDot[f,f],dot[f__]:> CenterDot[f],p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i]};*)
 
 
 (*niceT={T[f___]:>(Subscript[T, f]/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")"}*)
-niceT={T[f___]:>(Subscript[T, f]/. List->L),a[i_]:>t^Subscript[a, i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
+niceT={T[f___]:>(Subscript[T, f]/. List->L),\[DoubleStruckA][i_]:>\[DoubleStruckT]^Subscript[\[DoubleStruckA], i],GT[{f1___},{f2___}]:>(\!\(\*SuperscriptBox[
 SubscriptBox[\(T\), \(f2\)], \("\<(\>" <> ToString /@ {f1} <> "\<)\>"\)]\)/. List->L),L[f1___]:>"("<>ToString/@{f1}<>")",ET[f1_GT,{f2__}]:>f1 tr[CenterDot[f2]]}
 
 
