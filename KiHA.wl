@@ -326,7 +326,7 @@ declareTensorHead[{F},{"rank"-> 2}];*)
 
 nice={p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],\[DoubleStruckA][i_]:> Subscript[\[DoubleStruckA], i],
 dot[f___]:> CenterDot[f],CenterDot[p[i_],\[Epsilon][j_]]:>CenterDot[\[Epsilon][j],p[i]],
-a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spBracket-> Diamond,spB[_]:> \!\(\*OverscriptBox[\(u\), \(_\)]\),spA[_]:>v,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
+a_[i_]?vectorQ:> Subscript[a, i],a_[i_]?tensorQ:> Subscript[a, i],spp-> Diamond,J[f1_,f2_,f3_]:> Subscript[J, f2],J[f1_,f2_]:> Subscript[J, f2]};
 (*niceF={dot[f_]:> CenterDot[f,f],dot[f__]:> CenterDot[f],p[i__]:> Subscript[p, i],F[i_]:> Subscript[F, i],a[i_]:> Subscript[a, i]};*)
 
 
