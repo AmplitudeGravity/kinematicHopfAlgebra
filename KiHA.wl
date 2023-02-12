@@ -882,7 +882,7 @@ SetAttributes[aMu,NHoldAll];
 declareDistributive[aMu,tensorQ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spinors*)
 
 
@@ -921,12 +921,12 @@ SetAttributes[spp,NHoldAll];
 spp[sp_?spQ,sp_?spQ] := 0 /; patternFreeQ[{sp}]
 spp[sp1_spA,sp2_spA] := -spp[sp2,sp1] /; (!OrderedQ[{sp1,sp2}] && patternFreeQ[{sp1,sp2}])
 spp[sp1_spB,sp2_spB] := -spp[sp2,sp1] /; (!OrderedQ[{sp1,sp2}] && patternFreeQ[{sp1,sp2}])
-spp[spA[p1_],args___,spA[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && OddQ[Length[{args}]] := 0
-spp[spB[p1_],args___,spB[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && OddQ[Length[{args}]] := 0
-spp[spA[p1_],args___,spB[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && EvenQ[Length[{args}]] := 0
-spp[spB[p1_],args___,spA[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && EvenQ[Length[{args}]] := 0
+spp[spA[p1_],args___,spA[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && OddQ[GLength[{args}]] := 0
+spp[spB[p1_],args___,spB[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && OddQ[GLength[{args}]] := 0
+spp[spA[p1_],args___,spB[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && EvenQ[GLength[{args}]] := 0
+spp[spB[p1_],args___,spA[p2_],OptionsPattern[]] /; patternFreeQ[{args}] && EvenQ[GLength[{args}]] := 0
 
-spp[___,p_?tensorQ,___] /; If[tensorRank[p]===1,False,Message[spp::badrank]; True] := $Failed
+(*spp[___,p_?tensorQ,___] /; If[tensorRank[p]===1,False,Message[spp::badrank]; True] := $Failed*)
 
 spp[spA[p_],p_,___] := 0
 spp[spB[p_],p_,___] := 0
@@ -970,6 +970,9 @@ spp /: MakeBoxes[spp[spB[p1_],p2__,spA[p3_]],TraditionalForm] :=
 		FormBox[RowBox[Join[{"["<>ToString[p1[[1]]]<>"|"},Riffle[MakeBoxes[#,TraditionalForm]&/@{p2},"|"],{"|"<>ToString[p3[[1]]]<>"\[RightAngleBracket]"}]],TraditionalForm],
 		FormBox[RowBox[Join[{"["}, Riffle[MakeBoxes[#,TraditionalForm]&/@{p1,p2,p3},"|"],{"\[RightAngleBracket]"}]], TraditionalForm]
 	] 
+
+
+GLength[f_List]:=Sum[tensorRank[f[ii]],{ii,Length@f}]
 
 
 declareDistributive[spOuter,spQ[#] || vectorQ[#] &]
