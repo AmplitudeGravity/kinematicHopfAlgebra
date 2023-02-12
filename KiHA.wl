@@ -972,7 +972,7 @@ spp /: MakeBoxes[spp[spB[p1_],p2__,spA[p3_]],TraditionalForm] :=
 	] 
 
 
-GLength[f_List]:=Sum[tensorRank[f[ii]],{ii,Length@f}]
+GLength[f_List]:=Sum[tensorRank[f[[ii]]],{ii,Length@f}]
 
 
 declareDistributive[spOuter,spQ[#] || vectorQ[#] &]
@@ -1022,7 +1022,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Free Indices*)
 
 
