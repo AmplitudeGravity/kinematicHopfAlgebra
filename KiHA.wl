@@ -972,7 +972,7 @@ spp /: MakeBoxes[spp[spB[p1_],p2__,spA[p3_]],TraditionalForm] :=
 	] 
 
 
-GLength[f_List]:=Sum[tensorRank[(f[[ii]]//Cases[#,x_/;tensorQ[x],{0,\[Infinity]}]&)//First],{ii,Length@f}]
+GLength[f_List]:=Sum[If[Head[f[[ii]]]===lI,1,tensorRank[(f[[ii]]//Cases[#,x_/;tensorQ[x],{0,\[Infinity]}]&)//First]],{ii,Length@f}]
 
 
 declareDistributive[spOuter,spQ[#] || vectorQ[#] &]
