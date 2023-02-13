@@ -1342,10 +1342,10 @@ X2Prop[f_X]:=(f[[1]]/.(i_:> P[i]/;IntegerQ[i])/.X->propG)(f[[2]]/.(i_:> P[i]/;In
 
 
 JQCD[gg_List]:=If[Length[gg]==1,EJ[gg[[1]]],Module[{numerVector,PPVector,Amp,bp},bp=BinaryProduct[gg];
-numerVector=Table[((bp[[ii]]/.i_:> J[p[i],\[Epsilon][p[i]]]/;IntegerQ[i]/.X-> \[ScriptCapitalF]/.V2spBracket/.k[f_]:> f/.P[f_]:> f//expandBracket)/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//expandBracket)/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//Expand,{ii,Length@bp}];
+numerVector=Table[((bp[[ii]]/.i_:> J[p[i],\[Epsilon][p[i]]]/;IntegerQ[i]/.X-> \[ScriptCapitalF]/.V2spBracket/.k[f_]:> f/.P[f_]:> f(*//expandBracket*))/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0(*//expandBracket*))/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//Expand,{ii,Length@bp}];
 (*Print[numerVector];*)
 PPVector=bp/.(i_:> p[i]/;IntegerQ[i])/.X-> PG/.dot[P[f_],f1_]:> dot[k[f],f1]/.dot[f1_,P[f_]]:> dot[f1,k[f]]/.P[f_]:> 1(*/.P[Sum[p[gg[[i]]],{i,Length[gg]}]]\[RuleDelayed] 1/.dot[1,1]\[RuleDelayed] 1*);
-Amp=(Sum[numerVector[[i]]/PPVector[[i]],{i,Length@PPVector}]/.P[f_]:> f/.k[f_]:> f/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0//expandBracket)/.spBracket[spB[\[Beta]],f_,spA[\[Alpha]]]:> dot[f,v]
+Amp=(Sum[numerVector[[i]]/PPVector[[i]],{i,Length@PPVector}]/.P[f_]:> f/.k[f_]:> f/.spBracket[spB[\[Beta]],f___,Q[g_],spA[\[Alpha]]]:>0(*//expandBracket*))/.spBracket[spB[\[Beta]],f_,spA[\[Alpha]]]:> dot[f,v]
 ]]
 
 
