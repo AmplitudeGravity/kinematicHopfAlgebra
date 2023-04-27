@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v1.8),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
+  Print][" KiHA(v1.9),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
  It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
@@ -39,6 +39,7 @@ BinaryProduct::usage ="the binary products in a given order"
 GBinaryProduct::usage ="all the binary products"
 X::usage="Empty bracket"
 ET::usage="extended generator of GT with flavor ET[GT[{1,3,2},{{3}}],{a[1],a[2]}]"
+FT::usage="extended generator of GT with flavor FT[{{1,2},3}]"
 GT::usage="extended generator of T with colour group GT[{1,3,2},{{3}}], first arg is colour order, sencond arg is the kinematic partitions"
 T::usage="algebra generator, e.g. T[{1},{2,3}],"
 \[DoubleStruckA]::usage="generator index of the flavor group"
@@ -566,8 +567,6 @@ NC[i_,j_]:=NonCommutativeMultiply[i,j]-NonCommutativeMultiply[j,i]
 \[FivePointedStar][f_GT,g_GT]:=If[f[[2]]=={}||g[[2]]=={},T@@Join[f[[2]],g[[2]]]/.T[h___]:> GT[Join[f[[1]],g[[1]]],SortBy[#1,Position[Join[f[[1]],g[[1]]],#]&]&/@{h}],\[FivePointedStar][T@@f[[2]],T@@g[[2]]]/.T[h__]:> GT[Join[f[[1]],g[[1]]],SortBy[#1,Position[Join[f[[1]],g[[1]]],#]&]&/@{h}]
 ]
 \[FivePointedStar][f_ET ,g_ET]:=Module[{groupGens},groupGens=Join[f[[2]],g[[2]]] ;\[FivePointedStar][f[[1]] ,g[[1]]]/.GT[gg__]:>ET[GT[gg],groupGens]]
-
-
 \[FivePointedStar][J1_FT,J2_FT]:=Module[{tausJ1,tausJ2,ranks0a,ranks0,ranks2,tlist,res0,res2,res},
 tausJ1=T@@J1[[All,1]];
 tausJ2=T@@J2[[All,1]];
@@ -579,6 +578,9 @@ res0=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks0}]/;Length[{f}]==Length[ranks0
 res2=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks2}]/;Length[{f}]==Length[ranks2]/.T[f__]:>0/;Length[{f}]==(Length[ranks0]-1);
 res0+res2/.{{g__},od_Integer}:>{{1,g},od}/;({g}[[1]]>1)
 ]
+
+
+
 
 
 \[ScriptCapitalK][i_,0]:=ET[GT[{i},{}],{\[DoubleStruckA][i]}]
