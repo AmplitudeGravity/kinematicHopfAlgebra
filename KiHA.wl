@@ -568,6 +568,19 @@ NC[i_,j_]:=NonCommutativeMultiply[i,j]-NonCommutativeMultiply[j,i]
 \[FivePointedStar][f_ET ,g_ET]:=Module[{groupGens},groupGens=Join[f[[2]],g[[2]]] ;\[FivePointedStar][f[[1]] ,g[[1]]]/.GT[gg__]:>ET[GT[gg],groupGens]]
 
 
+\[FivePointedStar][J1_FT,J2_FT]:=Module[{tausJ1,tausJ2,ranks0a,ranks0,ranks2,tlist,res0,res2,res},
+tausJ1=T@@J1[[All,1]];
+tausJ2=T@@J2[[All,1]];
+ranks0a=List@@J1[[All,2]];
+ranks0=Join[List@@J1[[All,2]],{0}];
+ranks2=Join[List@@J1[[All,2]],{2}];
+tlist=\[FivePointedStar][tausJ1,tausJ2];
+res0=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks0}]/;Length[{f}]==Length[ranks0]/.T[f__]:>FT@@MapThread[List,{{f},ranks0a}]/;Length[{f}]==(Length[ranks0]-1);
+res2=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks2}]/;Length[{f}]==Length[ranks2]/.T[f__]:>0/;Length[{f}]==(Length[ranks0]-1);
+res0+res2/.{{g__},od_Integer}:>{{1,g},od}/;({g}[[1]]>1)
+]
+
+
 \[ScriptCapitalK][i_,0]:=ET[GT[{i},{}],{\[DoubleStruckA][i]}]
 \[ScriptCapitalK][i_,1]:=ET[GT[{i},{{i}}],{}]
 
