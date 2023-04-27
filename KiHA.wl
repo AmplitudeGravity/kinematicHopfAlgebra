@@ -576,7 +576,7 @@ ranks2=Join[List@@J1[[All,2]],{2}];
 tlist=\[FivePointedStar][tausJ1,tausJ2];
 res0=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks0}]/;Length[{f}]==Length[ranks0]/.T[f__]:>FT@@MapThread[List,{{f},ranks0a}]/;Length[{f}]==(Length[ranks0]-1);
 res2=tlist/.T[f__]:>FT@@MapThread[List,{{f},ranks2}]/;Length[{f}]==Length[ranks2]/.T[f__]:>0/;Length[{f}]==(Length[ranks0]-1);
-res0+res2/.{{g__},od_Integer}:>{{1,g},od}/;({g}[[1]]>1)
+res0+res2/.FT[{{g__},od_Integer},h___]:>FT[{{1,g},od},h]/;({g}[[1]]>1)
 ]
 
 
