@@ -337,7 +337,7 @@ SubscriptBox[\(T\), \(f2\)], \("\<(\>" <> ToString /@ {f1} <> "\<)\>"\)]\)/. Lis
 
 
 rmzero={dot[a_,F[i_],a_]:> 0,dot[p[],f__,v]:> 0,dot[p[],g___]:> 0,dot[g___,p[]]:> 0};
-rmzeroT={T[{i_},g___]:> 0,T[f__,{1,h___},g___]:>0};
+rmzeroT={T[{i_},g___]:> 0,T[f__,{1,h___},g___]:>0,FT[f1_,g__]:>0/;(Length[f1[[1]]]==1||f1[[1,1]]=!=1)};
 
 
 SetAttributes[Diamond,{NHoldAll}];
