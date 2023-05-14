@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v1.9),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
+  Print][" KiHA(v2.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
  It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
@@ -59,7 +59,13 @@ ET2F2s ::usage ="transform generators to strengthen tensor form in amplitude wit
 \[DoubleStruckCapitalS] ::usage ="antipode"
 \[CapitalDelta] ::usage ="coproduct"
 \[DoubleStruckCapitalI] ::usage ="Identity"
+sp::usage="spin chain product"
 Diamond::usage="a distributive general product"
+
+
+KSetPartitions::usage="KSetPartitions[list,number of subsets]"
+KSetPartitionsEmpty::usage="including empty sets KSetPartitionsEmpty[list,number of subsets]"
+SetPartitionsOrdered::usage="SetPartitionsOrdered[number of subsets]"
 
 
 ddmBasis::usage ="generate the ddm basis, ddmBasis[n]"
@@ -73,6 +79,16 @@ NC::usage="commutator of the non-commutative multiply"
 
 (* ::Subsection:: *)
 (*QCD current*)
+
+
+numRecQCD::usage="BCJ numerator for QCD amplitude numRecQCD[n] or numRecQCD[{1,2,3...}] "
+
+
+NumRec::usage="BCJ numerator for QCD amplitude NumRec[{1,2,3...}] "
+
+
+FT2F::usage="transform fermion algebra to F form "
+FRank2::usage="G2 function "
 
 
 JQCD::usage="Generate the qcd current from current algebra JQCD[{1,2,3,4}]"
@@ -249,7 +265,15 @@ contract::author = "Gustav Mogull"
 
 
 contractAnti::usage = "contractAnti[expr] contract in expr with the anti-symmetric tensor or vectors"
-contract::author = "Gang Chen"
+contractAnti::author = "Gang Chen"
+
+
+contractspp::usage = "contractspp[expr] contract in expr with index in spp"
+contractspp::author = "Gang Chen"
+
+
+contractSp::usage = "contractSp[expr] nice form of the contract in expr with index in spp"
+contractSp::author = "Gang Chen"
 
 
 expandTensor::usage="expandTensor[dot[f]] expands all the tensor into the conponent"
@@ -270,7 +294,7 @@ exposeIndex::author = "Gustav Mogull"
 indexCoefficient::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -321,7 +345,7 @@ Begin["`Private`"]
 declareTensorHead[{F},{"rank"-> 2}];*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simplifications*)
 
 
@@ -348,7 +372,7 @@ declareDistributive[Diamond,vectorQ];
 (*Generating the binary product*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*BinaryProduct and DDM*)
 
 
@@ -407,7 +431,40 @@ fl=f[[1;;(idmax[[1]]-1)]];2dot[p[imax],(p/@fl)//Total]KLTR[fr]],Length[f]==2,2do
 KLTRM[n_]:=KLTR/@(Drop[#,-1]&/@ddmBasis[Range[n]])
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
+(*SetPartitions*)
+
+
+KSetPartitions[0,0]:={{}}
+KSetPartitions[{},0]:={{}}
+KSetPartitions[s_List,0]:={}
+KSetPartitions[s_List,k_Integer]:={}/;k>Length[s]
+KSetPartitions[s_List,k_Integer]:={({#1}&)/@s}/;k===Length[s]
+KSetPartitions[s_List,k_Integer]:=Block[{$RecursionLimit=Infinity,j},Join[(Prepend[#1,{First[s]}]&)/@KSetPartitions[Rest[s],k-1],Flatten[(Table[Prepend[Delete[#1,j],Prepend[#1[[j]],s[[1]]]],{j,Length[#1]}]&)/@KSetPartitions[Rest[s],k],1]]]/;k>0&&k<Length[s]
+KSetPartitions[0,(k_Integer)?Positive]:={}
+KSetPartitions[(n_Integer)?Positive,0]:={}
+KSetPartitions[(n_Integer)?Positive,(k_Integer)?Positive]:=KSetPartitions[Range[n],k]
+SetPartitiona:={{}}
+SetPartitions[{}]:={{}}
+SetPartitions[s_List]:=Flatten[Table[KSetPartitions[s,i],{i,2,Length[s]-2}],1]
+SetPartitions[(n_Integer)?Positive]:=SetPartitions[Range[n]]
+NSetPartitions[s_List,n_Integer]:=Select[SetPartitions[s],Union[Length/@#]=={2}&];
+KSetPartitionsEmpty[s_List,k_Integer]:=Module[{app,KMod},app=KSetPartitions[s,k];
+Do[KMod=KSetPartitions[s,q];
+Do[Do[AppendTo[KMod[[i]],{}],{j,1,k-q}];
+AppendTo[app,KMod[[i]]],{i,Length[KSetPartitions[s,q]]}],{q,1,k-1}];Return[app]];
+KSetPartitionsEmptyPerm[s_List,k_Integer]:=Module[{app,KMod,app2={}},app=KSetPartitions[s,k];
+Do[KMod=KSetPartitions[s,q];
+Do[Do[AppendTo[KMod[[i]],{}],{j,1,k-q}];
+AppendTo[app,KMod[[i]]],{i,Length[KSetPartitions[s,q]]}],{q,1,k-1}];
+Do[AppendTo[app2,Permutations[app[[ii]]]],{ii,Length[app]}];
+app2=Flatten[app2,1]//DeleteDuplicates;Return[app2]];
+SetPartitionsOrdered[1]={{{1}}};
+SetPartitionsOrdered[n_Integer]:=Module[{app={},previous=SetPartitionsOrdered[n-1]},Do[app=Join[app,{Append[previous[[ii,1;;-2]],Append[previous[[ii,-1]],n]],AppendTo[previous[[ii]],{n}]}],{ii,Length[previous]}];
+Return[app]];
+
+
+(* ::Subsection::Closed:: *)
 (*Algebraic generators to dot product of F*)
 
 
@@ -478,6 +535,34 @@ flavor=CenterDot@@(flavor/.\[DoubleStruckA][i_]:>\[DoubleStruckT]^\[DoubleStruck
 ]
 
 
+FT2F[f_FT]:=Module[{fls,od,odl,n,phat,leftv,rightv,num,num1,den,refs,sc,refg},
+fls=List@@f;
+od=fls[[All,1]];
+n=2+Length@(od//Flatten);
+leftv=Range[Length@od];
+     leftv[[1]]=0;
+rightv=Range[Length@od];
+     rightv[[1]]=0;
+Table[
+odl=Flatten[od[[1;;(i-1)]]];
+leftv[[i]]=p@@Select[odl,#<od[[i,1]]&];
+rightv[[i]]=p@@Join[{n},Select[odl,#>od[[i,-1]]&]],{i,2,Length@od}];
+num=dot[p[n],F[Sequence@@od[[1]]],lI[1]]sp[lI[1]]+1/4 dot[p[1],F[Sequence@@Rest[od[[1]]]],lI[1]] sp[F[1], lI[1]];
+Do[If[fls[[ii,2]]==2,num=num/.sp[gg__]:>sp[gg,F[leftv[[ii]],od[[ii]]]],num=num/.sp[gg__]:>2dot[leftv[[ii]],F[Sequence@@od[[ii]]],rightv[[ii]]]sp[gg]],{ii,2,Length@fls}];
+den=dot[p[n,1]]Product[ dot[(p@@Flatten[Join[{n},od[[1;;(i-1)]]]])],{i,2,Length@od}];
+den=den;
+  (num/den)//.sp[f1___,F[p[g__],{i_,h___}],f2___]:>FRank2[p[g],{i,h}]sp[f1,lI[i],lI[i,0],f2]
+]
+(*FRank2[pv_,{i_}]:=dot[pv,F[i],lI[i]]p[i][lI[i,0]]
+FRank2[pv_,od_List]:=FRank2[pv,od]=Module[{fewF,newF1,newF2},fewF=FRank2[pv,od[[1;;-2]]]//Expand;newF1=fewF/.dot[f__,lI[i_,0]]:>dot[f,F[od[[-1]]],lI[i,0]]/.p[ii__][lI[i_,0]]:>dot[p[ii],F[od[[-1]]],lI[i,0]];
+newF2=fewF/.dot[h__,lI[i_]]dot[p[f__],g__,lI[i_,0]]:>0(*/.dot[h__,lI[i_]]dot[p[f__],g__,lI[i_,0]]:>dot[h,Sequence@@{First[{g}]},lI[i]]dot[p[f],Sequence@@Rest[{g}],F[od[[-1]]],lI[i,0]]*)/.dot[h__,lI[i_]]p[ii__][lI[i_,0]]:>dot[h,F[od[[-1]]],lI[i]]dot[p[ii,od[[-1]]],lI[i,0]];
+newF1+newF2
+]*)
+FRank2[pv_,od_List]:=Module[{pts,lv,res},pts=KSetPartitionsEmpty[od,2];res=Sum[lv=p@@Select[pts[[ii,1]],#<pts[[ii,2,1]]&];dot[pv,F@@pts[[ii,1]],lI[od[[1]]]]dot[lv,F@@pts[[ii,2]],lI[od[[1]],0]],{ii,-1+Length@pts}];
+res=res+dot[pv,F@@od,lI[od[[1]]]]dot[p@@od,lI[od[[1]],0]]
+]
+
+
 partition[{x_}]:={{{x}}}
 partition[{r__,x_}]:=partition[{r,x}]=Join@@(ReplaceList[#,{{b___,{S__},a___}:>{b,{S,x},a},{S__}:>{S,{x}}}]&/@partition[{r}])
 mypartition[ls_,j_]:=Module[{allpt,tb1,tb2},allpt=partition[ls];
@@ -527,10 +612,29 @@ res=res/.M[f___]:>  Mt[M[f]]
 ]
 
 
+(*ClearAll[NumRec]*)
+NumRec[{1}]:=sp[\[Epsilon][1]]
+NumRec[{1,i2_}]:=-(1/(4dot[p[nv,1]]))dot[p[1],F[i2],lI[1]]sp[F[1],lI[1]]-1/dot[p[nv,1]] dot[p[nv],F[1],F[i2],lI[1]]sp[lI[1]]
+NumRec[od_List/;Length[od]>2]:=NumRec[od]=Module[{allsets,leftall,rightall,leftv,res,remains,partitions},
+partitions=KSetPartitions[od,2];
+(*Print[partitions];*)
+allsets=Drop[partitions,1];
+remains=partitions[[1]];
+res=Sum[
+leftall=allsets[[ii,1]];
+rightall=allsets[[ii,2]];
+leftv=p@@Join[{nv},Select[od,#<rightall[[1]]&]];
+NumRec[leftall]/.sp[f__]:>(-1)^(Length[rightall]+1) (dot[leftv[[2;;-1]],F[rightall],lI[rightall[[1]]]]/dot[p@@Join[{nv},leftall]])sp[f,p@@Join[{nv},leftall],lI[rightall[[1]]]],{ii,Length@allsets}];
+res=res+(-1)^Length[remains[[2]]]/(4dot[p[nv,1]]) dot[p[1],F[remains[[2]]],lI[1]]sp[F[1],lI[1]]+(-1)^Length[remains[[2]]]/dot[p[nv,1]] dot[p[nv],F[1],F[remains[[2]]],lI[1]]sp[lI[1]]
+]
+numRecQCD[n_]:=NumRec[Range[n-2]]/.sp[f__]:>spAB[p[n],f,p[n-1]]/.nv->n/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
+numRecQCD[od_List]:=NumRec[Range[Length@od]]/.sp[f__]:>spAB[p[Length@od],f,p[-1+Length@od]]/.nv->Length@od/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
+
+
 (*Programs on the Hopf algebra*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Hopf algebra*)
 
 
@@ -629,7 +733,7 @@ num/den
 CT2GT[f__]:= If[MemberQ[{f},\[DoubleStruckCapitalI]],Return[0],(GT2Cut@@{({f}/.GT[c_,g_]:>c)//Union//Flatten,({f}/.GT[c_,g_]:>Flatten[g])})Times[f]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*basic functions*)
 
 
@@ -706,7 +810,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -897,7 +1001,7 @@ SetAttributes[aMu,NHoldAll];
 declareDistributive[aMu,tensorQ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -1199,6 +1303,10 @@ Power[dot[ix_lI,p1__],2]:>(-1)^(Length[Cases[{p1},_?antiTensorQ]]) ((dot[##,p1]&
 
 
 
+contractspp[f_]:=f//.vector_[lI[i__]] spp[a___,lI[i__],b___]:>spp[a,vector,b]
+contractSp[f_]:=f//.dot[lI[i_],g__,lI[j_]]spp[a___,lI[i_],lI[j_],b___]:>sp[a,CenterDot[g],b]//.dot[g__,lI[i__]]spp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[lI[i__],g__]spp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[lI[i__],g__]sp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[g__,lI[i__]]sp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]
+
+
 (*contractv2[expr_] /; FreeQ[expr, lI, Infinity] := expr 
 contractv2[expr_lI] := expr
 contractv2[expr_Times] := Module[
@@ -1294,7 +1402,7 @@ massDim[p_?vectorQ] := 1
 massDim[__] := 0
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*QCD Current*)
 
 
