@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v2.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
+  Print][" KiHA(v3.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
  It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
@@ -93,6 +93,16 @@ FRank2::usage="G2 function "
 
 JQCD::usage="Generate the qcd current from current algebra JQCD[{1,2,3,4}]"
 X2Prop::usage="The propagators from the binary product. The last line is taken as on-shell"
+
+
+(* ::Subsection:: *)
+(*alpha' higher orders*)
+
+
+T2FF3F4::usage="transform F^3+F^4 kinematic algebra to F form"
+WFun::usage="W function in F^3+F^4 evaluation map"
+W::usage="Abstract W function"
+\[Alpha]::usage="string tension constant"
 
 
 (* ::Subsection:: *)
@@ -1141,7 +1151,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1478,6 +1488,56 @@ EJ[i_/;IntegerQ[i]]:=dot[\[Epsilon][p[i]],v]
 
 
 Jh[f_List,vv_]:=Module[{len=Length[f]},JQCD[Range[len]]]/.v-> vv/.\[Epsilon][p[i_]]:> \[Epsilon][i]/.{p[i_]:> f[[i,1]],\[Epsilon][i_]:> f[[i,2]]}
+
+
+(* ::Subsection:: *)
+(*alpha' higher orders*)
+
+
+cyclePermuteSet[od__]:=Module[{odlist={od}},Table[Join[odlist[[i;;-1]],odlist[[1;;i-1]]],{i,Length@odlist}]]
+
+
+trFLA[od__,i2_ ]:=Module[{lnest},lnest=(ExpandNCM/@(NonCommutativeMultiply/@(List@@(\[CapitalOmega][od]))))/.\[FivePointedStar]->Sequence/.NonCommutativeMultiply->F//Total;
+lnest=lnest/.F[ii__]:>tr[F[ii,i2]]
+]
+
+
+WFun[i1_]:=0
+WFun[i1_,i2_]:=\[Alpha] tr[F[i1],F[i2]] +\[Alpha]^2 dot[p[i1,i2]]tr[F[i1],F[i2]] 
+WFun[i1_,od__,i2_]:=Module[{lnest,cyc,cycs,res1,allnest,signs,res2,tau,res3,psMax},
+lnest=trFLA[i1,od,i2];
+res1=\[Alpha] lnest +\[Alpha]^2 dot[p[i1,od,i2]]lnest;
+(*Print[lnest];*)
+allnest=List@@lnest;
+signs=allnest/.tr[_]:>1;
+allnest=allnest/.Times[a_,tr[f_]]:>List@@f/.tr[f_]:>List@@f;
+(*Print[allnest];*)
+res2=Sum[
+cycs=cyclePermuteSet@@allnest[[kk]];
+(*Print[cycs];*)
+\[Alpha]^2 signs[[kk]]Table[cyc=cycs[[jj]];
+Sum[dot[p[cyc[[-1]]],F@@cyc[[1;;jj1]],p[cyc[[jj1+1]]]]trFLA@@cyc[[jj1+1;;-1]],{jj1,1,-2+Length@cyc}],{jj,Length@cycs}]/.p[]->0//Total,{kk,Length[allnest]}];
+tau={i1,od,i2};
+If[Length[tau]<4,res3=0,
+res3=\[Alpha]^2 Sum[trFLA@@tau[[1;;ii]]dot[p[tau[[ii]]],F@@tau[[ii+1;;jj-1]],p[tau[[jj]]]]trFLA@@tau[[jj;;-1]],{ii,2,Length[tau]-2},{jj,ii+1,Length[tau]-1}]/.F[]->Sequence[]];
+res1+res2+res3
+ ]
+
+
+T2FF3F4[f_T]:=Module[{fls,od,odi,odl,n,phat,leftv,rightv,num,num1,den,refs,sc,refg},
+fls=List@@f;
+od=fls;
+n=2+Length@(od//Flatten);
+leftv=Range[Length@od];
+     leftv[[1]]=v[0];
+Table[
+odl=Flatten[od[[1;;(i-1)]]];
+leftv[[i]]=p@@Select[odl,#<od[[i,1]]&],{i,2,Length@od}];num=Product[odi=od[[ii]];
+(*Print[odi];*)
+dot[leftv[[ii]],F[Sequence@@odi],v[0]]+Sum[dot[leftv[[ii]],F[Sequence@@odi[[1;;j1-1]]],p[odi[[j1]]]]W@@odi[[j1;;j2]]dot[p[odi[[j2]]],F[Sequence@@odi[[j2+1;;-1]]],v[0]],{j2,1,Length@odi},{j1,1,j2-1}],{ii,Length[od]}]/.dot[g1__,F[],g2__]:>dot[g1,g2];
+den=dot[v[0],p[1]]Product[ dot[v[0],(p@@Flatten[Join[{},od[[1;;(i-1)]]]])],{i,2,Length@od}];
+  (num/den)
+]
 
 
 (* ::Subsection:: *)
