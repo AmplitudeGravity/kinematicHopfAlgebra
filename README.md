@@ -79,7 +79,7 @@ $$
 \int \mathrm{d}^D x \text{Tr}\frac{1}{4} F_{\mu \nu} \,,
 $$
 
-$$ \int \mathrm{d}^D x \text{Tr}\Big\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}\Big[F_{\mu \nu}, F_{\lambda \rho}\Big]\Big[F^{\mu \nu}, F^{\lambda \rho}\Big]\Big\} $$
+$$ \int \mathrm{d}^D x \text{Tr}\Big\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}]\Big\} $$
 
 
 # Citation 
