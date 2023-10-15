@@ -76,6 +76,7 @@ $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \sta
 
 ## higher-derivative gauge field theory
 We consider the gauge field theory with higher order contraction of the strengthen tensor. 
+
 $$ \int \mathrm{d}^D x \text{Tr}\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}] \} $$
 
 The pre-numerator is obtained as 
