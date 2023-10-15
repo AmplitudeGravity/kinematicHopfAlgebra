@@ -1,5 +1,5 @@
 # kinematicHopfAlgebra
-This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fermions, YM+$F^3$+$F^4$. It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
+This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fermions, YM+ $F^3+F^4$. It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
 Examples are included. 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
