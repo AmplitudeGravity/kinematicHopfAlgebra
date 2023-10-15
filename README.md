@@ -80,7 +80,7 @@ $$
 $$
 
 $$
-\mathcal{S}_{\mathrm{YM}+F^3+F^4}=\int \mathrm{d}^D x \text{Tr}\left\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{' 2}}{4}\left[F_{\mu \nu}, F_{\lambda \rho}\right]\left[F^{\mu \nu}, F^{\lambda \rho}\right]\right\}\,,
+\int \mathrm{d}^D x \text{Tr}\left\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{' 2}}{4}\left[F_{\mu \nu}, F_{\lambda \rho}\right]\left[F^{\mu \nu}, F^{\lambda \rho}\right]\right\}\,,
 $$
 
 
