@@ -74,7 +74,24 @@ you get
 
 $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
+## higher-derivative gauge field theory
+We consider the gauge field theory with higher order contraction of the strengthen tensor. 
 
+$$ \int \mathrm{d}^D x \text{Tr}\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}] \} $$
+
+The pre-numerator is obtained as 
+```
+n = 5
+numJ = \[FivePointedStar] @@ Table[FT[{{i}, 1}], {i, 1, n - 2}] /. 
+    rmzeroT /. FT[f__] :> FT2F[FT[f]];
+numJ = % /. sp[f__] :> spAB[p[n], f, p[n - 1]] // Expand;
+numJ = numJ /. F[i__] :> Sequence @@ (F /@ {i});
+```
+
+Another version of the bcj numerator can be obtained recursively.
+```
+numRecQCD[5] // contractSp
+```
 
 # Citation 
 If you use **kinematicHopfAlgebra.wl**, please cite the following three papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
