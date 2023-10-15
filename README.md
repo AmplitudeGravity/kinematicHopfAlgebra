@@ -76,7 +76,7 @@ $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \sta
 
 ## higher-derivative gauge field thoery
 $$
-\mathcal{S}_{\mathrm{YM}+F^3+F^4}=\int \mathrm{d}^D x \text{Tr}\frac{1}{4} F_{\mu \nu} \,,
+\int \mathrm{d}^D x \text{Tr}\frac{1}{4} F_{\mu \nu} \,,
 $$
 
 $$
