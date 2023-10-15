@@ -96,44 +96,5 @@ numRecQCD[5] // contractSp
 # Citation 
 If you use **kinematicHopfAlgebra.wl**, please cite the following three papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
 
-```
-@article{Brandhuber:2021bsf,
-    author = "Brandhuber, Andreas and Chen, Gang and Johansson, Henrik and Travaglini, Gabriele and Wen, Congkao",
-    title = "{Kinematic Hopf Algebra for Bern-Carrasco-Johansson Numerators in Heavy-Mass Effective Field Theory and Yang-Mills Theory}",
-    eprint = "2111.15649",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "NORDITA 2021-091, QMUL-PH-21-45, SAGEX-21-34, UUITP-60/21",
-    doi = "10.1103/PhysRevLett.128.121601",
-    journal = "Phys. Rev. Lett.",
-    volume = "128",
-    number = "12",
-    pages = "121601",
-    year = "2022"
-}
-```
-```
-@article{Brandhuber:2022enp,
-    author = "Brandhuber, Andreas and Brown, Graham R. and Chen, Gang and Gowdy, Joshua and Travaglini, Gabriele and Wen, Congkao",
-    title = "{Amplitudes, Hopf algebras and the colour-kinematics duality}",
-    eprint = "2208.05886",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "QMUL-PH-22-18, SAGEX-22-27",
-    month = "8",
-    year = "2022"
-}
-```
-```
-@article{Chen:2022nei,
-    author = "Chen, Gang and Lin, Guanda and Wen, Congkao",
-    title = "{Kinematic Hopf algebra for amplitudes and form factors}",
-    eprint = "2208.05519",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "QMUL-PH-22-22",
-    month = "8",
-    year = "2022"
-}
-```
+
 
