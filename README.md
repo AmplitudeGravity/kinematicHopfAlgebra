@@ -3,6 +3,7 @@ This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fe
 Examples are included. 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
+Related paper for HEFT are  [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) .
 In HEFT, kinematic algebra is taken as current algebra. The building blocks are 
   - vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
   - tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: Tensor currents and map to all multiplicity  universal tensor product with multi polarisation vectors
@@ -41,7 +42,7 @@ $${\mathcal{N}}(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v
 All other BCJ numerators are obtained directly from the BCJ numerator by crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
-The kinematic algebra is taken as field algebra in the full theory of Yang-Mills-scalar+ $\phi^3$. The building blocks are 
+The code is for the paper [arxiv:2208.05886](https://arxiv.org/abs/2208.05886). The kinematic algebra is taken as field algebra in the full theory of Yang-Mills-scalar+ $\phi^3$. The building blocks are 
   * vector field ${\mathsf K_i}=T_{(i)}^{(i)}$
   * scalar field ${\mathsf K_j}=T^{(j)}$
   * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
@@ -75,9 +76,11 @@ you get
 $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
 ## higher-derivative gauge field theory
-We consider the gauge field theory with higher order contraction of the strengthen tensor. 
+We consider the gauge field theory with higher order contraction of the strengthen tensor.
 
 $$ \int \mathrm{d}^D x \text{Tr}\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}] \} $$
+
+The BCJ numerator and kinematic algebra is studied in [2310.11943](https://arxiv.org/abs/2310.11943) .
 
 ```
 num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
