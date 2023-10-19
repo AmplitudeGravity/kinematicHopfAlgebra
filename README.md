@@ -79,6 +79,33 @@ We consider the gauge field theory with higher order contraction of the strength
 
 $$ \int \mathrm{d}^D x \text{Tr}\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}] \} $$
 
+```
+num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
+   T[f__] :> T2FF3F4[T[f]];
+num=num /. W -> WFun /. F[i__] :> Sequence @@ (F /@ {i});
+```
+using the nice function
+```
+ClearAll[nicesp, niceFT]
+nicesp = 
+  Join[{\[Epsilon][p[i_]] :> \[Epsilon][i], 
+    p[f__] :> Subscript[p, StringJoin[ToString /@ {f}]], 
+    F[f__] :> Subscript[F, StringJoin[ToString /@ {f}]], 
+    CenterDot[Subscript[p, f_], Subscript[p, f_]] :> 
+\!\(\*SubsuperscriptBox[\(p\), \(f\), \(2\)]\)}, nice, {v[i_] :> v}];
+niceFT = 
+  Join[ niceT, {List[f_List, i_Integer] :> 
+     StringJoin["(", ToString /@ f, ")"]^ToString[i], 
+    FT[f__] :> Subscript[J, f]}];
+```
+
+you can see readable form of the pre-numerator
+```
+num//.nicesp
+```
+
+## QCD BCJ numerator
+The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
 The pre-numerator is obtained as 
 ```
 n = 5
