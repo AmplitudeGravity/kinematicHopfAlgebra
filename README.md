@@ -1,8 +1,9 @@
 # kinematicHopfAlgebra
-This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fermions. It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
+This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fermions, YM+ $F^3+F^4$. It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
 Examples are included. 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
+Related paper for KiHA in HEFT are  [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) .
 In HEFT, kinematic algebra is taken as current algebra. The building blocks are 
   - vector current $T^{(i)}_{(i)}$: correspond to the vector currents and map to a vector current(just the velocity $v$) product with a polarisation vector $\varepsilon_i$ .
   - tensor current $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: Tensor currents and map to all multiplicity  universal tensor product with multi polarisation vectors
@@ -41,7 +42,7 @@ $${\mathcal{N}}(123,v)=-\frac{v\cdot F_1\cdot F_2\cdot v p_{1,2}\cdot F_3\cdot v
 All other BCJ numerators are obtained directly from the BCJ numerator by crossing symmetry. For the $n$ point YM amplitude,  you only need to replace the velocity by the polarisation vector of the last line $\varepsilon_n$
 
 ## Yang-Mills-scalar theory
-The kinematic algebra is taken as field algebra in the full theory of Yang-Mills-scalar+ $\phi^3$. The building blocks are 
+The related paper for KiHA in Yang-Mills-scalar [arxiv:2208.05886](https://arxiv.org/abs/2208.05886). The kinematic algebra is taken as field algebra in the full theory of Yang-Mills-scalar+ $\phi^3$. The building blocks are 
   * vector field ${\mathsf K_i}=T_{(i)}^{(i)}$
   * scalar field ${\mathsf K_j}=T^{(j)}$
   * tensor field $T^{(\alpha)}_{(\tau_1),(\tau_2),\cdots, (\tau_r)}$: fields for multi-particle states lie on the interline, which is all multiplicity university mapping to the gauge invariant functions.
@@ -75,10 +76,38 @@ you get
 $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
 ## higher-derivative gauge field theory
-We consider the gauge field theory with higher order contraction of the strengthen tensor. 
+The related paper for KiHA in higher-derivative gauge field theory is  [2310.11943](https://arxiv.org/abs/2310.11943) .
+We consider the gauge field theory with higher order contraction of the strengthen tensor.
 
 $$ \int \mathrm{d}^D x \text{Tr}\{\frac{1}{4} F_{\mu \nu} F^{\mu \nu}+\frac{2 \alpha^{\prime}}{3} F_\mu^\nu F_\nu^\lambda F_\lambda^\mu+\frac{\alpha^{\prime 2}}{4}[F_{\mu \nu}, F_{\lambda \rho}][F^{\mu \nu}, F^{\lambda \rho}] \} $$
 
+```
+num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
+   T[f__] :> T2FF3F4[T[f]];
+num=num /. W -> WFun /. F[i__] :> Sequence @@ (F /@ {i});
+```
+using the nice function
+```
+ClearAll[nicesp, niceFT]
+nicesp = 
+  Join[{\[Epsilon][p[i_]] :> \[Epsilon][i], 
+    p[f__] :> Subscript[p, StringJoin[ToString /@ {f}]], 
+    F[f__] :> Subscript[F, StringJoin[ToString /@ {f}]], 
+    CenterDot[Subscript[p, f_], Subscript[p, f_]] :> 
+\!\(\*SubsuperscriptBox[\(p\), \(f\), \(2\)]\)}, nice, {v[i_] :> v}];
+niceFT = 
+  Join[ niceT, {List[f_List, i_Integer] :> 
+     StringJoin["(", ToString /@ f, ")"]^ToString[i], 
+    FT[f__] :> Subscript[J, f]}];
+```
+
+you can see readable form of the pre-numerator
+```
+num//.nicesp
+```
+
+## QCD BCJ numerator
+The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
 The pre-numerator is obtained as 
 ```
 n = 5
@@ -93,47 +122,7 @@ Another version of the bcj numerator can be obtained recursively.
 numRecQCD[5] // contractSp
 ```
 
-# Citation 
-If you use **kinematicHopfAlgebra.wl**, please cite the following three papers [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) and [arxiv:2208.05886](https://arxiv.org/abs/2208.05886)as following
 
-```
-@article{Brandhuber:2021bsf,
-    author = "Brandhuber, Andreas and Chen, Gang and Johansson, Henrik and Travaglini, Gabriele and Wen, Congkao",
-    title = "{Kinematic Hopf Algebra for Bern-Carrasco-Johansson Numerators in Heavy-Mass Effective Field Theory and Yang-Mills Theory}",
-    eprint = "2111.15649",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "NORDITA 2021-091, QMUL-PH-21-45, SAGEX-21-34, UUITP-60/21",
-    doi = "10.1103/PhysRevLett.128.121601",
-    journal = "Phys. Rev. Lett.",
-    volume = "128",
-    number = "12",
-    pages = "121601",
-    year = "2022"
-}
-```
-```
-@article{Brandhuber:2022enp,
-    author = "Brandhuber, Andreas and Brown, Graham R. and Chen, Gang and Gowdy, Joshua and Travaglini, Gabriele and Wen, Congkao",
-    title = "{Amplitudes, Hopf algebras and the colour-kinematics duality}",
-    eprint = "2208.05886",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "QMUL-PH-22-18, SAGEX-22-27",
-    month = "8",
-    year = "2022"
-}
-```
-```
-@article{Chen:2022nei,
-    author = "Chen, Gang and Lin, Guanda and Wen, Congkao",
-    title = "{Kinematic Hopf algebra for amplitudes and form factors}",
-    eprint = "2208.05519",
-    archivePrefix = "arXiv",
-    primaryClass = "hep-th",
-    reportNumber = "QMUL-PH-22-22",
-    month = "8",
-    year = "2022"
-}
-```
+
+
 
