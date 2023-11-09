@@ -266,6 +266,14 @@ lI::usage = "lI[i] represents the i'th Lorentz (spacetime) index."
 lI::author = "Gustav Mogull"
 
 
+ui::usage = "ui[j] represents the i'th Lorentz (spacetime) up index."
+ui::author = "Gang Chen"
+
+
+di::usage = "di[j] represents the i'th Lorentz (spacetime) down index."
+di::author = "Gang Chen"
+
+
 (* spI::usage = "spI[i] represents the i'th spinor index."
 spI::author = "Gustav Mogull" *)
 
@@ -820,7 +828,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Vectors*)
 
 
@@ -1151,11 +1159,13 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Free Indices*)
 
 
 SetAttributes[lI,NHoldAll]
+SetAttributes[ui,NHoldAll]
+SetAttributes[di,NHoldAll]
 (* SetAttributes[spI,NHoldAll] *)
 
 
@@ -1490,7 +1500,7 @@ EJ[i_/;IntegerQ[i]]:=dot[\[Epsilon][p[i]],v]
 Jh[f_List,vv_]:=Module[{len=Length[f]},JQCD[Range[len]]]/.v-> vv/.\[Epsilon][p[i_]]:> \[Epsilon][i]/.{p[i_]:> f[[i,1]],\[Epsilon][i_]:> f[[i,2]]}
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*alpha' higher orders*)
 
 
