@@ -32,7 +32,7 @@ If[$Notebooks,
 
 
 nice::usage ="nice the output form, //.nice"
-niceT::usage ="nice the output form, //.nice"
+niceT::usage ="nice the output form, //.niceT"
 rmzero::usage ="remove the trivial terms dot prodoct functions"
 rmzeroT::usage ="remove the trivial terms in T generator"
 BinaryProduct::usage ="the binary products in a given order"
@@ -266,11 +266,11 @@ lI::usage = "lI[i] represents the i'th Lorentz (spacetime) index."
 lI::author = "Gustav Mogull"
 
 
-ui::usage = "ui[j] represents the i'th Lorentz (spacetime) up index."
+ui::usage = "ui[j] represents the i'th general metric  up index."
 ui::author = "Gang Chen"
 
 
-di::usage = "di[j] represents the i'th Lorentz (spacetime) down index."
+di::usage = "di[j] represents the i'th general metric down index."
 di::author = "Gang Chen"
 
 
@@ -955,6 +955,12 @@ dot[p1_,p2_] := dot[p2,p1] /; (!OrderedQ[{p1,p2}] && patternFreeQ[{p1,p2}])
 dot[vec_?vectorQ,ix_lI] := vec[ix]
 dot[ix_lI,vec_?vectorQ] := vec[ix]
 dot[ix1_lI,ix2_lI] := eta[ix1,ix2]
+
+dot[vec_?vectorQ,ix_ui] := vec[ix]
+dot[ix_ui,vec_?vectorQ] := vec[ix]
+
+dot[vec_?vectorQ,ix_di] := vec[ix]
+dot[ix_di,vec_?vectorQ] := vec[ix]
 
 dot /: MakeBoxes[dot[p1_Plus,p1_Plus],TraditionalForm] := FormBox[SuperscriptBox[RowBox[{"(",MakeBoxes[p1,TraditionalForm],")"}],"2"],TraditionalForm]
 dot /: MakeBoxes[dot[p1_,p1_],TraditionalForm] := FormBox[SuperscriptBox[MakeBoxes[p1,TraditionalForm],"2"],TraditionalForm]
