@@ -1,0 +1,2486 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    100778,       2478]
+NotebookOptionsPosition[     97765,       2418]
+NotebookOutlinePosition[     98663,       2444]
+CellTagsIndexPosition[     98558,       2439]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Get", "[", "\"\<basicfun.m\>\"", "]"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Get", "[", "\"\<KiHA.wl\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.869017756626953*^9, 3.869017796936942*^9}, 
+   3.869017940661934*^9, {3.869017980837627*^9, 3.869017998586751*^9}, {
+   3.869269850277069*^9, 3.869269861410946*^9}, {3.869269921749385*^9, 
+   3.869269930196027*^9}, 3.869269978872448*^9, {3.871212170414*^9, 
+   3.871212170741899*^9}, 3.8712528702230043`*^9, 3.871253176496983*^9, {
+   3.871267465300568*^9, 3.871267471825403*^9}, {3.906683174542469*^9, 
+   3.90668317577493*^9}},
+ CellLabel->
+  "In[214]:=",ExpressionUUID->"8b241212-cb5e-4c49-a1af-98e2bcd66219"],
+
+Cell[BoxData["\<\"/Users/gangchen/Documents/GitHub/kinematicHopfAlgebra\"\>"],\
+ "Output",
+ CellChangeTimes->{
+  3.86926998187879*^9, 3.871187696158182*^9, {3.871187726743794*^9, 
+   3.8711877474145823`*^9}, 3.871188092674917*^9, 3.871188574169098*^9, 
+   3.871188672264854*^9, 3.871188948330041*^9, 3.8711889994139147`*^9, {
+   3.871189232416047*^9, 3.871189242962035*^9}, 3.871192266504133*^9, 
+   3.871192711206381*^9, 3.871192744006569*^9, 3.87119277862864*^9, 
+   3.8711930649533157`*^9, 3.871193477321451*^9, 3.871194146230261*^9, 
+   3.871194423756912*^9, 3.871194935228981*^9, 3.871195105222465*^9, 
+   3.87119538564555*^9, 3.8712111006814337`*^9, 3.871211848932613*^9, 
+   3.871211936744568*^9, 3.871211997992154*^9, 3.8712121287862463`*^9, {
+   3.871212255141457*^9, 3.871212265349888*^9}, {3.8712123540513697`*^9, 
+   3.871212405393598*^9}, {3.871212456695116*^9, 3.871212465719149*^9}, 
+   3.8712125267807207`*^9, {3.871251581659773*^9, 3.871251605032814*^9}, 
+   3.871252287730563*^9, {3.871252770297418*^9, 3.871252789900475*^9}, 
+   3.871252841231598*^9, {3.871252871308982*^9, 3.8712528849405413`*^9}, {
+   3.871253193034992*^9, 3.871253203003531*^9}, 3.8712539648759203`*^9, 
+   3.8712541498809*^9, 3.871254630017508*^9, {3.8712560205068827`*^9, 
+   3.871256042343101*^9}, {3.871256795322289*^9, 3.87125680885038*^9}, 
+   3.8712571156446466`*^9, {3.871257500138839*^9, 3.8712575213644743`*^9}, 
+   3.87125757127155*^9, {3.871257614309973*^9, 3.8712576724128113`*^9}, {
+   3.871257948666696*^9, 3.871257957638459*^9}, {3.871258014775528*^9, 
+   3.8712580408792953`*^9}, {3.871259558021562*^9, 3.8712595790826073`*^9}, 
+   3.8712598889257298`*^9, 3.871259964821887*^9, {3.871260215898757*^9, 
+   3.8712602277231894`*^9}, 3.871260423473901*^9, {3.871260462995697*^9, 
+   3.871260472782424*^9}, 3.8712605839602947`*^9, 3.8712606264692173`*^9, {
+   3.871267473960013*^9, 3.87126748635151*^9}, 3.87126786446835*^9, 
+   3.871268224755621*^9, 3.871268292274819*^9, 3.871268944953556*^9, 
+   3.87126911453413*^9, 3.871269915752988*^9, 3.879638656742285*^9, 
+   3.879638777824671*^9, 3.8796391076328897`*^9, 3.879640100658719*^9, 
+   3.879640140219673*^9, 3.879640477343555*^9, {3.8856329385350523`*^9, 
+   3.885632951191571*^9}, {3.895028607762595*^9, 3.8950286186313963`*^9}, {
+   3.900144122415745*^9, 3.900144133015683*^9}, {3.906337621845273*^9, 
+   3.906337635791728*^9}, 3.9063382412182217`*^9, {3.906338433843357*^9, 
+   3.906338449890553*^9}, 3.9063385904504623`*^9, 3.9063387177298603`*^9, 
+   3.9063400290127783`*^9, 3.906683177009099*^9, 3.9155979451312313`*^9},
+ CellLabel->
+  "Out[214]=",ExpressionUUID->"d6e73151-801e-40cc-bf7d-9adea0172f2b"],
+
+Cell["\<\
+ KiHA(v3.0),Copyright 2022,author Gang Chen. It is licensed under the GNU \
+General Public License v3.0.
+ KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary \
+University of London.
+ It generates the duality all-n numerator for colour-kinematic duality and \
+double copy in heavy mass effective 
+ theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
+ KiHA is built on some basic functions written by Gustav Mogull and Gregor \
+Kaelin.
+ use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, \
+2208.05886) for more reference.\
+\>", "Print",
+ CellFrame->0.5,
+ CellChangeTimes->{3.915597945151726*^9},
+ FontColor->RGBColor[
+  0, 0, 1],ExpressionUUID->"459a89e7-c7ce-4690-9bcb-f7aedfa4c4d6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "KiHA`*"}]], "Input",
+ CellChangeTimes->{{3.9063383088479548`*^9, 3.90633830885144*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"3878cf1a-1431-4e63-9dd2-ac62a504da91"],
+
+Cell[BoxData[
+ StyleBox[
+  FrameBox[GridBox[{
+     {
+      DynamicModuleBox[{Typeset`open$$ = True}, 
+       PaneSelectorBox[{False->
+        ButtonBox[
+         RowBox[{
+          
+          DynamicBox[FEPrivate`FrontEndResource[
+           "FEBitmaps", "RightPointerOpener"]], " ", 
+          StyleBox["KiHA`", "InformationGridGroupHeader"]}],
+         Appearance->None,
+         BaseStyle->"InformationGridLink",
+         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
+         Evaluator->Automatic,
+         Method->"Preemptive"], True->
+        PaneBox[GridBox[{
+           {
+            ButtonBox[
+             RowBox[{
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{13., {3., 10.}}], " ", 
+              StyleBox["KiHA`", "InformationGridGroupHeader"]}],
+             Appearance->None,
+             BaseStyle->"InformationGridLink",
+             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
+             Evaluator->Automatic,
+             Method->"Preemptive"]},
+           {
+            PaneBox[GridBox[{
+               {
+                ButtonBox[
+                 StyleBox["aMu", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "aMu", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["freeIndices", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "freeIndices", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spAA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spAA", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["antiTensorQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "antiTensorQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["FT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "FT", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spAB", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spAB", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["basisExpand", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "basisExpand", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["FT2F", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "FT2F", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spB", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spB", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["BinaryProduct", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "BinaryProduct", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["GBinaryProduct", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "GBinaryProduct", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spBA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spBA", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["contract", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "contract", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["GT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "GT", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spBB", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spBB", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["contractAnti", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "contractAnti", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["GT2F", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "GT2F", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spOuter", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spOuter", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["contractSp", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "contractSp", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["indexCoefficient", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "indexCoefficient", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spp", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spp", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["contractspp", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "contractspp", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["JQCD", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "JQCD", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["ddmBasis", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "ddmBasis", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["KLTR", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "KLTR", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["T", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"T", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareAntisymmetric", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareAntisymmetric", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["KLTRM", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "KLTRM", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["T2F", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "T2F", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareAntiTensorHead", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareAntiTensorHead", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["KSetPartitions", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "KSetPartitions", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["T2FF3F4", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "T2FF3F4", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareDistributive", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareDistributive", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["KSetPartitionsEmpty", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "KSetPartitionsEmpty", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["tensorDim", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "tensorDim", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareDistributiveFirst", "InformationGridButton"],
+                 
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareDistributiveFirst", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["lgScaling", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "lgScaling", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["tensorQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "tensorQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareDistributiveLast", "InformationGridButton"],
+                 
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareDistributiveLast", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["lI", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "lI", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["tensorQR2", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "tensorQR2", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 
+                 StyleBox["declareDistributiveMiddle", 
+                  "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareDistributiveMiddle", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["m", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"m", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["tensorRank", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "tensorRank", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareSymmetric", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareSymmetric", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["massDim", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "massDim", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["toSpinors", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "toSpinors", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareTensor", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareTensor", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["mu", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "mu", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["tr", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "tr", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareTensorHead", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareTensorHead", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["NC", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "NC", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["undeclareTensor", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "undeclareTensor", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareVector", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareVector", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["nice", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "nice", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["undeclareTensorHead", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "undeclareTensorHead", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["declareVectorHead", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "declareVectorHead", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["niceT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "niceT", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["v", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"v", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["distributive", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "distributive", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["NumRec", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "NumRec", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["vectorQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "vectorQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["distributiveRules", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "distributiveRules", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["numRecQCD", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "numRecQCD", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["verbose", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "verbose", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["dot", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "dot", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["outer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "outer", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["WFun", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "WFun", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["dressIndex", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "dressIndex", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["p", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"p", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["X", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"X", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["eps", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "eps", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["parkeTaylor", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "parkeTaylor", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["X2Prop", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "X2Prop", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["ET", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "ET", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["patternFreeQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "patternFreeQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[ScriptCapitalK]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[ScriptCapitalK]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["ET2F", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "ET2F", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["protectedQ", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "protectedQ", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[DoubleStruckA]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[DoubleStruckA]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["ET2F2s", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "ET2F2s", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["p$", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "p$", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[DoubleStruckCapitalI]", "InformationGridButton"],
+                 
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[DoubleStruckCapitalI]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["eta", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "eta", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["rmzero", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "rmzero", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[DoubleStruckCapitalS]", "InformationGridButton"],
+                 
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[DoubleStruckCapitalS]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["ExpandNCM", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "ExpandNCM", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["rmzeroT", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "rmzeroT", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[DoubleStruckT]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[DoubleStruckT]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["expandTensor", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "expandTensor", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["setGlobalDim", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "setGlobalDim", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[CapitalDelta]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[CapitalDelta]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["exposeIndex", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "exposeIndex", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["SetPartitionsOrdered", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "SetPartitionsOrdered", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[Epsilon]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[Epsilon]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["F", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {"F", "KiHA`"},
+                    False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["sp", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "sp", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[CapitalOmega]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[CapitalOmega]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["FRank2", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "FRank2", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["spA", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "spA", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["\[FivePointedStar]", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", {
+                   "\[FivePointedStar]", "KiHA`"}, False},
+                 ButtonNote->"KiHA`",
+                 Evaluator->Automatic]}
+              },
+              DefaultBaseStyle->"Text",
+              
+              GridBoxAlignment->{
+               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+              GridBoxItemSize->{"Columns" -> {{
+                   Scaled[0.31666666666666665`]}}}],
+             ImageMargins->{{10, 0}, {0, 2}}]}
+          },
+          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
+        ImageSize->Automatic]]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.8]}, 
+        Offset[0.2]}}],
+   BaseStyle->"InformationTitleFrame"], "InformationGridPlain"]], "Output",
+ CellChangeTimes->{3.9063383095880423`*^9, 3.90633845342309*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"f25d2127-c4c3-429e-af79-9a011c53db0e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"W function in F^3+F^4 evaluation map\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"WFun", "[", "KiHA`Private`i1_", "]"}], ":=", 
+                    "0"}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"WFun", "[", 
+                    RowBox[{"KiHA`Private`i1_", ",", "KiHA`Private`i2_"}], 
+                    "]"}], ":=", 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`\[Alpha]", " ", 
+                    RowBox[{"tr", "[", 
+                    RowBox[{
+                    RowBox[{"F", "[", "KiHA`Private`i1", "]"}], ",", 
+                    RowBox[{"F", "[", "KiHA`Private`i2", "]"}]}], "]"}]}], 
+                    "+", 
+                    RowBox[{
+                    SuperscriptBox["KiHA`Private`\[Alpha]", "2"], " ", 
+                    RowBox[{"dot", "[", 
+                    RowBox[{"p", "[", 
+                    RowBox[{"KiHA`Private`i1", ",", "KiHA`Private`i2"}], 
+                    "]"}], "]"}], " ", 
+                    RowBox[{"tr", "[", 
+                    RowBox[{
+                    RowBox[{"F", "[", "KiHA`Private`i1", "]"}], ",", 
+                    RowBox[{"F", "[", "KiHA`Private`i2", "]"}]}], 
+                    "]"}]}]}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"WFun", "[", 
+                    
+                    RowBox[{
+                    "KiHA`Private`i1_", ",", "KiHA`Private`od__", ",", 
+                    "KiHA`Private`i2_"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"KiHA`Private`lnest", ",", "KiHA`Private`cyc", 
+                    ",", "KiHA`Private`cycs", ",", "KiHA`Private`res1", ",", 
+                    "KiHA`Private`allnest", ",", "KiHA`Private`signs", ",", 
+                    "KiHA`Private`res2", ",", "KiHA`Private`tau", ",", 
+                    "KiHA`Private`res3", ",", "KiHA`Private`psMax"}], "}"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`lnest", "=", 
+                    RowBox[{"KiHA`Private`trFLA", "[", 
+                    
+                    RowBox[{"KiHA`Private`i1", ",", "KiHA`Private`od", ",", 
+                    "KiHA`Private`i2"}], "]"}]}], ";", 
+                    RowBox[{"KiHA`Private`res1", "=", 
+                    RowBox[{
+                    
+                    RowBox[{"KiHA`Private`\[Alpha]", " ", 
+                    "KiHA`Private`lnest"}], "+", 
+                    RowBox[{
+                    SuperscriptBox["KiHA`Private`\[Alpha]", "2"], " ", 
+                    RowBox[{"dot", "[", 
+                    RowBox[{"p", "[", 
+                    
+                    RowBox[{"KiHA`Private`i1", ",", "KiHA`Private`od", ",", 
+                    "KiHA`Private`i2"}], "]"}], "]"}], " ", 
+                    "KiHA`Private`lnest"}]}]}], ";", 
+                    RowBox[{"KiHA`Private`allnest", "=", 
+                    RowBox[{"List", "@@", "KiHA`Private`lnest"}]}], ";", 
+                    RowBox[{"KiHA`Private`signs", "=", 
+                    
+                    RowBox[{"KiHA`Private`allnest", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{
+                    RowBox[{"tr", "[", "_", "]"}], "\[RuleDelayed]", 
+                    "1"}]}]}], ";", 
+                    RowBox[{"KiHA`Private`allnest", "=", 
+                    RowBox[{
+                    
+                    RowBox[{"KiHA`Private`allnest", "/.", "\[VeryThinSpace]", 
+                    
+                    RowBox[{
+                    RowBox[{"KiHA`Private`a_", " ", 
+                    RowBox[{"tr", "[", "KiHA`Private`f_", "]"}]}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"List", "@@", "KiHA`Private`f"}]}]}], "/.", 
+                    "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"tr", "[", "KiHA`Private`f_", "]"}], 
+                    "\[RuleDelayed]", 
+                    RowBox[{"List", "@@", "KiHA`Private`f"}]}]}]}], ";", 
+                    RowBox[{"KiHA`Private`res2", "=", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Sum]", "KiHA`Private`kk", 
+                    RowBox[{"Length", "[", "KiHA`Private`allnest", "]"}]], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`cycs", "=", 
+                    RowBox[{"KiHA`Private`cyclePermuteSet", "@@", 
+                    
+                    RowBox[{"KiHA`Private`allnest", "\[LeftDoubleBracket]", 
+                    "KiHA`Private`kk", "\[RightDoubleBracket]"}]}]}], ";", 
+                    RowBox[{"Total", "[", 
+                    RowBox[{
+                    RowBox[{
+                    SuperscriptBox["KiHA`Private`\[Alpha]", "2"], " ", 
+                    
+                    RowBox[{"KiHA`Private`signs", "\[LeftDoubleBracket]", 
+                    "KiHA`Private`kk", "\[RightDoubleBracket]"}], " ", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"KiHA`Private`cyc", "=", 
+                    
+                    RowBox[{"KiHA`Private`cycs", "\[LeftDoubleBracket]", 
+                    "KiHA`Private`jj", "\[RightDoubleBracket]"}]}], ";", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Sum]", 
+                    RowBox[{"KiHA`Private`jj1", "=", "1"}], 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"Length", "[", "KiHA`Private`cyc", "]"}]}]], 
+                    RowBox[{
+                    RowBox[{"dot", "[", 
+                    RowBox[{
+                    RowBox[{"p", "[", 
+                    RowBox[{"KiHA`Private`cyc", "\[LeftDoubleBracket]", 
+                    RowBox[{"-", "1"}], "\[RightDoubleBracket]"}], "]"}], ",", 
+                    RowBox[{"F", "@@", 
+                    RowBox[{"KiHA`Private`cyc", "\[LeftDoubleBracket]", 
+                    RowBox[{"1", ";;", "KiHA`Private`jj1"}], 
+                    "\[RightDoubleBracket]"}]}], ",", 
+                    RowBox[{"p", "[", 
+                    RowBox[{"KiHA`Private`cyc", "\[LeftDoubleBracket]", 
+                    RowBox[{"KiHA`Private`jj1", "+", "1"}], 
+                    "\[RightDoubleBracket]"}], "]"}]}], "]"}], " ", 
+                    RowBox[{"KiHA`Private`trFLA", "@@", 
+                    RowBox[{"KiHA`Private`cyc", "\[LeftDoubleBracket]", 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`jj1", "+", "1"}], ";;", 
+                    RowBox[{"-", "1"}]}], "\[RightDoubleBracket]"}]}]}]}]}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{"KiHA`Private`jj", ",", 
+                    RowBox[{"Length", "[", "KiHA`Private`cycs", "]"}]}], 
+                    "}"}]}], "]"}]}], "/.", "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"p", "[", "]"}], "\[Rule]", "0"}]}], "]"}]}], 
+                    ")"}]}]}], ";", 
+                    RowBox[{"KiHA`Private`tau", "=", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"KiHA`Private`i1", ",", "KiHA`Private`od", ",", 
+                    "KiHA`Private`i2"}], "}"}]}], ";", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Length", "[", "KiHA`Private`tau", "]"}], "<", 
+                    "4"}], ",", 
+                    RowBox[{"KiHA`Private`res3", "=", "0"}], ",", 
+                    RowBox[{"KiHA`Private`res3", "=", 
+                    RowBox[{
+                    RowBox[{
+                    SuperscriptBox["KiHA`Private`\[Alpha]", "2"], " ", 
+                    RowBox[{
+                    UnderoverscriptBox["\[Sum]", 
+                    RowBox[{"KiHA`Private`ii", "=", "2"}], 
+                    RowBox[{
+                    RowBox[{"Length", "[", "KiHA`Private`tau", "]"}], "-", 
+                    "2"}]], 
+                    RowBox[{
+                    UnderoverscriptBox["\[Sum]", 
+                    RowBox[{"KiHA`Private`jj", "=", 
+                    RowBox[{"KiHA`Private`ii", "+", "1"}]}], 
+                    RowBox[{
+                    RowBox[{"Length", "[", "KiHA`Private`tau", "]"}], "-", 
+                    "1"}]], 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`trFLA", "@@", 
+                    RowBox[{"KiHA`Private`tau", "\[LeftDoubleBracket]", 
+                    RowBox[{"1", ";;", "KiHA`Private`ii"}], 
+                    "\[RightDoubleBracket]"}]}], " ", 
+                    RowBox[{"dot", "[", 
+                    RowBox[{
+                    RowBox[{"p", "[", 
+                    
+                    RowBox[{"KiHA`Private`tau", "\[LeftDoubleBracket]", 
+                    "KiHA`Private`ii", "\[RightDoubleBracket]"}], "]"}], ",", 
+                    
+                    RowBox[{"F", "@@", 
+                    RowBox[{"KiHA`Private`tau", "\[LeftDoubleBracket]", 
+                    RowBox[{
+                    RowBox[{"KiHA`Private`ii", "+", "1"}], ";;", 
+                    RowBox[{"KiHA`Private`jj", "-", "1"}]}], 
+                    "\[RightDoubleBracket]"}]}], ",", 
+                    RowBox[{"p", "[", 
+                    
+                    RowBox[{"KiHA`Private`tau", "\[LeftDoubleBracket]", 
+                    "KiHA`Private`jj", "\[RightDoubleBracket]"}], "]"}]}], 
+                    "]"}], " ", 
+                    RowBox[{"KiHA`Private`trFLA", "@@", 
+                    RowBox[{"KiHA`Private`tau", "\[LeftDoubleBracket]", 
+                    RowBox[{"KiHA`Private`jj", ";;", 
+                    RowBox[{"-", "1"}]}], "\[RightDoubleBracket]"}]}]}]}]}]}],
+                     "/.", "\[VeryThinSpace]", 
+                    RowBox[{
+                    RowBox[{"F", "[", "]"}], "\[Rule]", 
+                    RowBox[{"Sequence", "[", "]"}]}]}]}]}], "]"}], ";", 
+                    
+                    RowBox[{"KiHA`Private`res1", "+", "KiHA`Private`res2", 
+                    "+", "KiHA`Private`res3"}]}]}], "]"}]}]}, {" "}}, 
+                  GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"KiHA`WFun\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"W function in F^3+F^4 evaluation map\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{13., {2., 11.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{13., {2., 11.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[
+   Association[
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "W function in F^3+F^4 evaluation map", "Documentation" -> None, 
+    "OwnValues" -> None, "UpValues" -> None, "DownValues" -> 
+    Information`InformationValueForm[DownValues, KiHA`WFun, {KiHA`WFun[
+         Pattern[KiHA`Private`i1, 
+          Blank[]]] :> 0, KiHA`WFun[
+         Pattern[KiHA`Private`i1, 
+          Blank[]], 
+         Pattern[KiHA`Private`i2, 
+          Blank[]]] :> KiHA`Private`\[Alpha] KiHA`tr[
+           KiHA`F[KiHA`Private`i1], 
+           KiHA`F[KiHA`Private`i2]] + KiHA`Private`\[Alpha]^2 KiHA`dot[
+           KiHA`p[KiHA`Private`i1, KiHA`Private`i2]] KiHA`tr[
+           KiHA`F[KiHA`Private`i1], 
+           KiHA`F[KiHA`Private`i2]], KiHA`WFun[
+         Pattern[KiHA`Private`i1, 
+          Blank[]], 
+         Pattern[KiHA`Private`od, 
+          BlankSequence[]], 
+         Pattern[KiHA`Private`i2, 
+          Blank[]]] :> 
+       Module[{KiHA`Private`lnest, KiHA`Private`cyc, KiHA`Private`cycs, 
+          KiHA`Private`res1, KiHA`Private`allnest, KiHA`Private`signs, 
+          KiHA`Private`res2, KiHA`Private`tau, KiHA`Private`res3, 
+          KiHA`Private`psMax}, 
+         KiHA`Private`lnest = 
+          KiHA`Private`trFLA[
+           KiHA`Private`i1, KiHA`Private`od, KiHA`Private`i2]; 
+         KiHA`Private`res1 = 
+          KiHA`Private`\[Alpha] KiHA`Private`lnest + 
+           KiHA`Private`\[Alpha]^2 KiHA`dot[
+              KiHA`p[KiHA`Private`i1, KiHA`Private`od, KiHA`Private`i2]] 
+            KiHA`Private`lnest; 
+         KiHA`Private`allnest = Apply[List, KiHA`Private`lnest]; 
+         KiHA`Private`signs = ReplaceAll[KiHA`Private`allnest, KiHA`tr[
+              Blank[]] :> 1]; KiHA`Private`allnest = ReplaceAll[
+            ReplaceAll[KiHA`Private`allnest, Pattern[KiHA`Private`a, 
+                Blank[]] KiHA`tr[
+                Pattern[KiHA`Private`f, 
+                 Blank[]]] :> Apply[List, KiHA`Private`f]], KiHA`tr[
+              Pattern[KiHA`Private`f, 
+               Blank[]]] :> Apply[List, KiHA`Private`f]]; 
+         KiHA`Private`res2 = 
+          Sum[KiHA`Private`cycs = Apply[KiHA`Private`cyclePermuteSet, 
+               Part[KiHA`Private`allnest, KiHA`Private`kk]]; Total[
+              ReplaceAll[
+              KiHA`Private`\[Alpha]^2 
+               Part[KiHA`Private`signs, KiHA`Private`kk] 
+               Table[KiHA`Private`cyc = 
+                  Part[KiHA`Private`cycs, KiHA`Private`jj]; Sum[KiHA`dot[
+                    KiHA`p[
+                    Part[KiHA`Private`cyc, -1]], 
+                    Apply[KiHA`F, 
+                    Part[KiHA`Private`cyc, 
+                    Span[1, KiHA`Private`jj1]]], 
+                    KiHA`p[
+                    Part[KiHA`Private`cyc, KiHA`Private`jj1 + 1]]] 
+                   Apply[KiHA`Private`trFLA, 
+                    Part[KiHA`Private`cyc, 
+                    Span[KiHA`Private`jj1 + 1, -1]]], {
+                   KiHA`Private`jj1, 1, -2 + Length[KiHA`Private`cyc]}], {
+                 KiHA`Private`jj, 
+                  Length[KiHA`Private`cycs]}], KiHA`p[] -> 0]], {
+            KiHA`Private`kk, 
+             Length[KiHA`Private`allnest]}]; 
+         KiHA`Private`tau = {
+           KiHA`Private`i1, KiHA`Private`od, KiHA`Private`i2}; 
+         If[Length[KiHA`Private`tau] < 4, KiHA`Private`res3 = 0, 
+           KiHA`Private`res3 = 
+           ReplaceAll[KiHA`Private`\[Alpha]^2 Sum[Apply[KiHA`Private`trFLA, 
+                 Part[KiHA`Private`tau, 
+                  Span[1, KiHA`Private`ii]]] KiHA`dot[
+                 KiHA`p[
+                  Part[KiHA`Private`tau, KiHA`Private`ii]], 
+                 Apply[KiHA`F, 
+                  Part[KiHA`Private`tau, 
+                   Span[KiHA`Private`ii + 1, KiHA`Private`jj - 1]]], 
+                 KiHA`p[
+                  Part[KiHA`Private`tau, KiHA`Private`jj]]] 
+               Apply[KiHA`Private`trFLA, 
+                 Part[KiHA`Private`tau, 
+                  Span[KiHA`Private`jj, -1]]], {
+               KiHA`Private`ii, 2, Length[KiHA`Private`tau] - 2}, {
+               KiHA`Private`jj, KiHA`Private`ii + 1, Length[KiHA`Private`tau] - 
+                1}], KiHA`F[] -> Sequence[]]]; 
+         KiHA`Private`res1 + KiHA`Private`res2 + KiHA`Private`res3]}], 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> None, "Attributes" -> {}, "FullName" -> 
+    "KiHA`WFun"], False]]], "Print",
+ CellTags->
+  "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc",ExpressionUUID->"14bb0043-c291-\
+4a3d-b81e-67e1e35aa715"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Unprotect", "[", 
+   RowBox[{"p", ",", "F"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"declareVectorHead", "[", 
+  RowBox[{"{", "p", "}"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"declareTensorHead", "[", 
+  RowBox[{
+   RowBox[{"{", "F", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\"\<rank\>\"", "\[Rule]", " ", "2"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Protect", "[", 
+   RowBox[{"p", ",", "F"}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8712580675477324`*^9, 3.8712580867792883`*^9}, {
+   3.871258142937771*^9, 3.871258148840885*^9}, {3.8712582030267344`*^9, 
+   3.87125821063772*^9}, {3.871258477914794*^9, 3.871258502589952*^9}, 
+   3.871260089247224*^9, 3.87126797292529*^9, {3.871268029057691*^9, 
+   3.871268030682728*^9}, {3.8712680652578363`*^9, 3.871268065465754*^9}, {
+   3.906338751957581*^9, 3.90633876241483*^9}},
+ CellLabel->
+  "In[216]:=",ExpressionUUID->"6a6bb66f-8473-455a-bd23-80e7f0254686"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"p declared as a 4-dimensional vector header.\"\>"], "Print",
+ CellChangeTimes->{
+  3.871258211352558*^9, {3.871258489423747*^9, 3.871258503368997*^9}, 
+   3.871259583838159*^9, 3.8712679739519978`*^9, 3.871268034055801*^9, 
+   3.87126828131813*^9, 3.871268947123712*^9, 3.8712691169657393`*^9, 
+   3.879638660119526*^9, 3.879638779729953*^9, 3.87963910938972*^9, 
+   3.879640102937992*^9, 3.879640142495597*^9, 3.879640480068983*^9, 
+   3.885632954689515*^9, 3.895028629306066*^9, 3.900144139581938*^9, 
+   3.906338244697938*^9, 3.9063400372082577`*^9, 3.9066831838052*^9, 
+   3.915597955292248*^9},
+ CellLabel->
+  "During evaluation of \
+In[216]:=",ExpressionUUID->"09011b92-1c5a-4ebf-b76e-282f7caa471e"],
+
+Cell[BoxData["\<\"F declared as a 4-dimensional rank-2 tensor header.\"\>"], \
+"Print",
+ CellChangeTimes->{
+  3.871258211352558*^9, {3.871258489423747*^9, 3.871258503368997*^9}, 
+   3.871259583838159*^9, 3.8712679739519978`*^9, 3.871268034055801*^9, 
+   3.87126828131813*^9, 3.871268947123712*^9, 3.8712691169657393`*^9, 
+   3.879638660119526*^9, 3.879638779729953*^9, 3.87963910938972*^9, 
+   3.879640102937992*^9, 3.879640142495597*^9, 3.879640480068983*^9, 
+   3.885632954689515*^9, 3.895028629306066*^9, 3.900144139581938*^9, 
+   3.906338244697938*^9, 3.9063400372082577`*^9, 3.9066831838052*^9, 
+   3.915597955295745*^9},
+ CellLabel->
+  "During evaluation of \
+In[216]:=",ExpressionUUID->"137a6a09-9352-495c-bc26-dde0ae0c5a13"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "testfun", "]"}], "\[IndentingNewLine]", 
+    RowBox[{"SetAttributes", "[", 
+     RowBox[{"testfun", ",", 
+      RowBox[{"{", "NHoldAll", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"declareDistributive", "[", 
+    RowBox[{"testfun", ",", "vectorQ"}], "]"}], ";"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.871251409243869*^9, 3.871251439768927*^9}, {
+  3.87126932018608*^9, 
+  3.871269323736904*^9}},ExpressionUUID->"ca79a261-126a-4970-a7e6-\
+9cc5f4f13621"],
+
+Cell[CellGroupData[{
+
+Cell["five-pointCK two-scalar", "Section",
+ CellChangeTimes->{{3.8564069369813757`*^9, 3.8564069411881237`*^9}, {
+  3.856528505387108*^9, 3.856528508392273*^9}, {3.864366397575654*^9, 
+  3.8643663998630047`*^9}, {3.864474113286031*^9, 3.864474114889228*^9}, {
+  3.8644743167650013`*^9, 3.864474317970113*^9}, {3.864521747019771*^9, 
+  3.864521765508876*^9}, {3.8671075959622383`*^9, 3.867107597914331*^9}, {
+  3.8690095454796762`*^9, 3.869009579711589*^9}, {3.869013163073915*^9, 
+  3.869013164565288*^9}, {3.91560069975882*^9, 
+  3.9156007031503983`*^9}},ExpressionUUID->"23a98e14-a6e4-45f9-affb-\
+e5a7325e2c29"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"n", "=", "5"}], ";"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwd0Gkow3Ecx/G1orQHbnsySiLWEA0bTf7lygPFUI4Yi7apjZmwHGFGax7I
+KLWEPXAfOcqxlCdiydykXCnS/hJtjuT4fb8PPr2efR68gytUuZVMBoMRTAZe
+ct35nRs0ZZzOyAY16YuFYOPkMmrueYrUE4VGbTSo/9EIQI22LAlct0yowRbL
+DCrTyQzgHevcCNbrgsbAi7YwVDXzRoMp4ne0wOr5Cppy2OiI/Ne3m8jkuvmB
+HsujNrAkYhbVLLmuwKrrL3S6ushnk6iUSFGVWccBt05N6KD9RgV2DtyjiSJ1
+zNEuTd2OtaL76nYheOXoQ6V5w/w/YiE1iTIlZXvgxUsF+h5QF1Zqo6mQ6BY0
+Lt7fNU8UGqLQNZZkdYFoY8vQT7Zi/IC433yGcvID50BRDRfV77i8Dol8R5I3
+2LtCFT0Qk52ZqNy8XvlDzJraQRusBQbwRCBFtXdDobSd9Iuxh4Mfj22xYG0m
+LwFU9JcfGY/Jr7gDTVU2Rcl5z1SaswudM29rFcTi7zf0H89RLjQ=
+  "],
+ CellLabel->
+  "In[237]:=",ExpressionUUID->"5332646f-1609-4151-ba7f-ff5386a69414"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"bcjnumerator", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[FivePointedStar]", "[", 
+       RowBox[{
+        RowBox[{"\[ScriptCapitalK]", "[", 
+         RowBox[{"1", ",", "1"}], "]"}], ",", 
+        RowBox[{"\[ScriptCapitalK]", "[", 
+         RowBox[{"2", ",", "1"}], "]"}], ",", 
+        RowBox[{"\[ScriptCapitalK]", "[", 
+         RowBox[{"3", ",", "1"}], "]"}], ",", 
+        RowBox[{"\[ScriptCapitalK]", "[", 
+         RowBox[{"4", ",", "0"}], "]"}]}], "]"}], "/.", 
+      RowBox[{"ET", "->", "ET2F2s"}]}], "/.", 
+     RowBox[{
+      RowBox[{"CenterDot", "[", "f__", "]"}], ":>", 
+      RowBox[{"tr", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"\[DoubleStruckT]", "^", 
+         RowBox[{"\[DoubleStruckA]", "[", "n", "]"}]}]}], "]"}]}]}], "/.", 
+    "rmzero"}], "/.", " ", 
+   RowBox[{
+    RowBox[{"tr", "[", "__", "]"}], ":>", "1"}]}]}]], "Input",
+ CellChangeTimes->{{3.915598092152894*^9, 3.915598116862405*^9}, {
+  3.915598185082191*^9, 3.9155982395017357`*^9}, {3.915600787367888*^9, 
+  3.9156007921312037`*^9}},
+ CellLabel->
+  "In[238]:=",ExpressionUUID->"a65b7301-a2a9-4c09-aad1-41e3887596e7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"2", " ", 
+     RowBox[{"dot", "[", 
+      RowBox[{
+       RowBox[{"p", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], ",", 
+       RowBox[{"F", "[", "3", "]"}], ",", 
+       RowBox[{"p", "[", "4", "]"}]}], "]"}], " ", 
+     RowBox[{"dot", "[", 
+      RowBox[{
+       RowBox[{"p", "[", "4", "]"}], ",", 
+       RowBox[{"F", "[", "1", "]"}], ",", 
+       RowBox[{"F", "[", "2", "]"}], ",", 
+       RowBox[{"p", "[", "4", "]"}]}], "]"}]}], 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["m", "2"]}], "+", 
+       RowBox[{"dot", "[", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"4", ",", "1"}], "]"}], ",", 
+         RowBox[{"p", "[", 
+          RowBox[{"4", ",", "1"}], "]"}]}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["m", "2"]}], "+", 
+       RowBox[{"dot", "[", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"4", ",", "1", ",", "2"}], "]"}], ",", 
+         RowBox[{"p", "[", 
+          RowBox[{"4", ",", "1", ",", "2"}], "]"}]}], "]"}]}], ")"}]}]]}], 
+  "-", 
+  FractionBox[
+   RowBox[{"2", " ", 
+    RowBox[{"dot", "[", 
+     RowBox[{
+      RowBox[{"p", "[", "1", "]"}], ",", 
+      RowBox[{"F", "[", "2", "]"}], ",", 
+      RowBox[{"p", "[", 
+       RowBox[{"4", ",", "3"}], "]"}]}], "]"}], " ", 
+    RowBox[{"dot", "[", 
+     RowBox[{
+      RowBox[{"p", "[", "4", "]"}], ",", 
+      RowBox[{"F", "[", "1", "]"}], ",", 
+      RowBox[{"F", "[", "3", "]"}], ",", 
+      RowBox[{"p", "[", "4", "]"}]}], "]"}]}], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["m", "2"]}], "+", 
+      RowBox[{"dot", "[", 
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"4", ",", "1"}], "]"}], ",", 
+        RowBox[{"p", "[", 
+         RowBox[{"4", ",", "1"}], "]"}]}], "]"}]}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["m", "2"]}], "+", 
+      RowBox[{"dot", "[", 
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"4", ",", "1", ",", "3"}], "]"}], ",", 
+        RowBox[{"p", "[", 
+         RowBox[{"4", ",", "1", ",", "3"}], "]"}]}], "]"}]}], ")"}]}]], "+", 
+  FractionBox[
+   RowBox[{"dot", "[", 
+    RowBox[{
+     RowBox[{"p", "[", "4", "]"}], ",", 
+     RowBox[{"F", "[", "1", "]"}], ",", 
+     RowBox[{"F", "[", "2", "]"}], ",", 
+     RowBox[{"F", "[", "3", "]"}], ",", 
+     RowBox[{"p", "[", "4", "]"}]}], "]"}], 
+   RowBox[{
+    RowBox[{"-", 
+     SuperscriptBox["m", "2"]}], "+", 
+    RowBox[{"dot", "[", 
+     RowBox[{
+      RowBox[{"p", "[", 
+       RowBox[{"4", ",", "1"}], "]"}], ",", 
+      RowBox[{"p", "[", 
+       RowBox[{"4", ",", "1"}], "]"}]}], "]"}]}]]}]], "Output",
+ CellChangeTimes->{{3.915598081632498*^9, 3.915598118745123*^9}, 
+   3.9155981856446238`*^9, {3.915598221668096*^9, 3.9155982398417797`*^9}, 
+   3.915600860065709*^9},
+ CellLabel->
+  "Out[238]=",ExpressionUUID->"06fc0106-541a-4245-970a-0909ac6c8d2f"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"num", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"bcjnumerator", "/.", 
+      RowBox[{
+       RowBox[{"\[Epsilon]", "[", "i_", "]"}], ":>", 
+       RowBox[{"\[Epsilon]", "[", 
+        RowBox[{"p", "[", "i", "]"}], "]"}]}]}], "/.", 
+     RowBox[{
+      RowBox[{"F", "[", "i_", "]"}], ":>", 
+      RowBox[{"F", "[", 
+       RowBox[{"p", "[", "i", "]"}], "]"}]}]}], "/.", 
+    RowBox[{
+     RowBox[{"p", "[", 
+      RowBox[{"f__", ",", "g_"}], "]"}], "\[RuleDelayed]", 
+     RowBox[{"P", "@@", 
+      RowBox[{"(", 
+       RowBox[{"p", "/@", 
+        RowBox[{"{", 
+         RowBox[{"f", ",", "g"}], "}"}]}], ")"}]}]}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.9136967111822853`*^9, 3.913696717566*^9}, {
+   3.914295977149857*^9, 3.914296012498415*^9}, {3.914296053768826*^9, 
+   3.9142960724908457`*^9}, 3.914296791382801*^9, 3.91432620152579*^9, 
+   3.9143725161937447`*^9, 3.914540152346979*^9, {3.914540191973432*^9, 
+   3.914540195111416*^9}, 3.914540235485272*^9, 3.914544210520419*^9, 
+   3.915600826412591*^9, 3.915600871833583*^9},
+ CellLabel->
+  "In[239]:=",ExpressionUUID->"35c7d7c4-c15f-488c-85ca-15a59c331297"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"bpeff2", "=", 
+  RowBox[{"BinaryProduct", "[", 
+   RowBox[{"Range", "[", 
+    RowBox[{"n", "-", "2"}], "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"numList", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ExpandNCM", "/@", 
+     RowBox[{"(", 
+      RowBox[{"bpeff2", "/.", 
+       RowBox[{"X", "\[Rule]", " ", "NC"}]}], ")"}]}], "/.", 
+    RowBox[{"NonCommutativeMultiply", "\[Rule]", " ", "T"}]}], "/.", 
+   RowBox[{
+    RowBox[{"T", "[", 
+     RowBox[{"i1_", ",", "f___"}], "]"}], ":>", " ", 
+    RowBox[{"0", "/;", 
+     RowBox[{"i1", "\[NotEqual]", "1"}]}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"numListL", "=", 
+   RowBox[{"numList", "/.", 
+    RowBox[{
+     RowBox[{"T", "[", "f___", "]"}], "\[RuleDelayed]", " ", 
+     RowBox[{"(", 
+      RowBox[{"num", "/.", 
+       RowBox[{"replace", "[", 
+        RowBox[{
+         RowBox[{"p", "/@", 
+          RowBox[{"{", "f", "}"}]}], ",", 
+         RowBox[{"n", "-", "1"}]}], "]"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"numListL", "=", 
+   RowBox[{
+    RowBox[{"(", "numListL", ")"}], "//", "Expand"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ppListD", "=", 
+   RowBox[{"(", 
+    RowBox[{"X2Prop", "/@", "bpeff2"}], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ppListD", "=", "ppListD"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"amp", "=", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"numListL", "[", 
+       RowBox[{"[", "ii", "]"}], "]"}], 
+      RowBox[{"ppListD", "[", 
+       RowBox[{"[", "ii", "]"}], "]"}]], ",", 
+     RowBox[{"{", 
+      RowBox[{"ii", ",", 
+       RowBox[{"Length", "@", "ppListD"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"amp", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"amp", "/.", 
+      RowBox[{
+       RowBox[{"\[Epsilon]", "[", 
+        RowBox[{"p", "[", "i_", "]"}], "]"}], ":>", 
+       RowBox[{"\[Epsilon]", "[", "i", "]"}]}]}], "/.", 
+     RowBox[{
+      RowBox[{"F", "[", 
+       RowBox[{"p", "[", "i_", "]"}], "]"}], ":>", " ", 
+      RowBox[{"F", "[", "i", "]"}]}]}], "/.", 
+    RowBox[{
+     RowBox[{"P", "[", "f__", "]"}], ":>", 
+     RowBox[{"p", "@@", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"{", "f", "}"}], "/.", 
+        RowBox[{
+         RowBox[{"p", "[", "i_", "]"}], ":>", "i"}]}], ")"}]}]}]}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.9136967247336597`*^9, 3.913696726125594*^9}, {
+   3.9136973901895857`*^9, 3.913697415503003*^9}, {3.914296761103407*^9, 
+   3.914296810033338*^9}, {3.914296997728944*^9, 3.914296998314198*^9}, 
+   3.914299399327919*^9, 3.9143733656830263`*^9, 3.914540245886714*^9, {
+   3.914544213608137*^9, 3.914544222614972*^9}, {3.9156008301235723`*^9, 
+   3.915600840228722*^9}},
+ CellLabel->
+  "In[240]:=",ExpressionUUID->"e91810d0-1bc6-4efb-b695-9e8423746f91"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"X", "[", 
+    RowBox[{"1", ",", 
+     RowBox[{"X", "[", 
+      RowBox[{"2", ",", "3"}], "]"}]}], "]"}], ",", 
+   RowBox[{"X", "[", 
+    RowBox[{
+     RowBox[{"X", "[", 
+      RowBox[{"1", ",", "2"}], "]"}], ",", "3"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.9136973909874363`*^9, 3.913697418267201*^9}, 
+   3.913779375202297*^9, 3.913793547202959*^9, 3.9138046366507187`*^9, 
+   3.9138048416251707`*^9, 3.9142961060292788`*^9, {3.914296806172303*^9, 
+   3.9142968106292686`*^9}, 3.9142969989171267`*^9, 3.914299405319674*^9, 
+   3.914323702045611*^9, 3.914326305871421*^9, 3.914372523069091*^9, 
+   3.914373368271113*^9, 3.91437350453063*^9, 3.914540248614259*^9, 
+   3.9145442403084927`*^9, 3.914544819365155*^9, 3.914545325379992*^9, 
+   3.914545735171216*^9, 3.9145462725319433`*^9, 3.914555058521356*^9, 
+   3.915600881820682*^9},
+ CellLabel->
+  "Out[240]=",ExpressionUUID->"d954a88a-ad5a-4c81-ab50-b587a0975b86"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"T", "[", 
+     RowBox[{"1", ",", "2", ",", "3"}], "]"}], "-", 
+    RowBox[{"T", "[", 
+     RowBox[{"1", ",", "3", ",", "2"}], "]"}]}], ",", 
+   RowBox[{"T", "[", 
+    RowBox[{"1", ",", "2", ",", "3"}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.9136973909874363`*^9, 3.913697418267201*^9}, 
+   3.913779375202297*^9, 3.913793547202959*^9, 3.9138046366507187`*^9, 
+   3.9138048416251707`*^9, 3.9142961060292788`*^9, {3.914296806172303*^9, 
+   3.9142968106292686`*^9}, 3.9142969989171267`*^9, 3.914299405319674*^9, 
+   3.914323702045611*^9, 3.914326305871421*^9, 3.914372523069091*^9, 
+   3.914373368271113*^9, 3.91437350453063*^9, 3.914540248614259*^9, 
+   3.9145442403084927`*^9, 3.914544819365155*^9, 3.914545325379992*^9, 
+   3.914545735171216*^9, 3.9145462725319433`*^9, 3.914555058521356*^9, 
+   3.9156008818228197`*^9},
+ CellLabel->
+  "Out[241]=",ExpressionUUID->"9f2a1b7d-b845-42e0-b09e-86d600c9c478"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"amp", "//.", "nice"}]], "Input",
+ CellChangeTimes->{{3.9156009469790363`*^9, 3.915600952362732*^9}},
+ CellLabel->
+  "In[249]:=",ExpressionUUID->"08bbaf5d-57b4-4918-aaf1-272d8f519a88"],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox[
+   RowBox[{
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{
+        SubscriptBox["p", 
+         RowBox[{"1", ",", "2"}]], "\[CenterDot]", 
+        SubscriptBox["F", "3"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}], " ", 
+       RowBox[{
+        SubscriptBox["p", "4"], "\[CenterDot]", 
+        SubscriptBox["F", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "2"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]]}]}], ")"}]}]]}], "-", 
+    FractionBox[
+     RowBox[{"2", " ", 
+      RowBox[{
+       SubscriptBox["p", "1"], "\[CenterDot]", 
+       SubscriptBox["F", "2"], "\[CenterDot]", 
+       SubscriptBox["p", 
+        RowBox[{"4", ",", "3"}]]}], " ", 
+      RowBox[{
+       SubscriptBox["p", "4"], "\[CenterDot]", 
+       SubscriptBox["F", "1"], "\[CenterDot]", 
+       SubscriptBox["F", "3"], "\[CenterDot]", 
+       SubscriptBox["p", "4"]}]}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["m", "2"]}], "+", 
+        RowBox[{
+         SubscriptBox["p", 
+          RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+         SubscriptBox["p", 
+          RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["m", "2"]}], "+", 
+        RowBox[{
+         SubscriptBox["p", 
+          RowBox[{"4", ",", "1", ",", "3"}]], "\[CenterDot]", 
+         SubscriptBox["p", 
+          RowBox[{"4", ",", "1", ",", "3"}]]}]}], ")"}]}]], "+", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["p", "4"], "\[CenterDot]", 
+      SubscriptBox["F", "1"], "\[CenterDot]", 
+      SubscriptBox["F", "2"], "\[CenterDot]", 
+      SubscriptBox["F", "3"], "\[CenterDot]", 
+      SubscriptBox["p", "4"]}], 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox["m", "2"]}], "+", 
+      RowBox[{
+       SubscriptBox["p", 
+        RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+       SubscriptBox["p", 
+        RowBox[{"4", ",", "1"}]]}]}]]}], 
+   RowBox[{
+    SubscriptBox["p", 
+     RowBox[{"1", ",", "2"}]], "\[CenterDot]", 
+    SubscriptBox["p", 
+     RowBox[{"1", ",", "2"}]]}]], "+", 
+  RowBox[{
+   FractionBox["1", 
+    RowBox[{
+     SubscriptBox["p", 
+      RowBox[{"2", ",", "3"}]], "\[CenterDot]", 
+     SubscriptBox["p", 
+      RowBox[{"2", ",", "3"}]]}]], 
+   RowBox[{"(", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{
+        SubscriptBox["p", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "3"], "\[CenterDot]", 
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "2"}]]}], " ", 
+       RowBox[{
+        SubscriptBox["p", "4"], "\[CenterDot]", 
+        SubscriptBox["F", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "2"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]]}]}], ")"}]}]], "-", 
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{
+        SubscriptBox["p", 
+         RowBox[{"1", ",", "2"}]], "\[CenterDot]", 
+        SubscriptBox["F", "3"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}], " ", 
+       RowBox[{
+        SubscriptBox["p", "4"], "\[CenterDot]", 
+        SubscriptBox["F", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "2"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "2"}]]}]}], ")"}]}]], "-", 
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{
+        SubscriptBox["p", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "2"], "\[CenterDot]", 
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "3"}]]}], " ", 
+       RowBox[{
+        SubscriptBox["p", "4"], "\[CenterDot]", 
+        SubscriptBox["F", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "3"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "3"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "3"}]]}]}], ")"}]}]], "+", 
+     FractionBox[
+      RowBox[{"2", " ", 
+       RowBox[{
+        SubscriptBox["p", 
+         RowBox[{"1", ",", "3"}]], "\[CenterDot]", 
+        SubscriptBox["F", "2"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}], " ", 
+       RowBox[{
+        SubscriptBox["p", "4"], "\[CenterDot]", 
+        SubscriptBox["F", "1"], "\[CenterDot]", 
+        SubscriptBox["F", "3"], "\[CenterDot]", 
+        SubscriptBox["p", "4"]}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1"}]]}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          SuperscriptBox["m", "2"]}], "+", 
+         RowBox[{
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "3"}]], "\[CenterDot]", 
+          SubscriptBox["p", 
+           RowBox[{"4", ",", "1", ",", "3"}]]}]}], ")"}]}]], "+", 
+     FractionBox[
+      RowBox[{
+       SubscriptBox["p", "4"], "\[CenterDot]", 
+       SubscriptBox["F", "1"], "\[CenterDot]", 
+       SubscriptBox["F", "2"], "\[CenterDot]", 
+       SubscriptBox["F", "3"], "\[CenterDot]", 
+       SubscriptBox["p", "4"]}], 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["m", "2"]}], "+", 
+       RowBox[{
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "1"}]]}]}]], "-", 
+     FractionBox[
+      RowBox[{
+       SubscriptBox["p", "4"], "\[CenterDot]", 
+       SubscriptBox["F", "1"], "\[CenterDot]", 
+       SubscriptBox["F", "3"], "\[CenterDot]", 
+       SubscriptBox["F", "2"], "\[CenterDot]", 
+       SubscriptBox["p", "4"]}], 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["m", "2"]}], "+", 
+       RowBox[{
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "1"}]], "\[CenterDot]", 
+        SubscriptBox["p", 
+         RowBox[{"4", ",", "1"}]]}]}]]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.915600888812372*^9, 3.915600952893393*^9},
+ CellLabel->
+  "Out[249]=",ExpressionUUID->"5a759490-71fa-4c66-9eea-64e81f906bb5"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1019, 796},
+WindowMargins->{{129, Automatic}, {Automatic, 34}},
+PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+TaggingRules->Association["TryRealOnly" -> False],
+Magnification:>1.25 Inherited,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (June 19, 2021)",
+StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"c122e477-a3a1-4b6b-b6de-91b50c2979c9"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc"->{
+  Cell[50964, 1224, 23483, 526, 105, "Print",ExpressionUUID->"14bb0043-c291-4a3d-b81e-67e1e35aa715",
+   CellTags->"Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc", 98374, 2433}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 831, 16, 104, "Input",ExpressionUUID->"8b241212-cb5e-4c49-a1af-98e2bcd66219"],
+Cell[1414, 40, 2664, 38, 51, "Output",ExpressionUUID->"d6e73151-801e-40cc-bf7d-9adea0172f2b"],
+Cell[4081, 80, 758, 16, 159, "Print",ExpressionUUID->"459a89e7-c7ce-4690-9bcb-f7aedfa4c4d6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4876, 101, 194, 3, 51, "Input",ExpressionUUID->"3878cf1a-1431-4e63-9dd2-ac62a504da91"],
+Cell[5073, 106, 45888, 1116, 1048, "Output",ExpressionUUID->"f25d2127-c4c3-429e-af79-9a011c53db0e"],
+Cell[50964, 1224, 23483, 526, 105, "Print",ExpressionUUID->"14bb0043-c291-4a3d-b81e-67e1e35aa715",
+ CellTags->"Info-4ccf98f5-cf59-4c7c-8ca8-cd5d68c3d6bc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74484, 1755, 989, 22, 130, "Input",ExpressionUUID->"6a6bb66f-8473-455a-bd23-80e7f0254686"],
+Cell[CellGroupData[{
+Cell[75498, 1781, 723, 12, 29, "Print",ExpressionUUID->"09011b92-1c5a-4ebf-b76e-282f7caa471e"],
+Cell[76224, 1795, 732, 13, 29, "Print",ExpressionUUID->"137a6a09-9352-495c-bc26-dde0ae0c5a13"]
+}, Open  ]]
+}, Open  ]],
+Cell[76983, 1812, 553, 13, 104, "Input",ExpressionUUID->"ca79a261-126a-4970-a7e6-9cc5f4f13621"],
+Cell[CellGroupData[{
+Cell[77561, 1829, 613, 9, 87, "Section",ExpressionUUID->"23a98e14-a6e4-45f9-affb-e5a7325e2c29"],
+Cell[78177, 1840, 734, 15, 51, "Input",ExpressionUUID->"5332646f-1609-4151-ba7f-ff5386a69414"],
+Cell[CellGroupData[{
+Cell[78936, 1859, 1160, 30, 104, "Input",ExpressionUUID->"a65b7301-a2a9-4c09-aad1-41e3887596e7"],
+Cell[80099, 1891, 3040, 95, 188, "Output",ExpressionUUID->"06fc0106-541a-4245-970a-0909ac6c8d2f"]
+}, Open  ]],
+Cell[83154, 1989, 1156, 29, 51, "Input",ExpressionUUID->"35c7d7c4-c15f-488c-85ca-15a59c331297"],
+Cell[CellGroupData[{
+Cell[84335, 2022, 2880, 84, 287, "Input",ExpressionUUID->"e91810d0-1bc6-4efb-b695-9e8423746f91"],
+Cell[87218, 2108, 979, 21, 51, "Output",ExpressionUUID->"d954a88a-ad5a-4c81-ab50-b587a0975b86"],
+Cell[88200, 2131, 977, 20, 51, "Output",ExpressionUUID->"9f2a1b7d-b845-42e0-b09e-86d600c9c478"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89214, 2156, 207, 4, 51, "Input",ExpressionUUID->"08bbaf5d-57b4-4918-aaf1-272d8f519a88"],
+Cell[89424, 2162, 8313, 252, 279, "Output",ExpressionUUID->"5a759490-71fa-4c66-9eea-64e81f906bb5"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
