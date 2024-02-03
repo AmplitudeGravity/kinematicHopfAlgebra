@@ -105,6 +105,19 @@ you can see readable form of the pre-numerator
 ```
 num//.nicesp
 ```
+## BCJ numerator in the DF^2+YM theory
+generate the HEFT BCJ numerator
+```
+num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
+   T[f__] :> T2FF3F4[T[f]];
+num=num /. W -> WFun0 /. F[i__] :> Sequence @@ (F /@ {i});
+num = num //. W[od__] :> WFunDF2[od] /. repW0 //. dotRules // Expand;
+```
+generate the W prime function
+```
+WFunDF2[1, 2, 3, 4] /. repWp //. dotRules // Expand;
+% //. W -> WFunDF2 /. repW0 //. dotRules // Expand
+```
 
 ## QCD BCJ numerator
 The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
