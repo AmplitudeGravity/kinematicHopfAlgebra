@@ -106,6 +106,8 @@ you can see readable form of the pre-numerator
 num//.nicesp
 ```
 ## BCJ numerator in the DF^2+YM theory
+```
+This part is to generate the BCJ numerator in the DF2+YM theory. This theory contains massless gluon, massive gluon and tachyon, see [1803.05452](https://arxiv.org/abs/1803.05452)  for reference. 
 generate the HEFT BCJ numerator
 ```
 num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
