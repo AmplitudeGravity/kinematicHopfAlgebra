@@ -19,12 +19,10 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v3.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0.
- KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London.
- It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
- theory(HEFT), Yang-Mills/Gravity theory and Yang-Mills-Scalar/Gravity-Scalar. 
- KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
- use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886) for more reference." ]
+  Print][" KiHA(v5.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
+ KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London. It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
+ theory(HEFT), YM, YM-Scalar, YM-fermion, F3+F4 theory and DF2+YM theory. KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
+ use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886,2310.11943) for more reference." ]
 
 
 (* ::Subsection:: *)
@@ -77,7 +75,7 @@ ExpandNCM::usage ="Expand the non-commutative multiply"
 NC::usage="commutator of the non-commutative multiply"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*QCD current*)
 
 
@@ -100,9 +98,21 @@ X2Prop::usage="The propagators from the binary product. The last line is taken a
 
 
 T2FF3F4::usage="transform F^3+F^4 kinematic algebra to F form"
-WFun::usage="W function in F^3+F^4 evaluation map"
-W::usage="Abstract W function"
+WFun::usage="W prime function in F^3+F^4  evaluation map"
+W::usage="Abstract W prime function"
 \[Alpha]::usage="string tension constant"
+W0::usage="Abstract W0 function"
+WFunDF2::usage="W prime function in the DF^2+YM evaluation map,WFunDF2[1,2,3,4,5],WFunDF2[1,2,3,4,5,{{{1,2},{3,4,5}}}]"
+MultiTrace::usage="generate terms in the BCJ numerator corresponding to the multi trace partitions, e.g. MultiTrace[5]
+MultiTrace[1,2,3,4,5],MultiTrace[5,{{{1,2},{3,4,5}}}],MultiTrace[1,2,3,4,5,{{{1,2},{3,4,5}}}]"
+WFunDF2SingleTr::usage="W prime single trace function in the DF^2+YM evaluation map,WFunDF2SingleTr[1,2,3,4,5]"
+SingleTrace::usage="generate single trace terms in the BCJ numerator corresponding to the multi trace partitions, e.g. SingleTrace[5]
+SingleTrace[1,2,3,4,5]"
+W0Relations::usage="generate all the relations of W0 or W prime function, e.g. W0Relations[5],W0Relations[1,2,3,4,5]"
+repW0::usage="replace all the W0 function to their basis"
+repWp::usage="replace all the W prime function to their basis"
+trFLA::usage="value of W0 function, e.g. trFLA[1,2,3,4,5]"
+WFun0::usage="value of W function, e.g. WFun0[1,2,3,4,5]"
 
 
 (* ::Subsection:: *)
@@ -116,7 +126,7 @@ declareAntisymmetric::usage="set function is antisymmetric under exchange the or
 declareSymmetric::usage="set function do not dependent order of the variables"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -218,7 +228,7 @@ aMu::usage = "aMu[l1,l2] represents the antisymmetric product of the extra-dimen
 aMu::author = "Gregor Kaelin"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -258,7 +268,7 @@ toSpinors::ssle = "Only four-dimensional vectors can be converted to spinors."
 toSpinors::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -828,7 +838,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -1165,7 +1175,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1506,7 +1516,7 @@ EJ[i_/;IntegerQ[i]]:=dot[\[Epsilon][p[i]],v]
 Jh[f_List,vv_]:=Module[{len=Length[f]},JQCD[Range[len]]]/.v-> vv/.\[Epsilon][p[i_]]:> \[Epsilon][i]/.{p[i_]:> f[[i,1]],\[Epsilon][i_]:> f[[i,2]]}
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*alpha' higher orders*)
 
 
@@ -1516,6 +1526,14 @@ cyclePermuteSet[od__]:=Module[{odlist={od}},Table[Join[odlist[[i;;-1]],odlist[[1
 trFLA[od__,i2_ ]:=Module[{lnest},lnest=(ExpandNCM/@(NonCommutativeMultiply/@(List@@(\[CapitalOmega][od]))))/.\[FivePointedStar]->Sequence/.NonCommutativeMultiply->F//Total;
 lnest=lnest/.F[ii__]:>tr[F[ii,i2]]
 ]
+
+
+WFun0[n_]:=Module[{effpt,monos,res},If[n>=4,effpt=SetPartitionsOrdered[n]//Cases[{{i1_,g___,i2_},f___,{i3_,h___,i4_}}];
+monos=Table[W@@@effpt[[ii]],{ii,Length@effpt}]/.W[i_]:>Sequence[]//.{g___,W[h1__,i_],W[j_,h2__],f___}:>{g,W[h1,i],dot[p[i],F@@Table[ii,{ii,i+1,j-1}],p[j]],W[j,h2],f}/.F[]->Sequence[];
+monos=Times@@@monos,monos={0}];
+res=W@@Range[n]+Total[Join[monos,{0}]]
+]
+WFun0[od__,ode_]:=WFun0[Length[{od,ode}]]/.dot[f__]:>(dot[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W[f__]:>(W[f]/.i_?IntegerQ:>{od,ode}[[i]])
 
 
 WFun[i1_]:=0
@@ -1554,6 +1572,103 @@ dot[leftv[[ii]],F[Sequence@@odi],v[0]]+Sum[dot[leftv[[ii]],F[Sequence@@odi[[1;;j
 den=dot[v[0],p[1]]Product[ dot[v[0],(p@@Flatten[Join[{},od[[1;;(i-1)]]]])],{i,2,Length@od}];
   (num/den)
 ]
+
+
+MultiTrace[n_?IntegerQ]:=Module[{effpt,monos,lengthList},
+If[n>=2,
+effpt=Drop[SetPartitionsOrdered[n],1];
+effpt=Drop[effpt,-1];
+lengthList=Table[1/Length[effpt[[ii]]],{ii,Length@effpt}];
+monos=Table[(W@@@effpt[[ii]]),{ii,Length@effpt}]/.W[i_]:>Sequence[]//.{g___,W[h1__,i_],W[j_,h2__],f___}:>{g,W[h1,i],dot[p[i],F@@Table[ii,{ii,i+1,j-1}],p[j]],W[j,h2],f}/.{W[i_,h1__],f___,W[h2__,j_]}:>{W[i,h1],f,W[h2,j],dot[p[j],F@@Join[Table[ii,{ii,j+1,n}],Table[ii,{ii,1,i-1}]],p[i]]}/.F[]->Sequence[]/.{W[i_,h___,j_]}:>{W[i,h,j],dot[p[j],F@@Join[Table[ii,{ii,j+1,n}],Table[ii,{ii,1,i-1}]],p[i]]};
+monos=Times@@@monos;monos=Table[lengthList[[ii]]*monos[[ii]],{ii,Length@effpt}],monos={0}]
+]
+MultiTrace[od__?IntegerQ,ode_?IntegerQ]:=MultiTrace[Length[{od,ode}]]/.dot[f__]:>(dot[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W[f__]:>(W[f]/.i_?IntegerQ:>{od,ode}[[i]])
+MultiTrace[n_?IntegerQ,pts_List]:=Module[{effpt,monos},
+If[n>=2,
+effpt=pts;
+monos=Table[W@@@effpt[[ii]],{ii,Length@effpt}]/.W[i_]:>Sequence[]//.{g___,W[h1__,i_],W[j_,h2__],f___}:>{g,W[h1,i],dot[p[i],F@@Table[ii,{ii,i+1,j-1}],p[j]],W[j,h2],f}/.{W[i_,h1__],f___,W[h2__,j_]}:>{W[i,h1],f,W[h2,j],dot[p[j],F@@Join[Table[ii,{ii,j+1,n}],Table[ii,{ii,1,i-1}]],p[i]]}/.F[]->Sequence[]/.{W[i_,h___,j_]}:>{W[i,h,j],dot[p[j],F@@Join[Table[ii,{ii,j+1,n}],Table[ii,{ii,1,i-1}]],p[i]]};
+monos=Times@@@monos,monos={0}]
+]
+MultiTrace[od__?IntegerQ,ode_?IntegerQ,pts_List]:=MultiTrace[Length[{od,ode}],pts]/.dot[f__]:>(dot[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W[f__]:>(W[f]/.i_?IntegerQ:>{od,ode}[[i]])
+
+
+WFunDF2[i1_]:=0
+WFunDF2[od__]:=WFunDF2[od]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+(*Print[lnest];*)
+allnest=DeleteCases[List@@lnest,zero];
+signs=allnest/.tr[_]:>1;
+allnest=allnest/.Times[a_,tr[f_]]:>List@@f/.tr[f_]:>List@@f;
+(*Print[allnest];*)
+res1=\[Alpha]/(1-\[Alpha] dot[p[od]]) W0[od];
+res3=Sum[cycs=cyclePermuteSet@@allnest[[kk]];signs[[kk]]*\[Alpha]/(1-\[Alpha] dot[p[od]]) Total[Table[cyc=cycs[[jj]];MultiTrace@@cyc,{jj,Length@cycs}]//Flatten],{kk,Length[allnest]}];
+res1+res3
+]
+WFunDF2[od__,pts_List]:=WFunDF2[od,pts]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+(*Print[lnest];*)
+allnest=DeleteCases[List@@lnest,zero];
+signs=allnest/.tr[_]:>1;
+allnest=allnest/.Times[a_,tr[f_]]:>List@@f/.tr[f_]:>List@@f;
+(*Print[allnest];*)
+res3=Sum[cycs=cyclePermuteSet@@allnest[[kk]];signs[[kk]]*\[Alpha]/(1-\[Alpha] dot[p[od]]) Total[Table[cyc=cycs[[jj]];MultiTrace[Sequence@@cyc,pts],{jj,Length@cycs}]//Flatten],{kk,Length[allnest]}];
+res3
+]
+
+
+SingleTrace[n_?IntegerQ]:=Module[{effpt,monos,lengthList},
+If[n>=2,
+effpt=Drop[SetPartitionsOrdered[n],1];
+effpt=Drop[effpt,-1]//Cases[{{f__},g__}/;Length[{f}]+Length[{g}]==n];
+monos=Table[(W@@@effpt[[ii]]),{ii,Length@effpt}]/.W[i_]:>Sequence[]/.{W[i_,h___,j_]}:>{W[i,h,j],dot[p[j],F@@Join[Table[ii,{ii,j+1,n}],Table[ii,{ii,1,i-1}]],p[i]]};
+monos=Times@@@monos;monos=Table[monos[[ii]],{ii,Length@effpt}],monos={0}]
+]
+SingleTrace[od__?IntegerQ,ode_?IntegerQ]:=SingleTrace[Length[{od,ode}]]/.dot[f__]:>(dot[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W[f__]:>(W[f]/.i_?IntegerQ:>{od,ode}[[i]])
+
+
+WFunDF2SingleTr[i1_]:=0
+WFunDF2SingleTr[od__]:=WFunDF2SingleTr[od]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+(*Print[lnest];*)
+allnest=DeleteCases[List@@lnest,zero];
+signs=allnest/.tr[_]:>1;
+allnest=allnest/.Times[a_,tr[f_]]:>List@@f/.tr[f_]:>List@@f;
+(*Print[allnest];*)
+res1=\[Alpha]/(1-\[Alpha] dot[p[od]]) W0[od];
+res3=Sum[cycs=cyclePermuteSet@@allnest[[kk]];signs[[kk]]*\[Alpha]/(1-\[Alpha] dot[p[od]]) Total[Table[cyc=cycs[[jj]];SingleTrace@@cyc,{jj,Length@cycs}]//Flatten],{kk,Length[allnest]}];
+res1+res3
+]
+
+
+replace[otherDDMOrder_,n_]:=Table[(p/@Range[n-1])[[i]]-> otherDDMOrder[[i]],{i,n-1}];
+replace[otherDDMOrder_List]:=Module[{gg,ggod},gg=p/@otherDDMOrder;ggod=Sort[gg];Table[(ggod)[[i]]-> (gg)[[i]],{i,Length@gg}]]
+
+
+W0Relations[gluons_]:=Module[{vponshell,onshell2,numW123,numWNC123,comp,solW,n},n=gluons+2;
+vponshell={dot[v,p[1]]:> (-Sum[dot[v,p[j]],{j,2,n-2}])}/.v->v[0];
+onshell2={dot[p[i_],p[i_]]:>0,
+dot[p[i_],\[Epsilon][p[i_]]]:>0,dot[\[Epsilon][p[i_]],p[i_]]:>0};
+numW123=(W@@Range[n-2])dot[p[p[n-2]],v[0]]/.W[f__]:>W@@(p/@{f})/.F[f__]:>F@@(p/@{f});
+numWNC123=(ExpandNCM/@(BinaryProduct[n-2][[-1]]/.X-> NC)/.NonCommutativeMultiply-> T)/.T[f__]:>(numW123/.replace[{f}])/.p[i_]:>i;
+comp=numWNC123-(n-2)(numW123/.p[i_]:>i);
+comp=comp/.vponshell//Collect[#,dot[__]]&;
+comp=Table[0==(comp[[ii]])/.dot[p[i_],v[0]]:>1/.W->W0,{ii,Length@comp}];
+comp
+]
+W0Relations[gid1_,gids__]:=Module[{idlist},idlist={gid1,gids};W0Relations[Length[idlist]]/.W0[f__]:>(W0@@{f}/.i_?IntegerQ:>idlist[[i]])]
+
+
+repW0Relations[gids__]:=Module[{idlist,allorder,eqns,solW},idlist={gids};allorder=Permutations[idlist];eqns=Table[W0Relations@@allorder[[ii]],{ii,Length@allorder}]//Flatten//Union;
+solW=Solve[eqns][[1]]
+]
+
+
+repW0=Join[{W0[i1_,g__,i2_]:>(W0[i1,g,i2]/.repW0Relations[i1,g,i2])/;i1>Min[{g}]||i2<Max[{g}]},{W0[i1_,i2_]:>Sort[W0[i1,i2]]}];
+
+
+repWp=Join[{W[i1_,g__,i2_]:>((W[i1,g,i2]/.(repW0Relations[i1,g,i2]/.W0->W))/;i1>Min[{g}]||i2<Max[{g}])},{W[i1_,i2_]:>Sort[W[i1,i2]]}];
+
+
+(*trFLA[od__,i2_ ]:=Module[{lnest},lnest=(ExpandNCM/@(NonCommutativeMultiply/@(List@@(\[CapitalOmega][od]))))/.\[FivePointedStar]->Sequence/.NonCommutativeMultiply->F//Total;
+lnest=lnest/.F[ii__]:>tr[F[ii,i2]]
+]*)
 
 
 (* ::Subsection:: *)
