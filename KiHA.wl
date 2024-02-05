@@ -98,6 +98,7 @@ X2Prop::usage="The propagators from the binary product. The last line is taken a
 
 
 T2FF3F4::usage="transform F^3+F^4 kinematic algebra to F form"
+T2YM::usage="transform YM local kinematic algebra to F form "
 WFun::usage="W prime function in F^3+F^4  evaluation map"
 W::usage="Abstract W prime function"
 \[Alpha]::usage="string tension constant"
@@ -113,6 +114,9 @@ repW0::usage="replace all the W0 function to their basis"
 repWp::usage="replace all the W prime function to their basis"
 trFLA::usage="value of W0 function, e.g. trFLA[1,2,3,4,5]"
 WFun0::usage="value of W function, e.g. WFun0[1,2,3,4,5]"
+W2basis::usage="efficient replace all the W prime function to their basis,W2basis[W[2,1,3,5,4]]"
+W02basis::usage="efficient replace all the W0 function to their basis"
+WFun2YM::usage="Generate the W function for pure Yang-Mills BCJ numerator, e.g WFun2YM[1,2,3,4,5]"
 
 
 (* ::Subsection:: *)
@@ -1660,6 +1664,41 @@ repW0=Join[{W0[i1_,g__,i2_]:>(W0[i1,g,i2]/.repW0Relations[i1,g,i2])/;i1>Min[{g}]
 
 
 repWp=Join[{W[i1_,g__,i2_]:>((W[i1,g,i2]/.(repW0Relations[i1,g,i2]/.W0->W))/;i1>Min[{g}]||i2<Max[{g}])},{W[i1_,i2_]:>Sort[W[i1,i2]]}];
+
+
+WFun2YM[ng_?IntegerQ]:=WFun2YM[ng]=Module[{ls=Range[ng],lsb,pts,pts2,pt,pleft,pright,res1,res2},lsb=ls[[2;;-2]];pts=KSetPartitions[lsb,2];
+pts2=pts/.{f1_List,f2_List}:>{f2,f1};
+pts=Join[pts,pts2,{{lsb,{}}}];
+pts=pts/.{f1_List,f2_List}:>{f1,Join[{1},f2,{ng}]};
+If[ng>2,res1=Sum[pt=pts[[ii]];
+pleft=p@@Select[pt[[2]],#<pt[[1,1]]&];
+pright=p@@Select[pt[[2]],#>pt[[1,-1]]&];
+2 (\[Alpha] dot[pleft,F@@pt[[1]],pright])/(1-\[Alpha] dot[p@@ls]) W@@pt[[2]],{ii,Length@pts}],res1=0];
+res2=\[Alpha] /(1-\[Alpha] dot[p@@ls]) W0@@ls;
+res1+res2
+]
+WFun2YM[od__?IntegerQ,ode_?IntegerQ]:=WFun2YM[Length[{od,ode}]]/.dot[f__]:>(dot[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W[f__]:>(W[f]/.i_?IntegerQ:>{od,ode}[[i]])/.W0[f__]:>(W0[f]/.i_?IntegerQ:>{od,ode}[[i]])
+
+
+W2basis[f_W]:=Module[{lnf=Length[f],max=Max[List@@f],min=Min[List@@f]},f/.W[g1___,max,g2___,min,g3___]:>(-1)^lnf W[Sequence@@Reverse[{g1,max,g2,min,g3}]]/.W[g1___,min,g2___,max,g3___]:>(-1)^If[{g1}==={},0,1] (-1)(-1)^(Length[{g3}]-1) ExpandNCM[(NonCommutativeMultiply[min,\[CapitalOmega]@@{g1}/.\[CapitalOmega][i_?IntegerQ]:>i/.\[FivePointedStar]->NonCommutativeMultiply,g2,\[CapitalOmega]@@Reverse[{g3}]/.\[CapitalOmega][i_?IntegerQ]:>i/.\[FivePointedStar]->NonCommutativeMultiply,max]/.\[CapitalOmega][]->Sequence[])]/.NonCommutativeMultiply->W]
+
+
+W02basis[f_W0]:=Module[{lnf=Length[f],max=Max[List@@f],min=Min[List@@f]},f/.W0[g1___,max,g2___,min,g3___]:>(-1)^lnf W[Sequence@@Reverse[{g1,max,g2,min,g3}]]/.W0[g1___,min,g2___,max,g3___]:>(-1)^If[{g1}==={},0,1] (-1)(-1)^(Length[{g3}]-1) ExpandNCM[(NonCommutativeMultiply[min,\[CapitalOmega]@@{g1}/.\[CapitalOmega][i_?IntegerQ]:>i/.\[FivePointedStar]->NonCommutativeMultiply,g2,\[CapitalOmega]@@Reverse[{g3}]/.\[CapitalOmega][i_?IntegerQ]:>i/.\[FivePointedStar]->NonCommutativeMultiply,max]/.\[CapitalOmega][]->Sequence[])]/.NonCommutativeMultiply->W0]
+
+
+T2YM[f_T]:=Module[{fls,od,odi,odl,n,phat,leftv,rightv,num,num1,den,refs,sc,refg},
+fls=List@@f;
+od=fls;
+n=1+Length@(od//Flatten);
+leftv=Range[Length@od];
+leftv[[1]]=v[0];
+Table[odl=Flatten[od[[1;;(i-1)]]];leftv[[i]]=If[Select[odl,#<od[[i,1]]&]==={},p[Min[odl]],p@@Select[odl,#<od[[i,1]]&]],{i,2,Length@od}];rightv=Range[Length@od];
+rightv[[1]]=v[0];
+Table[odl=Flatten[od[[1;;(i-1)]]];rightv[[i]]=If[Select[odl,#>od[[i,-1]]&]==={},p[Max[odl]],p@@Select[odl,#>od[[i,-1]]&]],{i,2,Length@od}];
+num=(W0@@od[[1]])Product[odi=od[[ii]];2dot[leftv[[ii]],F[Sequence@@odi],rightv[[ii]]],{ii,2,Length[od]}];
+den=(*(-1/\[Alpha]+dot[p@@(od//Flatten)])*)-1/\[Alpha]*Product[ -1/\[Alpha]+dot[(p@@Flatten[Join[{},od[[1;;(i-1)]]]])],{i,2,Length@od}];
+  (num/den)
+]
 
 
 (*trFLA[od__,i2_ ]:=Module[{lnest},lnest=(ExpandNCM/@(NonCommutativeMultiply/@(List@@(\[CapitalOmega][od]))))/.\[FivePointedStar]->Sequence/.NonCommutativeMultiply->F//Total;
