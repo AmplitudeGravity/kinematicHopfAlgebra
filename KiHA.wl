@@ -459,7 +459,7 @@ fl=f[[1;;(idmax[[1]]-1)]];2dot[p[imax],(p/@fl)//Total]KLTR[fr]],Length[f]==2,2do
 KLTRM[n_]:=KLTR/@(Drop[#,-1]&/@ddmBasis[Range[n]])
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*SetPartitions*)
 
 
@@ -472,10 +472,6 @@ KSetPartitions[s_List,k_Integer]:=Block[{$RecursionLimit=Infinity,j},Join[(Prepe
 KSetPartitions[0,(k_Integer)?Positive]:={}
 KSetPartitions[(n_Integer)?Positive,0]:={}
 KSetPartitions[(n_Integer)?Positive,(k_Integer)?Positive]:=KSetPartitions[Range[n],k]
-SetPartitiona:={{}}
-SetPartitions[{}]:={{}}
-SetPartitions[s_List]:=Flatten[Table[KSetPartitions[s,i],{i,2,Length[s]-2}],1]
-SetPartitions[(n_Integer)?Positive]:=SetPartitions[Range[n]]
 NSetPartitions[s_List,n_Integer]:=Select[SetPartitions[s],Union[Length/@#]=={2}&];
 KSetPartitionsEmpty[s_List,k_Integer]:=Module[{app,KMod},app=KSetPartitions[s,k];
 Do[KMod=KSetPartitions[s,q];
