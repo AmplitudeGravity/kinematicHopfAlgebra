@@ -1,6 +1,6 @@
 # kinematicHopfAlgebra
 This program generates the BCJ numerator in HEFT, YM, YMS+ $\phi^3$, QCD with fermions, YM+ $F^3+F^4$, $DF^2$+YM. It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
-Examples are included. 
+Examples are included. Local BCJ numerator for YM is also included. 
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 Related paper for KiHA in HEFT are  [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) .
@@ -139,6 +139,40 @@ numRecQCD[5] // contractSp
 ```
 
 
+## Local BCJ numerator for Yang-Mills
+For the local BCJ numerator in Yang-Mills theory,  the kinematic algebra is also quasi-shuffle hopf algebra. 
+The BCJ numerator is obtained as 
+```
+ng = 8;
+rmzeroDF2 = {T[{i1_, ils__}, g__] :> 0 /; i1 != 1};
+Timing[num2 = (\[FivePointedStar] @@ (Table[
+        T[{ii}], {ii, ng - 1}])) /. 
+    T[{i1__}, g___] :> T[{i1, ng}, g] /. rmzeroDF2;
+ num2 = num2 /. T[f__] :> T2YMLocal[T[f]];]
+```
 
-
+Another version of the bcj numerator can be obtained recursively. We first set the replace rules for the factors in the  W' function
+```
+repdotnum2 = {W0[1, f___, 
+      ng] :> -1/\[Alpha] dot[\[Epsilon][1], 
+       Sequence @@ F /@ {f}, \[Epsilon][ng]] /. 
+    dot[i1_, F[], i2_] :> dot[i1, i2]};
+repdotden2 = {(1 - \[Alpha] dot[p[f__], p[f__]]) :> 
+    2 \[Alpha] Length[Complement[Range[ng], {f}]] x};
+repdotFnum2 = {dot[f__, F[i_], 
+     p[gs___, ng]] :> -dot[f, \[Epsilon][i]] x, 
+   dot[f__, F[rs__, i_], 
+     p[gs___, ng]] :> -dot[f, F[rs], \[Epsilon][i]] x};
+```
+Then we use the recursive rules that contribute to the leading order of $\alpha'$ and in local numerator limit, after applying the above replacement rules, we can 
+get the local BCJ numerator as "wfunYM"
+```
+Timing[wfun = (-1)^(ng - 1) (WFun2YM @@ Range[ng]);
+ wfun = Sum[
+   wfun[[ii]]*(1 - \[Alpha] dot[p @@ Range[ng]]) // Simplify, {ii, 
+    Length@wfun}];
+ wfun = wfun //. W -> WFun2YM // Expand;
+ wfunYM = wfun /. repdotnum2 /. repdotden2 /. repdotFnum2;
+ ]
+```
 
