@@ -141,55 +141,7 @@ Do[
        dotRules // Expand, {jjj, Length@wfun}];, jjj];
  , {id, ng - 2}]
 ```
-
-Extract the BCJ numerator for arbitrary $\alpha'$ order.
-```
-wfun = coef[wfun, 1/(1 - \[Alpha] dot[p @@ Range[ng]])];
-wfun = wfun /. W0[f__, ng] :> (trFLA[f, ng] /. repNormalOrder) // 
-   Expand;
-wfun = wfun // expandTr // expandFDirect[#, ng] & // contractAnti;
-wfun = wfun //. dotRules // Expand;
-numNL = wfun /. 
-    dot[f__, F[i_], 
-      p[ng]] :> (dot[f, F[i], p[ng]] // expandFDirect[#, i] &) /. 
-   dot[p[ng], F[i_], 
-     f__] :> (dot[p[ng], F[i], f] // expandFDirect[#, i] &);
-numNL = numNL /. 
-      dot[
-        f__] :> (dot[f] /. p[g__] :> Total[p /@ {g}] /. onshell2) /. 
-     solCuts[q @@ Range[ng - 1], 
-      p @@ Range[ng], {dot[p[ng - 2], p[ng - 1]], dot[p[1], p[ng]]}] //
-     Expand // SimplifyMono;
-numNL0 = numNL /. \[Alpha] -> 0;
-Monitor[numNL1 = 
-   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 1}], {ii, 
-     Length@numNL}];, ii]
-Monitor[numNL2 = 
-   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 2}], {ii, 
-     Length@numNL}];, ii]
-Monitor[numNL3 = 
-   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 3}], {ii, 
-     Length@numNL}];, ii]
-```
-
-From non-local form to the local BCJ numeator
-```
-Monitor[numymLocal0 = 
-   Sum[Series[
-       numNL0[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
-       Normal // Expand, {ii, Length@numNL0}];, ii]
-Monitor[numymLocal1 = 
-   Sum[Series[
-       numNL1[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
-       Normal // Expand, {ii, Length@numNL1}];, ii]
-Monitor[numymLocal2 = 
-   Sum[Series[
-       numNL2[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
-       Normal // Expand, {ii, Length@numNL2}];, ii]
-Monitor[numymLocal3 = 
-   Sum[Series[
-       numNL3[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
-       Normal // Expand, {ii, Length@numNL3}];, ii]
+More details can be found in the file "DF2YMExample.nb".
 ```
 ## QCD BCJ numerator
 The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
