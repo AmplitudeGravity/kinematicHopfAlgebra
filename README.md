@@ -110,18 +110,87 @@ This part is to generate the BCJ numerator in the DF2+YM theory. This theory con
 
 generate the HEFT BCJ numerator
 ```
-num = \[FivePointedStar][T[{1}], T[{2}], T[{3}]] /. rmzeroT /. 
+n=7;
+num = \[FivePointedStar][T[{1}], T[{2}], T[{3}],T[{4}],T[{5}]] /. rmzeroT /. 
    T[f__] :> T2FF3F4[T[f]];
-num=num /. W -> WFun0 /. F[i__] :> Sequence @@ (F /@ {i});
-num = num //. W[od__] :> WFunDF2[od] /. repW0 //. dotRules // Expand;
+num = num /. W -> WFun0;
+num = num /. W[od__] :> WFunDF2[od] /. repNormalOrder /. 
+     W[f__] :> W2basis[W[f]] //. dotRules // Expand;
+ng=n-2;
+Do[
+ Print[Length[wfun]];
+ Monitor[
+  num = Sum[
+     num[[jjj]] /. W -> WFunDF2 /. repNormalOrder /. 
+         W[f__] :> W2basis[W[f]] /. W0[f__] :> W02basis[W0[f]] //. 
+       dotRules // Expand, {jjj, Length@num}];, jjj];
+ , {id, ng - 2}]
 ```
 
 generate the W prime function
 ```
-WFunDF2[1, 2, 3, 4] /. repWp //. dotRules // Expand;
-% //. W -> WFunDF2 /. repW0 //. dotRules // Expand
+ng=5;
+wfun = (-1)^(ng - 1) (WFunDF2 @@ Range[ng]) /. repNormalOrder /. 
+     W[f__] :> W2basis[W[f]] //. dotRules // Expand;
+Do[
+ Print[Length[wfun]];
+ Monitor[
+  wfun = 
+    Sum[wfun[[jjj]] /. W -> WFunDF2 /. repNormalOrder /. 
+         W[f__] :> W2basis[W[f]] /. W0[f__] :> W02basis[W0[f]] //. 
+       dotRules // Expand, {jjj, Length@wfun}];, jjj];
+ , {id, ng - 2}]
 ```
 
+Extract the BCJ numerator for arbitrary $\alpha'$ order.
+```
+wfun = coef[wfun, 1/(1 - \[Alpha] dot[p @@ Range[ng]])];
+wfun = wfun /. W0[f__, ng] :> (trFLA[f, ng] /. repNormalOrder) // 
+   Expand;
+wfun = wfun // expandTr // expandFDirect[#, ng] & // contractAnti;
+wfun = wfun //. dotRules // Expand;
+numNL = wfun /. 
+    dot[f__, F[i_], 
+      p[ng]] :> (dot[f, F[i], p[ng]] // expandFDirect[#, i] &) /. 
+   dot[p[ng], F[i_], 
+     f__] :> (dot[p[ng], F[i], f] // expandFDirect[#, i] &);
+numNL = numNL /. 
+      dot[
+        f__] :> (dot[f] /. p[g__] :> Total[p /@ {g}] /. onshell2) /. 
+     solCuts[q @@ Range[ng - 1], 
+      p @@ Range[ng], {dot[p[ng - 2], p[ng - 1]], dot[p[1], p[ng]]}] //
+     Expand // SimplifyMono;
+numNL0 = numNL /. \[Alpha] -> 0;
+Monitor[numNL1 = 
+   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 1}], {ii, 
+     Length@numNL}];, ii]
+Monitor[numNL2 = 
+   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 2}], {ii, 
+     Length@numNL}];, ii]
+Monitor[numNL3 = 
+   Sum[SeriesCoefficient[numNL[[ii]], {\[Alpha], 0, 3}], {ii, 
+     Length@numNL}];, ii]
+```
+
+From non-local form to the local BCJ numeator
+```
+Monitor[numymLocal0 = 
+   Sum[Series[
+       numNL0[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
+       Normal // Expand, {ii, Length@numNL0}];, ii]
+Monitor[numymLocal1 = 
+   Sum[Series[
+       numNL1[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
+       Normal // Expand, {ii, Length@numNL1}];, ii]
+Monitor[numymLocal2 = 
+   Sum[Series[
+       numNL2[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
+       Normal // Expand, {ii, Length@numNL2}];, ii]
+Monitor[numymLocal3 = 
+   Sum[Series[
+       numNL3[[ii]] /. dot[p[i_], p[ng]] :> x, {x, \[Infinity], 0}] //
+       Normal // Expand, {ii, Length@numNL3}];, ii]
+```
 ## QCD BCJ numerator
 The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
 The pre-numerator is obtained as 
