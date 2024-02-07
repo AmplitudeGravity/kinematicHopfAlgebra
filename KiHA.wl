@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v5.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
+  Print][" KiHA(v5.6),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London. It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), YM, YM-Scalar, YM-fermion, F3+F4 theory and DF2+YM theory. KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
  use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886,2310.11943) for more reference." ]
@@ -98,7 +98,7 @@ X2Prop::usage="The propagators from the binary product. The last line is taken a
 
 
 T2FF3F4::usage="transform F^3+F^4 kinematic algebra to F form"
-T2YM::usage="transform YM local kinematic algebra to F form "
+T2YMLocal::usage="transform YM local kinematic algebra to F form "
 WFun::usage="W prime function in F^3+F^4  evaluation map"
 W::usage="Abstract W prime function"
 \[Alpha]::usage="string tension constant"
@@ -1697,6 +1697,19 @@ rightv[[1]]=v[0];
 Table[odl=Flatten[od[[1;;(i-1)]]];rightv[[i]]=If[Select[odl,#>od[[i,-1]]&]==={},p[Max[odl]],p@@Select[odl,#>od[[i,-1]]&]],{i,2,Length@od}];
 num=(W0@@od[[1]])Product[odi=od[[ii]];2dot[leftv[[ii]],F[Sequence@@odi],rightv[[ii]]],{ii,2,Length[od]}];
 den=(*(-1/\[Alpha]+dot[p@@(od//Flatten)])*)-1/\[Alpha]*Product[ -1/\[Alpha]+dot[(p@@Flatten[Join[{},od[[1;;(i-1)]]]])],{i,2,Length@od}];
+  (num/den)
+]
+
+
+T2YMLocal[f_T]:=Module[{fls,od,odi,odl,n,phat,leftv,rightv,num,num1,den,refs,sc,refg},
+fls=List@@f;
+od=fls;
+n=Length@(od//Flatten);
+leftv=Range[Length@od];
+leftv[[1]]=v[0];
+Table[odl=Flatten[od[[1;;(i-1)]]];leftv[[i]]=If[Select[odl,#<od[[i,1]]&]==={},p[Min[odl]],p@@Select[odl,#<od[[i,1]]&]],{i,2,Length@od}];rightv=Range[Length@od];
+num=(dot[\[Epsilon][od[[1]][[1]]],F@@od[[1]][[2;;-2]],\[Epsilon][od[[1]][[-1]]]])Product[odi=od[[ii]];dot[leftv[[ii]],F[Sequence@@odi[[1;;-2]]],\[Epsilon][odi[[-1]]]],{ii,2,Length[od]}]/.F[]->Sequence[];
+den=(*(-1/\[Alpha]+dot[p@@(od//Flatten)])*) Product[Length[Flatten[Join[{},od[[i;;-1]]]]],{i,2,Length@od}];
   (num/den)
 ]
 
