@@ -142,7 +142,8 @@ Do[
  , {id, ng - 2}]
 ```
 More details can be found in the file "DF2YMExample.nb".
-```
+
+
 ## QCD BCJ numerator
 The amplitude with two fermion line and multi gluon lines are also of color-kinematic duality. The kinematic algebra is also quasi-shuffle hopf algebra. 
 The pre-numerator is obtained as 
