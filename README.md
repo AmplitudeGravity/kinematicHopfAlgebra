@@ -3,7 +3,7 @@ This program generates the BCJ numerator in HEFT,YM, ([arxiv:2111.15649](https:/
 Examples are included. Local BCJ numerator for YM is also included. 
 ## Install KiHA
 1. Copy "KiHA.wl" to your computer with "mathematica >10" installed
-2. Load the package use 'Needs["KiHA`", \your local directory/KiHA.wl"]'
+2. Load the package use 'Needs["KiHA`","\your local directory/KiHA.wl"]'
 3. enjoy!
 
 
