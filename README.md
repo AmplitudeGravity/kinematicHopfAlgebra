@@ -1,6 +1,11 @@
 # kinematicHopfAlgebra
 This program generates the BCJ numerator in HEFT,YM, ([arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519)).  YMS+ $\phi^3$ ([arxiv:2208.05886](https://arxiv.org/abs/2208.05886)), QCD with fermions, YM+ $F^3+F^4$[arxiv:2208.05519](https://arxiv.org/abs/2310.11943), $DF^2$+YM [2403.04614](https://arxiv.org/abs/2403.04614). It can be used in constructing EYM and GR+HEFT amplitude via double copy. 
 Examples are included. Local BCJ numerator for YM is also included. 
+## Install KiHA
+1. Copy "KiHA.wl" to your computer with "mathematica >10" installed
+2. Load the package use 'Needs["KiHA`", \your local directory/KiHA.wl"]'
+3. enjoy!
+
 
 ## Heavy-mass effective theory (HEFT) and Yang-Mills (YM)
 Related paper for KiHA in HEFT are  [arxiv:2111.15649](https://arxiv.org/abs/2111.15649),  [arxiv:2208.05519](https://arxiv.org/abs/2208.05519) .
