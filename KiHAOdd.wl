@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v5.8),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
+  Print][" KiHA(v5.6),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London. It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), YM, YM-Scalar, YM-fermion, F3+F4 theory and DF2+YM theory. KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
  use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886,2310.11943) for more reference." ]
@@ -57,7 +57,7 @@ ET2F2s ::usage ="transform generators to strengthen tensor form in amplitude wit
 \[DoubleStruckCapitalS] ::usage ="antipode"
 \[CapitalDelta] ::usage ="coproduct"
 \[DoubleStruckCapitalI] ::usage ="Identity"
-fsp::usage="fermion spin chain product"
+sp::usage="spin chain product"
 Diamond::usage="a distributive general product"
 
 
@@ -130,7 +130,7 @@ declareAntisymmetric::usage="set function is antisymmetric under exchange the or
 declareSymmetric::usage="set function do not dependent order of the variables"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -232,7 +232,7 @@ aMu::usage = "aMu[l1,l2] represents the antisymmetric product of the extra-dimen
 aMu::author = "Gregor Kaelin"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -272,7 +272,7 @@ toSpinors::ssle = "Only four-dimensional vectors can be converted to spinors."
 toSpinors::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -326,7 +326,7 @@ exposeIndex::author = "Gustav Mogull"
 indexCoefficient::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -377,7 +377,7 @@ Begin["`Private`"]
 declareTensorHead[{F},{"rank"-> 2}];*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simplifications*)
 
 
@@ -404,7 +404,7 @@ declareDistributive[Diamond,vectorQ];
 (*Generating the binary product*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*BinaryProduct and DDM*)
 
 
@@ -575,11 +575,11 @@ Table[
 odl=Flatten[od[[1;;(i-1)]]];
 leftv[[i]]=p@@Select[odl,#<od[[i,1]]&];
 rightv[[i]]=p@@Join[{n},Select[odl,#>od[[i,-1]]&]],{i,2,Length@od}];
-num=dot[p[n],F[Sequence@@od[[1]]],lI[1]]fsp[lI[1]]+1/4 dot[p[1],F[Sequence@@Rest[od[[1]]]],lI[1]] fsp[F[1], lI[1]];
-Do[If[fls[[ii,2]]==2,num=num/.fsp[gg__]:>fsp[gg,F[leftv[[ii]],od[[ii]]]],num=num/.fsp[gg__]:>2dot[leftv[[ii]],F[Sequence@@od[[ii]]],rightv[[ii]]]fsp[gg]],{ii,2,Length@fls}];
+num=dot[p[n],F[Sequence@@od[[1]]],lI[1]]sp[lI[1]]+1/4 dot[p[1],F[Sequence@@Rest[od[[1]]]],lI[1]] sp[F[1], lI[1]];
+Do[If[fls[[ii,2]]==2,num=num/.sp[gg__]:>sp[gg,F[leftv[[ii]],od[[ii]]]],num=num/.sp[gg__]:>2dot[leftv[[ii]],F[Sequence@@od[[ii]]],rightv[[ii]]]sp[gg]],{ii,2,Length@fls}];
 den=dot[p[n,1]]Product[ dot[(p@@Flatten[Join[{n},od[[1;;(i-1)]]]])],{i,2,Length@od}];
 den=den;
-  (num/den)//.fsp[f1___,F[p[g__],{i_,h___}],f2___]:>FRank2[p[g],{i,h}]fsp[f1,lI[i],lI[i,0],f2]
+  (num/den)//.sp[f1___,F[p[g__],{i_,h___}],f2___]:>FRank2[p[g],{i,h}]sp[f1,lI[i],lI[i,0],f2]
 ]
 (*FRank2[pv_,{i_}]:=dot[pv,F[i],lI[i]]p[i][lI[i,0]]
 FRank2[pv_,od_List]:=FRank2[pv,od]=Module[{fewF,newF1,newF2},fewF=FRank2[pv,od[[1;;-2]]]//Expand;newF1=fewF/.dot[f__,lI[i_,0]]:>dot[f,F[od[[-1]]],lI[i,0]]/.p[ii__][lI[i_,0]]:>dot[p[ii],F[od[[-1]]],lI[i,0]];
@@ -641,9 +641,9 @@ res=res/.M[f___]:>  Mt[M[f]]
 
 
 (*ClearAll[NumRec]*)
-NumRec[{1}]:=fsp[\[Epsilon][1]]
-NumRec[{1,i2_}]:=-(1/(4dot[p[nv,1]]))dot[p[1],F[i2],lI[1]]fsp[F[1],lI[1]]-1/dot[p[nv,1]] dot[p[nv],F[1],F[i2],lI[1]]fsp[lI[1]]
-NumRec[od_List/;Length[od]>2]:=(*NumRec[od]=*)Module[{allsets,leftall,rightall,leftv,res,remains,partitions},
+NumRec[{1}]:=sp[\[Epsilon][1]]
+NumRec[{1,i2_}]:=-(1/(4dot[p[nv,1]]))dot[p[1],F[i2],lI[1]]sp[F[1],lI[1]]-1/dot[p[nv,1]] dot[p[nv],F[1],F[i2],lI[1]]sp[lI[1]]
+NumRec[od_List/;Length[od]>2]:=Module[{allsets,leftall,rightall,leftv,res,remains,partitions},
 partitions=KSetPartitions[od,2];
 (*Print[partitions];*)
 allsets=Drop[partitions,1];
@@ -652,17 +652,17 @@ res=Sum[
 leftall=allsets[[ii,1]];
 rightall=allsets[[ii,2]];
 leftv=p@@Join[{nv},Select[od,#<rightall[[1]]&]];
-NumRec[leftall]/.fsp[f__]:>(-1)^(Length[rightall]+1) (dot[leftv[[2;;-1]],F[rightall],lI[rightall[[1]]]]/dot[p@@Join[{nv},leftall]])fsp[f,p@@Join[{nv},leftall],lI[rightall[[1]]]],{ii,Length@allsets}];
-res=res+(-1)^Length[remains[[2]]]/(4dot[p[nv,1]]) dot[p[1],F[remains[[2]]],lI[1]]fsp[F[1],lI[1]]+(-1)^Length[remains[[2]]]/dot[p[nv,1]] dot[p[nv],F[1],F[remains[[2]]],lI[1]]fsp[lI[1]]
+NumRec[leftall]/.sp[f__]:>(-1)^(Length[rightall]+1) (dot[leftv[[2;;-1]],F[rightall],lI[rightall[[1]]]]/dot[p@@Join[{nv},leftall]])sp[f,p@@Join[{nv},leftall],lI[rightall[[1]]]],{ii,Length@allsets}];
+res=res+(-1)^Length[remains[[2]]]/(4dot[p[nv,1]]) dot[p[1],F[remains[[2]]],lI[1]]sp[F[1],lI[1]]+(-1)^Length[remains[[2]]]/dot[p[nv,1]] dot[p[nv],F[1],F[remains[[2]]],lI[1]]sp[lI[1]]
 ]
-numRecQCD[n_]:=NumRec[Range[n-2]]/.fsp[f__]:>spAB[p[n],f,p[n-1]]/.nv->n/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
-numRecQCD[od_List]:=NumRec[Range[Length@od]]/.fsp[f__]:>spAB[p[Length@od],f,p[-1+Length@od]]/.nv->Length@od/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
+numRecQCD[n_]:=NumRec[Range[n-2]]/.sp[f__]:>spAB[p[n],f,p[n-1]]/.nv->n/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
+numRecQCD[od_List]:=NumRec[Range[Length@od]]/.sp[f__]:>spAB[p[Length@od],f,p[-1+Length@od]]/.nv->Length@od/.F[f_List]:>T@@(F/@f)/.T[f__]:>f
 
 
 (*Programs on the Hopf algebra*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Hopf algebra*)
 
 
@@ -838,7 +838,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -1035,7 +1035,7 @@ SetAttributes[aMu,NHoldAll];
 declareDistributive[aMu,tensorQ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -1175,7 +1175,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1340,7 +1340,7 @@ Power[dot[ix_lI,p1__],2]:>(-1)^(Length[Cases[{p1},_?antiTensorQ]]) ((dot[##,p1]&
 
 
 contractspp[f_]:=f//.vector_[lI[i__]] spp[a___,lI[i__],b___]:>spp[a,vector,b]
-contractSp[f_]:=f//.dot[lI[i_],g__,lI[j_]]spp[a___,lI[i_],lI[j_],b___]:>fsp[a,CenterDot[g],b]//.dot[g__,lI[i__]]spp[a___,lI[i__],b___]:>fsp[a,CenterDot[g],b]//.dot[lI[i__],g__]spp[a___,lI[i__],b___]:>fsp[a,CenterDot[g],b]//.dot[lI[i__],g__]fsp[a___,lI[i__],b___]:>fsp[a,CenterDot[g],b]//.dot[g__,lI[i__]]fsp[a___,lI[i__],b___]:>fsp[a,CenterDot[g],b]
+contractSp[f_]:=f//.dot[lI[i_],g__,lI[j_]]spp[a___,lI[i_],lI[j_],b___]:>sp[a,CenterDot[g],b]//.dot[g__,lI[i__]]spp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[lI[i__],g__]spp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[lI[i__],g__]sp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]//.dot[g__,lI[i__]]sp[a___,lI[i__],b___]:>sp[a,CenterDot[g],b]
 
 
 (*contractv2[expr_] /; FreeQ[expr, lI, Infinity] := expr 
@@ -1400,7 +1400,7 @@ indexCoefficient[dot[p1__,f_,p2__],f_[ix1_lI,ix2_lI]] := dot[p1,ix1]*dot[ix2,p2]
 indexCoefficient[expr_,_] := expr
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -1422,7 +1422,7 @@ basisExpand[expr_, basis_List] := Catch[Module[{index = freeIndices[expr], x = T
 lgScaling[expr_Plus, vec_] := lgScaling[expr[[1]], vec]
 lgScaling[expr_Times, vec_] := Plus @@ (lgScaling[#, vec] & /@ (List @@ expr))
 lgScaling[Power[a_, p_], vec_] := p*lgScaling[a, vec]
-lgScaling[expr_fsp, vec_] := Plus @@ (lgScaling[#, vec] & /@ {expr[[1]], expr[[-1]]})
+lgScaling[expr_sp, vec_] := Plus @@ (lgScaling[#, vec] & /@ {expr[[1]], expr[[-1]]})
 lgScaling[spA[vec_], vec_] := 1
 lgScaling[spB[vec_], vec_] := -1
 lgScaling[__] := 0
@@ -1438,7 +1438,7 @@ massDim[p_?vectorQ] := 1
 massDim[__] := 0
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*QCD Current*)
 
 
@@ -1593,7 +1593,7 @@ MultiTrace[od__?IntegerQ,ode_?IntegerQ,pts_List]:=MultiTrace[Length[{od,ode}],pt
 
 
 WFunDF2[i1_]:=0
-WFunDF2[od__]:=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+WFunDF2[od__]:=WFunDF2[od]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
 (*Print[lnest];*)
 allnest=DeleteCases[List@@lnest,zero];
 signs=allnest/.tr[_]:>1;
@@ -1603,7 +1603,7 @@ res1=\[Alpha]/(1-\[Alpha] dot[p[od]]) W0[od];
 res3=Sum[cycs=cyclePermuteSet@@allnest[[kk]];signs[[kk]]*\[Alpha]/(1-\[Alpha] dot[p[od]]) Total[Table[cyc=cycs[[jj]];MultiTrace@@cyc,{jj,Length@cycs}]//Flatten],{kk,Length[allnest]}];
 res1+res3
 ]
-WFunDF2[od__,pts_List]:=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+WFunDF2[od__,pts_List]:=WFunDF2[od,pts]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
 (*Print[lnest];*)
 allnest=DeleteCases[List@@lnest,zero];
 signs=allnest/.tr[_]:>1;
@@ -1625,7 +1625,7 @@ SingleTrace[od__?IntegerQ,ode_?IntegerQ]:=SingleTrace[Length[{od,ode}]]/.dot[f__
 
 
 WFunDF2SingleTr[i1_]:=0
-WFunDF2SingleTr[od__]:=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
+WFunDF2SingleTr[od__]:=WFunDF2SingleTr[od]=Module[{res1,res2,res3,cycs,cyc,lnest,signs,allnest},lnest=trFLA[od]+zero;
 (*Print[lnest];*)
 allnest=DeleteCases[List@@lnest,zero];
 signs=allnest/.tr[_]:>1;
@@ -1666,7 +1666,7 @@ repW0=Join[{W0[i1_,g__,i2_]:>(W0[i1,g,i2]/.repW0Relations[i1,g,i2])/;i1>Min[{g}]
 repWp=Join[{W[i1_,g__,i2_]:>((W[i1,g,i2]/.(repW0Relations[i1,g,i2]/.W0->W))/;i1>Min[{g}]||i2<Max[{g}])},{W[i1_,i2_]:>Sort[W[i1,i2]]}];
 
 
-WFun2YM[ng_?IntegerQ]:=Module[{ls=Range[ng],lsb,pts,pts2,pt,pleft,pright,res1,res2},lsb=ls[[2;;-2]];pts=KSetPartitions[lsb,2];
+WFun2YM[ng_?IntegerQ]:=WFun2YM[ng]=Module[{ls=Range[ng],lsb,pts,pts2,pt,pleft,pright,res1,res2},lsb=ls[[2;;-2]];pts=KSetPartitions[lsb,2];
 pts2=pts/.{f1_List,f2_List}:>{f2,f1};
 pts=Join[pts,pts2,{{lsb,{}}}];
 pts=pts/.{f1_List,f2_List}:>{f1,Join[{1},f2,{ng}]};

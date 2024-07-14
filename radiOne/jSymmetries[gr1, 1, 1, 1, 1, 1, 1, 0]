@@ -1,0 +1,3 @@
+{{j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?Positive, 
+    (n5_)?Positive, (n6_)?Positive, (n7_)?NonPositive] :> 
+   Expand[j[gr1, n1, n2, n3, n4, n5, n6, n7]]}}
