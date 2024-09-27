@@ -19,7 +19,7 @@ Unprotect@@Names["KiHA`*"];
 
 If[$Notebooks,
   CellPrint[Cell[#,"Print",CellFrame->0.5,FontColor->Blue]]&,
-  Print][" KiHA(v5.9),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
+  Print][" KiHA(v6.0),Copyright 2022,author Gang Chen. It is licensed under the GNU General Public License v3.0. 
  KiHA is based on the work of Kinematic Hopf Algebra in CTP of Queen Mary University of London. It generates the duality all-n numerator for colour-kinematic duality and double copy in heavy mass effective 
  theory(HEFT), YM, YM-Scalar, YM-fermion, F3+F4 theory and DF2+YM theory. KiHA is built on some basic functions written by Gustav Mogull and Gregor Kaelin.
  use ?KiHA`* for help and a series of papers (2111.15649, 2208.05519, 2208.05886,2310.11943) for more reference." ]
@@ -117,6 +117,7 @@ WFun0::usage="value of W function, e.g. WFun0[1,2,3,4,5]"
 W2basis::usage="efficient replace all the W prime function to their basis,W2basis[W[2,1,3,5,4]]"
 W02basis::usage="efficient replace all the W0 function to their basis"
 WFun2YM::usage="Generate the W function for pure Yang-Mills BCJ numerator, e.g WFun2YM[1,2,3,4,5]"
+TScalar::usage="transform scalar-YM kinematic algebra to F form, e.g.TScalar[1,2,3,4]"
 
 
 (* ::Subsection:: *)
@@ -130,7 +131,7 @@ declareAntisymmetric::usage="set function is antisymmetric under exchange the or
 declareSymmetric::usage="set function do not dependent order of the variables"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -232,7 +233,7 @@ aMu::usage = "aMu[l1,l2] represents the antisymmetric product of the extra-dimen
 aMu::author = "Gregor Kaelin"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -272,7 +273,7 @@ toSpinors::ssle = "Only four-dimensional vectors can be converted to spinors."
 toSpinors::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -326,7 +327,7 @@ exposeIndex::author = "Gustav Mogull"
 indexCoefficient::author = "Gustav Mogull"
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -838,7 +839,7 @@ declareAntisymmetric[function_Symbol] := (
 )
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Vectors*)
 
 
@@ -1035,7 +1036,7 @@ SetAttributes[aMu,NHoldAll];
 declareDistributive[aMu,tensorQ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spinors*)
 
 
@@ -1175,7 +1176,7 @@ toSpinors[expr_,vecs_] /; If[TrueQ[Quiet[AllTrue[vecs,tensorDim[#]===4 &]]],True
 }
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Free Indices*)
 
 
@@ -1400,7 +1401,7 @@ indexCoefficient[dot[p1__,f_,p2__],f_[ix1_lI,ix2_lI]] := dot[p1,ix1]*dot[ix2,p2]
 indexCoefficient[expr_,_] := expr
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Other*)
 
 
@@ -1438,7 +1439,7 @@ massDim[p_?vectorQ] := 1
 massDim[__] := 0
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*QCD Current*)
 
 
@@ -1516,7 +1517,7 @@ EJ[i_/;IntegerQ[i]]:=dot[\[Epsilon][p[i]],v]
 Jh[f_List,vv_]:=Module[{len=Length[f]},JQCD[Range[len]]]/.v-> vv/.\[Epsilon][p[i_]]:> \[Epsilon][i]/.{p[i_]:> f[[i,1]],\[Epsilon][i_]:> f[[i,2]]}
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*alpha' higher orders*)
 
 
