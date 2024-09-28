@@ -80,6 +80,16 @@ you get
 
 $${\mathcal N}(\overline 1,\overline 2,3,\overline 4)=\langle {\mathsf K_1} \star {\mathsf K_2} \star {\mathsf K_3} \rangle= \langle T^{(1)}\star T^{(2)}\star T_{(3)}^{(3)} \rangle=\frac{2 p_1\cdot F_3\cdot p_2 \text{tr}\left(t^{a_1},t^{a_2},t^{a_4}\right)}{p_{1,2}\cdot p_{1,2}}.$$
 
+## BCJ numerator for YM+two massive scalar amplitude
+For the Yang-Mills amplitude with two massive scalar, we can use the following more efficient code
+```
+n = 3;
+Timing[numpreP = \[FivePointedStar] @@ (T /@ List /@ Range[1, n]);]
+bpeff2 = BinaryProduct[Range[n]]
+nod = numpreP /. T -> TScalar /. rmzero
+```
+See more details in the Notebook "YMSAlgebraNew.nb"
+
 ## higher-derivative gauge field theory
 The related paper for KiHA in higher-derivative gauge field theory is  [2310.11943](https://arxiv.org/abs/2310.11943) .
 We consider the gauge field theory with higher order contraction of the strengthen tensor.
